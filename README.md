@@ -13,7 +13,38 @@ Maintaining `AGENTS.md`, `CLAUDE.md`, and Cursor rules separately means the same
 
 ## Quick start
 
-> _Coming in Phase 2 — `agent-policy init` and `agent-policy generate`_
+### 1. Install
+
+```bash
+cargo install agent-policy
+```
+
+### 2. Create a policy
+
+```bash
+agent-policy init
+```
+
+Edit the generated `agent-policy.yaml` for your project.
+
+### 3. Generate output files
+
+```bash
+agent-policy generate
+```
+
+This writes `AGENTS.md` (and any other enabled outputs) to your repo. Commit them.
+
+### 4. Check for drift in CI
+
+Add to your CI workflow:
+
+```yaml
+- name: Check agent policy
+  run: agent-policy check
+```
+
+This step exits non-zero if any generated file is out of date with `agent-policy.yaml`.
 
 ## Commands
 
@@ -23,11 +54,9 @@ Maintaining `AGENTS.md`, `CLAUDE.md`, and Cursor rules separately means the same
 | `agent-policy generate` | Generate all output files from `agent-policy.yaml` |
 | `agent-policy check` | Verify committed files are in sync with the current policy |
 
-> _Fully implemented in Phases 2–3_
-
 ## Schema
 
-`agent-policy.yaml` is validated against a bundled JSON Schema (`agent-policy.schema.json`). Full schema documentation coming in Phase 1.
+`agent-policy.yaml` is validated against a bundled JSON Schema (`agent-policy.schema.json`). See [`agent-policy.schema.json`](agent-policy.schema.json) for the full schema.
 
 ## Non-goals
 

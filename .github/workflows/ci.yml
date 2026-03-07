@@ -60,3 +60,16 @@ jobs:
       - run: cargo doc --no-deps --document-private-items
         env:
           RUSTDOCFLAGS: "-D warnings"
+
+  policy-check:
+    name: Policy check
+    runs-on: ubuntu-latest
+    needs: [check]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Build agent-policy
+        run: cargo build --release
+      - name: Check generated files
+        run: ./target/release/agent-policy check

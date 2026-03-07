@@ -1,0 +1,31 @@
+# agent-policy.yaml — policy for the agent-policy tool repo itself
+project:
+  name: agent-policy
+  summary: Schema-first generator for coding-agent repo policies and compatibility files.
+
+commands:
+  test: cargo test
+  lint: cargo clippy --all-targets -- -D warnings
+  build: cargo build --release
+
+paths:
+  editable:
+    - src/**
+    - templates/**
+    - tests/**
+    - examples/**
+  protected:
+    - .github/workflows/**
+    - agent-policy.schema.json
+    - Cargo.toml
+  generated:
+    - AGENTS.md
+    - CLAUDE.md
+
+constraints:
+  forbid_secrets: true
+  require_tests_for_code_changes: true
+
+outputs:
+  - agents-md
+  - claude-md

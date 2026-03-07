@@ -40,6 +40,7 @@ globset = "0.4"
 indexmap = { version = "2", features = ["serde"] }
 minijinja = { version = "2", features = ["loader"] }
 clap = { version = "4", features = ["derive"] }
+similar = "2"
 
 [dev-dependencies]
 insta = { version = "1", features = ["yaml"] }
