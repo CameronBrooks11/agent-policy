@@ -1,7 +1,7 @@
 # Roadmap: agent-policy
 
 > Last updated: 2026-03-07 — post v0.1.0 release review.
-> For architectural vision and design principles, see [docs/vision.md](docs/vision.md).
+> For architectural vision and design principles, see [vision.md](vision.md).
 
 ---
 

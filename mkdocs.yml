@@ -63,5 +63,5 @@ nav:
     - vision.md
     - architecture.md
     - decisions.md
-  - Roadmap: ROADMAP.md
+  - Roadmap: roadmap.md
   - Contributing: contributing.md
