@@ -40,4 +40,8 @@ pub enum Command {
         #[arg(long, short, default_value = "agent-policy.yaml")]
         config: camino::Utf8PathBuf,
     },
+
+    /// List all supported output targets and their output paths.
+    #[command(name = "list-targets")]
+    ListTargets,
 }

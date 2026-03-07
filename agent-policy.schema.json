@@ -4,9 +4,14 @@
   "title": "AgentPolicy",
   "description": "Schema for agent-policy.yaml configuration files.",
   "type": "object",
-  "required": ["project"],
+  "required": ["schema_version", "project"],
   "additionalProperties": false,
   "properties": {
+    "schema_version": {
+      "description": "Declares the schema version. Use \"1\" for all new files.",
+      "type": "string",
+      "enum": ["1"]
+    },
     "project": {
       "description": "Project identity and purpose.",
       "type": "object",
@@ -107,7 +112,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["agents-md", "claude-md", "cursor-rules"]
+        "enum": ["agents-md", "claude-md", "cursor-rules", "gemini-md", "copilot-instructions"]
       },
       "uniqueItems": true
     }

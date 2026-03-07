@@ -1,4 +1,5 @@
 # agent-policy.yaml — policy for the agent-policy tool repo itself
+schema_version: "1"
 project:
   name: agent-policy
   summary: Schema-first generator for coding-agent repo policies and compatibility files.

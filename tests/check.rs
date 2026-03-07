@@ -23,7 +23,7 @@ fn setup_dir_with_generated(yaml: &str) -> TempDir {
 
 #[test]
 fn check_passes_when_files_match() {
-    let yaml = "project:\n  name: test\noutputs:\n  - agents-md\n";
+    let yaml = "schema_version: \"1\"\nproject:\n  name: test\noutputs:\n  - agents-md\n";
     let dir = setup_dir_with_generated(yaml);
     agent_policy()
         .arg("check")
@@ -38,7 +38,7 @@ fn check_fails_when_generated_file_missing() {
     let dir = TempDir::new().unwrap();
     std::fs::write(
         dir.path().join("agent-policy.yaml"),
-        "project:\n  name: test\noutputs:\n  - agents-md\n",
+        "schema_version: \"1\"\nproject:\n  name: test\noutputs:\n  - agents-md\n",
     )
     .unwrap();
     // Do NOT run generate — AGENTS.md is missing
@@ -52,13 +52,13 @@ fn check_fails_when_generated_file_missing() {
 
 #[test]
 fn check_fails_when_file_is_stale() {
-    let yaml = "project:\n  name: original\noutputs:\n  - agents-md\n";
+    let yaml = "schema_version: \"1\"\nproject:\n  name: original\noutputs:\n  - agents-md\n";
     let dir = setup_dir_with_generated(yaml);
 
     // Change the policy without regenerating
     std::fs::write(
         dir.path().join("agent-policy.yaml"),
-        "project:\n  name: changed\noutputs:\n  - agents-md\n",
+        "schema_version: \"1\"\nproject:\n  name: changed\noutputs:\n  - agents-md\n",
     )
     .unwrap();
 
@@ -72,12 +72,12 @@ fn check_fails_when_file_is_stale() {
 
 #[test]
 fn check_diff_output_goes_to_stderr() {
-    let yaml = "project:\n  name: original\noutputs:\n  - agents-md\n";
+    let yaml = "schema_version: \"1\"\nproject:\n  name: original\noutputs:\n  - agents-md\n";
     let dir = setup_dir_with_generated(yaml);
 
     std::fs::write(
         dir.path().join("agent-policy.yaml"),
-        "project:\n  name: different\noutputs:\n  - agents-md\n",
+        "schema_version: \"1\"\nproject:\n  name: different\noutputs:\n  - agents-md\n",
     )
     .unwrap();
 
@@ -94,6 +94,7 @@ fn check_diff_output_goes_to_stderr() {
 #[test]
 fn check_run_generate_check_roundtrip() {
     let yaml = r#"
+schema_version: "1"
 project:
   name: website
   summary: Test site.

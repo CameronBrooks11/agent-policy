@@ -6,7 +6,9 @@ use crate::{error::Result, model::normalized::Policy};
 
 pub mod agents_md;
 pub mod claude_md;
+pub mod copilot_instructions;
 pub mod cursor_rules;
+pub mod gemini_md;
 
 /// A single rendered output file.
 pub struct RenderedOutput {
@@ -19,7 +21,7 @@ pub struct RenderedOutput {
 /// Render all outputs enabled by the policy.
 ///
 /// Returns a list of outputs in a deterministic order:
-/// `AGENTS.md` → `CLAUDE.md` → cursor rules.
+/// `AGENTS.md` → `CLAUDE.md` → cursor rules → `GEMINI.md` → copilot instructions.
 ///
 /// # Errors
 ///
@@ -35,6 +37,12 @@ pub fn render_all(policy: &Policy) -> Result<Vec<RenderedOutput>> {
     if policy.outputs.cursor_rules {
         // cursor_rules returns Vec — one default.mdc plus one per role
         outputs.extend(cursor_rules::render(policy)?);
+    }
+    if policy.outputs.gemini_md {
+        outputs.push(gemini_md::render(policy)?);
+    }
+    if policy.outputs.copilot_instructions {
+        outputs.push(copilot_instructions::render(policy)?);
     }
     Ok(outputs)
 }

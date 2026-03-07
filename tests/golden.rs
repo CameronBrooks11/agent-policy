@@ -28,6 +28,7 @@ fn golden_minimal() {
 #[test]
 fn golden_all_outputs_enabled() {
     let yaml = r#"
+schema_version: "1"
 project:
   name: website
   summary: Marketing website.
@@ -54,6 +55,8 @@ outputs:
   - agents-md
   - claude-md
   - cursor-rules
+  - gemini-md
+  - copilot-instructions
 "#;
     for (path, content) in render_yaml(yaml) {
         let name = format!("all_outputs__{path}");
@@ -64,6 +67,7 @@ outputs:
 #[test]
 fn golden_no_commands_no_roles() {
     let yaml = r#"
+schema_version: "1"
 project:
   name: bare-bones
 outputs:

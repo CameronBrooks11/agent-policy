@@ -6,6 +6,7 @@ use camino::Utf8Path;
 #[test]
 fn minimal_valid_config_loads() {
     let yaml = r#"
+schema_version: "1"
 project:
   name: test-project
 "#;
@@ -19,6 +20,7 @@ project:
 #[test]
 fn missing_project_name_fails_validation() {
     let yaml = r#"
+schema_version: "1"
 project:
   summary: no name here
 "#;
@@ -47,6 +49,7 @@ fn unknown_output_target_id_fails_normalization() {
     // The JSON Schema enforces the enum of valid target IDs, so load_str
     // rejects unknown targets before normalize() even runs.
     let yaml = r#"
+schema_version: "1"
 project:
   name: test
 outputs:
@@ -66,6 +69,7 @@ outputs:
 fn empty_outputs_array_fails_normalization() {
     // JSON Schema allows an empty array; normalize() must catch it.
     let yaml = r#"
+schema_version: "1"
 project:
   name: test
 outputs: []
@@ -83,6 +87,7 @@ outputs: []
 #[test]
 fn full_config_normalizes_correctly() {
     let yaml = r#"
+schema_version: "1"
 project:
   name: website
   summary: Marketing website.
@@ -131,6 +136,7 @@ outputs:
 #[test]
 fn outputs_defaults_to_agents_md_when_omitted() {
     let yaml = r#"
+schema_version: "1"
 project:
   name: bare
 "#;
@@ -147,6 +153,7 @@ project:
 #[test]
 fn invalid_role_name_fails_normalization() {
     let yaml = r#"
+schema_version: "1"
 project:
   name: test
 roles:
@@ -156,6 +163,21 @@ roles:
     let raw = load_str(yaml).expect("yaml parses fine");
     let result = normalize(raw);
     assert!(result.is_err(), "invalid role name should be rejected");
+}
+
+#[test]
+fn missing_schema_version_fails_validation() {
+    let yaml = r#"
+project:
+  name: test
+"#;
+    let result = load_str(yaml);
+    assert!(result.is_err(), "missing schema_version should be rejected");
+    let err = result.unwrap_err().to_string();
+    assert!(
+        err.contains("schema_version"),
+        "error should mention schema_version: {err}"
+    );
 }
 
 #[test]

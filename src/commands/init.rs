@@ -12,6 +12,9 @@ const STARTER_YAML: &str = r#"# agent-policy.yaml
 #
 # Edit this file, then run: agent-policy generate
 
+# Schema version — always use "1" for current releases.
+schema_version: "1"
+
 project:
   name: my-project
   summary: A short description of this repository.
@@ -53,10 +56,14 @@ constraints:
   require_human_review_for_protected_paths: true
 
 # Which output targets to generate.
-# Valid: agents-md, claude-md, cursor-rules
+# Valid: agents-md, claude-md, cursor-rules, gemini-md, copilot-instructions
 # Omit this section to use the default (agents-md only).
 outputs:
   - agents-md
+  # - claude-md              # CLAUDE.md  (Anthropic Claude)
+  # - cursor-rules           # .cursor/rules/  (Cursor)
+  # - gemini-md              # GEMINI.md  (Google Gemini)
+  # - copilot-instructions   # .github/copilot-instructions.md  (GitHub Copilot)
 "#;
 
 /// Run the `init` command.

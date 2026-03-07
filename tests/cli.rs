@@ -95,6 +95,19 @@ fn generate_invalid_config_exits_nonzero_with_message() {
 }
 
 #[test]
+fn list_targets_runs_and_includes_all_ids() {
+    agent_policy()
+        .arg("list-targets")
+        .assert()
+        .success()
+        .stdout(predicates::str::contains("agents-md"))
+        .stdout(predicates::str::contains("gemini-md"))
+        .stdout(predicates::str::contains("copilot-instructions"))
+        .stdout(predicates::str::contains("AGENTS.md"))
+        .stdout(predicates::str::contains(".github/copilot-instructions.md"));
+}
+
+#[test]
 fn generate_missing_config_exits_nonzero() {
     let dir = TempDir::new().unwrap();
     agent_policy()

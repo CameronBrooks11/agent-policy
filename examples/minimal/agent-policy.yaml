@@ -1,5 +1,6 @@
 # Minimal agent-policy configuration
 # See agent-policy.schema.json for full schema
+schema_version: "1"
 project:
   name: minimal-example
   summary: A minimal example configuration.

@@ -11,7 +11,7 @@ Each file follows the same section template from [target-spec-template.md](targe
 | `claude-md`    | [claude-md.md](claude-md.md)       | Anthropic Claude Code — also accepted by GitHub Copilot coding agent                           |
 | `cursor-rules` | [cursor-rules.md](cursor-rules.md) | Cursor                                                                                         |
 
-## v0.2 targets (planned)
+## v0.2 targets (supported)
 
 | ID                      | File                                                       | Tool                                          |
 | ----------------------- | ---------------------------------------------------------- | --------------------------------------------- |

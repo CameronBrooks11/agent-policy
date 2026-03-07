@@ -13,6 +13,9 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Deserialize, Serialize)]
 #[serde(deny_unknown_fields)]
 pub struct RawPolicy {
+    /// Declares the schema version. Use `"1"` for all new files.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub schema_version: Option<String>,
     pub project: RawProject,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub commands: Option<RawCommands>,
@@ -22,7 +25,8 @@ pub struct RawPolicy {
     pub roles: Option<IndexMap<String, RawRole>>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub constraints: Option<RawConstraints>,
-    /// List of output target IDs. Valid values: `"agents-md"`, `"claude-md"`, `"cursor-rules"`.
+    /// List of output target IDs.
+    /// Valid values: `"agents-md"`, `"claude-md"`, `"cursor-rules"`, `"gemini-md"`, `"copilot-instructions"`.
     /// Defaults to `["agents-md"]` when omitted.
     #[serde(skip_serializing_if = "Option::is_none")]
     pub outputs: Option<Vec<String>>,

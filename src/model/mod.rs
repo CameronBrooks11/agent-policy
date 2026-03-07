@@ -10,8 +10,14 @@ use normalized::{Commands, Constraints, Paths, Policy, Project, Role};
 use policy::RawPolicy;
 use targets::OutputTargets;
 
-/// Valid output target IDs for v0.1.
-const VALID_TARGETS: &[&str] = &["agents-md", "claude-md", "cursor-rules"];
+/// Valid output target IDs.
+const VALID_TARGETS: &[&str] = &[
+    "agents-md",
+    "claude-md",
+    "cursor-rules",
+    "gemini-md",
+    "copilot-instructions",
+];
 
 /// Normalize a validated [`RawPolicy`] into the stable [`Policy`] model.
 ///
@@ -72,6 +78,8 @@ pub fn normalize(raw: RawPolicy) -> Result<Policy> {
         agents_md: enabled_targets.contains(&"agents-md".to_owned()),
         claude_md: enabled_targets.contains(&"claude-md".to_owned()),
         cursor_rules: enabled_targets.contains(&"cursor-rules".to_owned()),
+        gemini_md: enabled_targets.contains(&"gemini-md".to_owned()),
+        copilot_instructions: enabled_targets.contains(&"copilot-instructions".to_owned()),
     };
 
     if outputs.is_empty() {

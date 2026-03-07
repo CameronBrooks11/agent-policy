@@ -1,4 +1,5 @@
 # examples/website/agent-policy.yaml
+schema_version: "1"
 project:
   name: website
   summary: Public marketing website and documentation.
