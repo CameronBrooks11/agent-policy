@@ -1,0 +1,35 @@
+[package]
+name = "agent-policy"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.75"
+authors = ["Cameron Brooks <cameron@cameronbrooks.ca>"]
+description = "Schema-first generator for coding-agent repo policies and compatibility files."
+license = "Apache-2.0"
+repository = "https://github.com/CameronBrooks11/agent-policy"
+homepage = "https://github.com/CameronBrooks11/agent-policy"
+documentation = "https://docs.rs/agent-policy"
+readme = "README.md"
+keywords = ["agent", "policy", "codegen", "cli", "llm"]
+categories = ["command-line-utilities", "development-tools"]
+exclude = [
+    "docs/",
+    "planning/",
+    ".github/",
+    "scratch/",
+    "tmp/",
+]
+
+[[bin]]
+name = "agent-policy"
+path = "src/main.rs"
+
+[lib]
+name = "agent_policy"
+path = "src/lib.rs"
+
+[dependencies]
+# Populated in phases 1–3
+
+[dev-dependencies]
+# Populated in phases 1–3
