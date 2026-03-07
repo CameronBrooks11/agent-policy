@@ -250,7 +250,9 @@ outputs:
         "warning should mention AGENTS.md: {warnings:?}"
     );
     assert!(
-        warnings.iter().any(|w| w.contains("implied") || w.contains("remove") || w.contains("unnecessary")),
+        warnings
+            .iter()
+            .any(|w| w.contains("implied") || w.contains("remove") || w.contains("unnecessary")),
         "warning should say it can be removed: {warnings:?}"
     );
 }

@@ -115,35 +115,38 @@ pub fn normalize(raw: RawPolicy) -> Result<(Policy, Vec<String>)> {
         }
     }
 
-    Ok((Policy {
-        project: Project {
-            name: raw.project.name,
-            summary: raw.project.summary,
+    Ok((
+        Policy {
+            project: Project {
+                name: raw.project.name,
+                summary: raw.project.summary,
+            },
+            commands: Commands {
+                install: raw_commands.install,
+                dev: raw_commands.dev,
+                lint: raw_commands.lint,
+                test: raw_commands.test,
+                build: raw_commands.build,
+            },
+            paths: Paths {
+                editable,
+                protected,
+                generated: final_generated,
+            },
+            roles,
+            constraints: Constraints {
+                require_tests_for_code_changes: raw_constraints
+                    .require_tests_for_code_changes
+                    .unwrap_or(false),
+                forbid_secrets: raw_constraints.forbid_secrets.unwrap_or(false),
+                require_human_review_for_protected_paths: raw_constraints
+                    .require_human_review_for_protected_paths
+                    .unwrap_or(false),
+            },
+            outputs,
         },
-        commands: Commands {
-            install: raw_commands.install,
-            dev: raw_commands.dev,
-            lint: raw_commands.lint,
-            test: raw_commands.test,
-            build: raw_commands.build,
-        },
-        paths: Paths {
-            editable,
-            protected,
-            generated: final_generated,
-        },
-        roles,
-        constraints: Constraints {
-            require_tests_for_code_changes: raw_constraints
-                .require_tests_for_code_changes
-                .unwrap_or(false),
-            forbid_secrets: raw_constraints.forbid_secrets.unwrap_or(false),
-            require_human_review_for_protected_paths: raw_constraints
-                .require_human_review_for_protected_paths
-                .unwrap_or(false),
-        },
-        outputs,
-    }, warnings))
+        warnings,
+    ))
 }
 
 fn validate_role_name(name: &str) -> Result<()> {
