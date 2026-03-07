@@ -171,23 +171,13 @@ This is the machine contract. Hand-authored, not generated. Lives at the repo ro
       }
     },
     "outputs": {
-      "description": "Which compatibility files to generate.",
-      "type": "object",
-      "additionalProperties": false,
-      "properties": {
-        "agents_md": {
-          "type": "boolean",
-          "description": "Generate AGENTS.md (default: true)."
-        },
-        "claude_md": {
-          "type": "boolean",
-          "description": "Generate CLAUDE.md (default: false)."
-        },
-        "cursor_rules": {
-          "type": "boolean",
-          "description": "Generate .cursor/rules/default.mdc (default: false)."
-        }
-      }
+      "description": "List of output target IDs to generate. Defaults to [\"agents-md\"] when omitted. Each ID maps to a specific compatibility file. Unknown IDs are rejected at normalization time.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["agents-md", "claude-md", "cursor-rules"]
+      },
+      "uniqueItems": true
     }
   }
 }
@@ -254,9 +244,13 @@ pub enum Error {
     #[error("Stale generated file: {path}")]
     CheckFailed { path: PathBuf },
 
-    /// No outputs are enabled in the policy.
-    #[error("No outputs are enabled. Set at least one of outputs.agents_md, outputs.claude_md, or outputs.cursor_rules to true.")]
+    /// The outputs list is present but empty.
+    #[error("No outputs are enabled. Add at least one target ID to `outputs` (e.g. `outputs: [agents-md]`).")]
     NoOutputs,
+
+    /// An unrecognized target ID was specified in outputs.
+    #[error("Unknown output target '{id}'. Supported targets for this version: agents-md, claude-md, cursor-rules.")]
+    UnknownTarget { id: String },
 }
 
 /// Convenience alias.
@@ -287,7 +281,9 @@ pub struct RawPolicy {
     pub paths: Option<RawPaths>,
     pub roles: Option<IndexMap<String, RawRole>>,
     pub constraints: Option<RawConstraints>,
-    pub outputs: Option<RawOutputs>,
+    /// List of output target IDs. Validated and mapped to [`OutputTargets`] during normalization.
+    /// Valid values: `"agents-md"`, `"claude-md"`, `"cursor-rules"`. Defaults to `["agents-md"]` when omitted.
+    pub outputs: Option<Vec<String>>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -329,17 +325,9 @@ pub struct RawConstraints {
     pub forbid_secrets: Option<bool>,
     pub require_human_review_for_protected_paths: Option<bool>,
 }
-
-#[derive(Debug, Default, Deserialize, Serialize)]
-#[serde(deny_unknown_fields)]
-pub struct RawOutputs {
-    pub agents_md: Option<bool>,
-    pub claude_md: Option<bool>,
-    pub cursor_rules: Option<bool>,
-}
 ```
 
-`#[serde(deny_unknown_fields)]` on every struct ensures unrecognized YAML keys produce clear errors rather than silently being ignored. This is belt-and-suspenders alongside JSON Schema validation.
+`#[serde(deny_unknown_fields)]` on every struct ensures unrecognized YAML keys produce clear errors rather than silently being ignored. This is belt-and-suspenders alongside JSON Schema validation. The `outputs` field is a plain `Vec<String>` rather than a named struct; unknown target IDs in that list are caught in `normalize()` with an explicit `UnknownTarget` error.
 
 ---
 
@@ -477,6 +465,7 @@ const SCHEMA_JSON: &str = include_str!("../../agent-policy.schema.json");
 /// lifetime of the process. Compiling a JSON Schema is expensive; calling
 /// `validator_for` on every `validate()` invocation would be a measurable
 /// overhead in test suites and CI pipelines that load many configs.
+#[allow(clippy::expect_used)] // both panics are on invariants about bundled binary content
 fn compiled_validator() -> &'static jsonschema::Validator {
     static VALIDATOR: OnceLock<jsonschema::Validator> = OnceLock::new();
     VALIDATOR.get_or_init(|| {
@@ -518,6 +507,7 @@ pub mod yaml;
 ///
 /// Returns the raw policy struct if validation passes.
 /// The caller is responsible for normalization.
+#[allow(clippy::expect_used)] // RawPolicy derives Serialize; to_value is infallible for these types
 pub fn load_str(input: &str) -> Result<RawPolicy> {
     let raw = yaml::parse(input)?;
     let doc = serde_json::to_value(&raw)
@@ -580,12 +570,26 @@ pub fn normalize(raw: RawPolicy) -> Result<Policy> {
 
     let raw_commands = raw.commands.unwrap_or_default();
     let raw_constraints = raw.constraints.unwrap_or_default();
-    let raw_outputs = raw.outputs.unwrap_or_default();
+
+    // When `outputs` is omitted entirely, default to generating agents-md only.
+    let enabled_targets: Vec<String> = raw.outputs
+        .unwrap_or_else(|| vec!["agents-md".to_owned()]);
+
+    // Validate all target IDs. Unknown IDs surface a clear error rather than a
+    // cryptic JSON Schema message, because the enum constraint in the schema
+    // only fires during schema validation; any IDs that slip through (e.g. from
+    // programmatic construction) are caught here.
+    const VALID_TARGETS: &[&str] = &["agents-md", "claude-md", "cursor-rules"];
+    for id in &enabled_targets {
+        if !VALID_TARGETS.contains(&id.as_str()) {
+            return Err(Error::UnknownTarget { id: id.clone() });
+        }
+    }
 
     let outputs = OutputTargets {
-        agents_md:    raw_outputs.agents_md.unwrap_or(true),
-        claude_md:    raw_outputs.claude_md.unwrap_or(false),
-        cursor_rules: raw_outputs.cursor_rules.unwrap_or(false),
+        agents_md:    enabled_targets.contains(&"agents-md".to_owned()),
+        claude_md:    enabled_targets.contains(&"claude-md".to_owned()),
+        cursor_rules: enabled_targets.contains(&"cursor-rules".to_owned()),
     };
 
     if outputs.is_empty() {
@@ -657,12 +661,12 @@ The policy model includes two distinct path-classification systems: **global pat
 
 ### Conflict resolution
 
-| Conflict scenario                                          | Resolution                                          |
-| ---------------------------------------------------------- | --------------------------------------------------- |
-| Role `editable` overlaps with global `paths.protected`     | `protected` wins — path requires human review       |
-| Role `editable` overlaps with role `forbidden`             | `forbidden` wins — path is off-limits for that role |
-| Two roles have overlapping `editable` patterns             | No conflict — roles are independent                 |
-| `paths.editable` and `paths.protected` overlap             | `protected` wins                                    |
+| Conflict scenario                                      | Resolution                                          |
+| ------------------------------------------------------ | --------------------------------------------------- |
+| Role `editable` overlaps with global `paths.protected` | `protected` wins — path requires human review       |
+| Role `editable` overlaps with role `forbidden`         | `forbidden` wins — path is off-limits for that role |
+| Two roles have overlapping `editable` patterns         | No conflict — roles are independent                 |
+| `paths.editable` and `paths.protected` overlap         | `protected` wins                                    |
 
 ### Implementation note
 
@@ -682,7 +686,7 @@ The `roles` section in the v0.1 schema intentionally omits an `owner` identity f
 # agent-policy.yaml — Phase 5 schema extension (not in v0.1)
 roles:
   docs_agent:
-    owner: "@org/docs-team"      # GitHub username or team handle
+    owner: "@org/docs-team" # GitHub username or team handle
     editable:
       - docs/**
 ```
@@ -787,8 +791,8 @@ roles:
 constraints:
   forbid_secrets: true
 outputs:
-  agents_md: true
-  claude_md: true
+  - agents-md
+  - claude-md
 "#;
     let raw = load_str(yaml).expect("should parse");
     let policy = agent_policy::model::normalize(raw).expect("should normalize");
@@ -819,10 +823,7 @@ fn no_outputs_enabled_fails() {
     let yaml = r#"
 project:
   name: test
-outputs:
-  agents_md: false
-  claude_md: false
-  cursor_rules: false
+outputs: []
 "#;
     let raw = load_str(yaml).expect("yaml parses");
     let result = agent_policy::model::normalize(raw);
@@ -848,7 +849,7 @@ Phase 1 is complete when all of the following are true:
 - [ ] `agent-policy.schema.json` is fully authored with all six top-level sections
 - [ ] `RawPolicy` and all raw sub-types are defined with `#[serde(deny_unknown_fields)]`
 - [ ] `Policy` normalized model and all sub-types are defined with doc comments
-- [ ] `OutputTargets` has correct defaults (`agents_md: true`, others `false`)
+- [ ] Omitting `outputs` from YAML defaults to `agents_md: true`, others `false` (the implicit `["agents-md"]` default in `normalize()`)
 - [ ] `load_str()` and `load_file()` are implemented and publicly exported
 - [ ] `normalize()` is implemented and applies all defaults
 - [ ] `normalize()` validates glob patterns and role names

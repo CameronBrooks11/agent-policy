@@ -3,7 +3,7 @@
 **Goal:** `agent-policy check` detects when committed generated files are out of sync with the current policy. CI uses it to prevent drift. The tool is used to generate its own `AGENTS.md` (self-dogfooding). All checks are covered by automated tests.
 
 **Depends on:** Phase 2 (`render_all()` and the full generation pipeline)  
-**Unlocks:** Phase 4 (external real-world adoption, polish, path-scoped rules)
+**Unlocks:** Phase 4 (polish, path-scoped rules, release)
 
 ---
 
@@ -48,6 +48,7 @@ use std::fmt::Write;
 /// Format a human-readable unified diff between `old` and `new`.
 ///
 /// `label` is used as the file path annotation in the diff header.
+#[allow(clippy::unwrap_used)] // write! to a String (impl fmt::Write for String) is infallible
 pub fn unified_diff(label: &str, old: &str, new: &str) -> String {
     let diff = TextDiff::from_lines(old, new);
     let mut out = String::new();
@@ -252,9 +253,8 @@ constraints:
   require_tests_for_code_changes: true
 
 outputs:
-  agents_md: true
-  claude_md: true
-  cursor_rules: false
+  - agents-md
+  - claude-md
 ```
 
 Then:
@@ -293,7 +293,7 @@ fn setup_dir_with_generated(yaml: &str) -> TempDir {
 
 #[test]
 fn check_passes_when_files_match() {
-    let yaml = "project:\n  name: test\noutputs:\n  agents_md: true\n";
+    let yaml = "project:\n  name: test\noutputs:\n  - agents-md\n";
     let dir = setup_dir_with_generated(yaml);
     agent_policy()
         .arg("check")
@@ -308,7 +308,7 @@ fn check_fails_when_generated_file_missing() {
     let dir = TempDir::new().unwrap();
     std::fs::write(
         dir.path().join("agent-policy.yaml"),
-        "project:\n  name: test\noutputs:\n  agents_md: true\n",
+        "project:\n  name: test\noutputs:\n  - agents-md\n",
     )
     .unwrap();
     // Do NOT run generate — AGENTS.md is missing
@@ -322,13 +322,13 @@ fn check_fails_when_generated_file_missing() {
 
 #[test]
 fn check_fails_when_file_is_stale() {
-    let yaml = "project:\n  name: original\noutputs:\n  agents_md: true\n";
+    let yaml = "project:\n  name: original\noutputs:\n  - agents-md\n";
     let dir = setup_dir_with_generated(yaml);
 
     // Change the policy without regenerating
     std::fs::write(
         dir.path().join("agent-policy.yaml"),
-        "project:\n  name: changed\noutputs:\n  agents_md: true\n",
+        "project:\n  name: changed\noutputs:\n  - agents-md\n",
     )
     .unwrap();
 
@@ -342,12 +342,12 @@ fn check_fails_when_file_is_stale() {
 
 #[test]
 fn check_diff_output_goes_to_stderr() {
-    let yaml = "project:\n  name: original\noutputs:\n  agents_md: true\n";
+    let yaml = "project:\n  name: original\noutputs:\n  - agents-md\n";
     let dir = setup_dir_with_generated(yaml);
 
     std::fs::write(
         dir.path().join("agent-policy.yaml"),
-        "project:\n  name: different\noutputs:\n  agents_md: true\n",
+        "project:\n  name: different\noutputs:\n  - agents-md\n",
     )
     .unwrap();
 
@@ -378,8 +378,8 @@ paths:
 constraints:
   forbid_secrets: true
 outputs:
-  agents_md: true
-  claude_md: true
+  - agents-md
+  - claude-md
 "#;
     let dir = TempDir::new().unwrap();
     std::fs::write(dir.path().join("agent-policy.yaml"), yaml).unwrap();

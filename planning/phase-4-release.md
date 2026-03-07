@@ -12,7 +12,7 @@
 Phase 4 has three parallel concerns:
 
 1. **Feature completion** — path-scoped Cursor rules, `examples/website/` expansion
-2. **Hardening** — real-world adoption, error message polish, edge case handling
+2. **Hardening** — integration testing, error message polish, edge case handling
 3. **Publication readiness** — rustdoc, CHANGELOG, crates.io metadata, release workflow, `cargo publish`
 
 All three must be complete before tagging `v0.1.0`. Do not tag and publish until every item in the exit condition is checked.
@@ -108,7 +108,8 @@ pub fn render(policy: &Policy) -> Result<Vec<RenderedOutput>> {
     let mut env = Environment::new();
     env.add_template("default.mdc", DEFAULT_TEMPLATE)
         .map_err(|e| Error::Render { target: ".cursor/rules/default.mdc".to_owned(), source: e })?;
-    let tmpl = env.get_template("default.mdc").unwrap();
+    let tmpl = env.get_template("default.mdc")
+        .map_err(|e| Error::Render { target: ".cursor/rules/default.mdc".to_owned(), source: e })?;
     let content = tmpl
         .render(minijinja::context! {
             project => policy.project,
@@ -127,7 +128,8 @@ pub fn render(policy: &Policy) -> Result<Vec<RenderedOutput>> {
         let mut role_env = Environment::new();
         role_env.add_template("role.mdc", ROLE_TEMPLATE)
             .map_err(|e| Error::Render { target: "cursor role".to_owned(), source: e })?;
-        let role_tmpl = role_env.get_template("role.mdc").unwrap();
+        let role_tmpl = role_env.get_template("role.mdc")
+            .map_err(|e| Error::Render { target: "cursor role".to_owned(), source: e })?;
 
         for (name, role) in &policy.roles {
             if role.editable.is_empty() {
@@ -219,9 +221,9 @@ constraints:
   require_human_review_for_protected_paths: true
 
 outputs:
-  agents_md: true
-  claude_md: true
-  cursor_rules: true
+  - agents-md
+  - claude-md
+  - cursor-rules
 ```
 
 Add golden snapshot tests covering this example. This becomes the primary demo example in the README.
@@ -357,11 +359,11 @@ agent-policy check
 
 ## Generated outputs
 
-| Output         | File                  | Enabled by default |
-| -------------- | --------------------- | ------------------ |
-| `agents_md`    | `AGENTS.md`           | Yes                |
-| `claude_md`    | `CLAUDE.md`           | No                 |
-| `cursor_rules` | `.cursor/rules/*.mdc` | No                 |
+| Target ID      | File                  | Default |
+| -------------- | --------------------- | ------- |
+| `agents-md`    | `AGENTS.md`           | Yes     |
+| `claude-md`    | `CLAUDE.md`           | No      |
+| `cursor-rules` | `.cursor/rules/*.mdc` | No      |
 
 ## CI integration
 

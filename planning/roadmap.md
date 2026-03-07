@@ -2,6 +2,8 @@
 
 This document is the top-level planning overview. Phases 0–4 (the path to `v0.1.0` and crates.io publication) each have a dedicated detail document in this directory. Phases 5–8 are planned future work and are described here only at summary level.
 
+A parallel post-`v0.1.0` target-coverage expansion track is documented in [target-expansion.md](target-expansion.md).
+
 For the full architectural vision and design principles, see [docs/vision.md](../docs/vision.md).
 
 ---
@@ -22,6 +24,18 @@ For the full architectural vision and design principles, see [docs/vision.md](..
 
 ---
 
+## Cross-Cutting Planning Track
+
+In addition to numbered phases, one cross-cutting track is maintained:
+
+| Track | Name             | Detail doc                                 | Status  |
+| ----- | ---------------- | ------------------------------------------ | ------- |
+| T1    | Target Expansion | [target-expansion.md](target-expansion.md) | Planned |
+
+This track captures how to expand compatibility outputs beyond the v0.1 core (`AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`) without destabilizing the canonical policy model.
+
+---
+
 ## Phases 0–4 — Path to v0.1.0 and crates.io
 
 Each of these phases has a dedicated document covering goals, tasks, implementation detail, and a concrete exit condition. Work through them in order — each phase depends on the prior one being fully complete.
@@ -32,7 +46,7 @@ Each of these phases has a dedicated document covering goals, tasks, implementat
 | 1     | Core Model          | `agent-policy.yaml` loads, validates, and normalizes into a stable `Policy` struct                                   | [phase-1-core-model.md](phase-1-core-model.md) |
 | 2     | Generation          | `init` and `generate` commands work; `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` emitted; golden tests pass           | [phase-2-generation.md](phase-2-generation.md) |
 | 3     | Integrity           | `check` command works; CI uses it; tool self-dogfoods its own `AGENTS.md`                                            | [phase-3-integrity.md](phase-3-integrity.md)   |
-| 4     | Hardening & Release | Path-scoped Cursor rules; external adoption; all pre-publish checks pass; `v0.1.0` tagged and published to crates.io | [phase-4-release.md](phase-4-release.md)       |
+| 4     | Hardening & Release | Path-scoped Cursor rules; all pre-publish checks pass; `v0.1.0` tagged and published to crates.io | [phase-4-release.md](phase-4-release.md)       |
 
 ---
 

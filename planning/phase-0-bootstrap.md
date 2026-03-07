@@ -394,7 +394,7 @@ project:
 commands:
   test: "echo 'no tests yet'"
 outputs:
-  agents_md: true
+  - agents-md
 ```
 
 ### `examples/website/agent-policy.yaml`

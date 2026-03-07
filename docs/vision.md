@@ -10,13 +10,18 @@
 
 The modern agentic development ecosystem is fragmented by convention. Every major coding agent tool expects its own configuration format in its own location:
 
-| Tool                          | File                   |
-| ----------------------------- | ---------------------- |
-| OpenAI Codex / GitHub Copilot | `AGENTS.md`            |
-| Claude Code                   | `CLAUDE.md`            |
-| Cursor                        | `.cursor/rules/*.mdc`  |
-| GitHub repo governance        | `CODEOWNERS`, rulesets |
-| CI                            | policy check workflows |
+| Tool                                   | File(s)                                                    |
+| -------------------------------------- | ---------------------------------------------------------- |
+| OpenAI Codex, GitHub Copilot, Windsurf | `AGENTS.md`                                                |
+| Claude Code                            | `CLAUDE.md`                                                |
+| Google Gemini CLI                      | `GEMINI.md`                                                |
+| Cursor                                 | `.cursor/rules/*.mdc`                                      |
+| GitHub Copilot (extended)              | `.github/copilot-instructions.md`, `.github/instructions/` |
+| Windsurf rules                         | `.windsurf/rules/*.md`                                     |
+| JetBrains Junie                        | `.junie/guidelines.md`                                     |
+| Cline                                  | `.clinerules/`                                             |
+| GitHub repo governance                 | `CODEOWNERS`, rulesets                                     |
+| CI                                     | policy check workflows                                     |
 
 Despite living in different places with different syntax, these files all express the **same underlying policy**:
 
@@ -44,16 +49,18 @@ This mirrors the pattern used in mature infrastructure systems:
 `agent-policy` applies this same pattern to coding-agent governance:
 
 ```
-agent-policy.yaml   ← canonical source of truth
+agent-policy.yaml        ← canonical source of truth
        ↓ validate
-agent-policy.schema.json   ← machine contract
+agent-policy.schema.json ← machine contract
        ↓ compile / render
-AGENTS.md            ← OpenAI Codex, GitHub Copilot
-CLAUDE.md            ← Anthropic Claude Code
-.cursor/rules/*.mdc  ← Cursor
-CODEOWNERS           ← GitHub repository governance
-hook configs         ← Claude Code hooks
-CI checks            ← policy drift detection
+AGENTS.md                ← OpenAI Codex, GitHub Copilot, Windsurf
+CLAUDE.md                ← Anthropic Claude Code
+GEMINI.md                ← Google Gemini CLI
+.cursor/rules/*.mdc      ← Cursor
+[+ more tool targets]    ← Junie, Copilot extended, Cline, Windsurf rules, ...
+CODEOWNERS               ← GitHub repository governance
+hook configs             ← Claude Code hooks
+CI checks                ← policy drift detection
 ```
 
 The generated files are **compatibility artifacts**. The canonical truth is the YAML policy and its JSON Schema contract. The schema is the real durable asset — the implementation can change; the schema must remain stable.

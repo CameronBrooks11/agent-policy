@@ -554,11 +554,11 @@ constraints:
   require_tests_for_code_changes: false
   require_human_review_for_protected_paths: true
 
-# Which output files to generate
+# Which output targets to generate.
+# Valid: agents-md, claude-md, cursor-rules
+# Omit this section to use the default (agents-md only).
 outputs:
-  agents_md: true
-  claude_md: false
-  cursor_rules: false
+  - agents-md
 "#;
 
 pub fn run(force: bool) -> Result<()> {
@@ -688,9 +688,9 @@ constraints:
   forbid_secrets: true
   require_tests_for_code_changes: true
 outputs:
-  agents_md: true
-  claude_md: true
-  cursor_rules: true
+  - agents-md
+  - claude-md
+  - cursor-rules
 "#;
     for (path, content) in render_yaml(yaml) {
         insta::assert_snapshot!(path, content);
@@ -703,7 +703,7 @@ fn golden_no_commands_no_roles() {
 project:
   name: bare-bones
 outputs:
-  agents_md: true
+  - agents-md
 "#;
     for (path, content) in render_yaml(yaml) {
         insta::assert_snapshot!(path, content);
@@ -827,7 +827,7 @@ project:
 commands:
   test: echo "ok"
 outputs:
-  agents_md: true
+  - agents-md
 ```
 
 The `expected/` directory is populated once golden tests are approved — copy or symlink the `insta` snapshots there if a separate fixture directory is preferred.
