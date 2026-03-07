@@ -57,6 +57,14 @@
          <lastmod>2026-03-07</lastmod>
     </url>
     <url>
+         <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/clinerules/</loc>
+         <lastmod>2026-03-07</lastmod>
+    </url>
+    <url>
+         <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/copilot-instructions-scoped/</loc>
+         <lastmod>2026-03-07</lastmod>
+    </url>
+    <url>
          <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/copilot-instructions/</loc>
          <lastmod>2026-03-07</lastmod>
     </url>
@@ -69,7 +77,15 @@
          <lastmod>2026-03-07</lastmod>
     </url>
     <url>
+         <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/junie-guidelines/</loc>
+         <lastmod>2026-03-07</lastmod>
+    </url>
+    <url>
          <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/target-spec-template/</loc>
+         <lastmod>2026-03-07</lastmod>
+    </url>
+    <url>
+         <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/windsurf-rules/</loc>
          <lastmod>2026-03-07</lastmod>
     </url>
 </urlset>
