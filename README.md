@@ -68,6 +68,8 @@ outputs:
   - agents-md
 ```
 
+*Note: You do not need to manually add `.md` outputs or target paths to your `paths.generated` config list. Any active `outputs` are injected into your generated list automatically!*
+
 Full example — see [`examples/website/agent-policy.yaml`](examples/website/agent-policy.yaml).
 
 The file is validated against [`agent-policy.schema.json`](agent-policy.schema.json) (JSON Schema Draft 2020-12). The schema is bundled with the binary and is versioned alongside it. It is considered unstable until v1.0.0.

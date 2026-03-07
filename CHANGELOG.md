@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] — 2026-03-07
+
+### Added
+
+- Auto-inject generation targets into `paths.generated`. Users no longer need to manually list output targets under `paths.generated` in their config.
+- Non-fatal warnings when a user explicitly lists a generated path that is already handled automatically.
+
 ## [0.2.0] — 2026-03-07
 
 ### Added
