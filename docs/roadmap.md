@@ -43,13 +43,13 @@ The overarching goal is to get from proof-of-concept to something a team can ado
 
 #### Tasks
 
-- [ ] `list-targets` command — prints each target ID, output path, and stability tier
-- [ ] `TargetId` enum refactor — replace inline string literals in renderer dispatch with a type-safe enum (code quality, no behavior change)
-- [ ] New target: `GEMINI.md` (Google Gemini CLI)
-- [ ] New target: `.github/copilot-instructions.md` (GitHub Copilot extended)
-- [ ] Add `schema_version: "1"` field to YAML schema — establishes the baseline for the 1.0 stability guarantee
-- [ ] Improve `init` output: generated YAML includes inline comments explaining each field
-- [ ] Update compatibility matrix docs
+- [x] `list-targets` command — prints each target ID, output path, and stability tier
+- [x] `TargetId` enum refactor — replace inline string literals in renderer dispatch with a type-safe enum (code quality, no behavior change)
+- [x] New target: `GEMINI.md` (Google Gemini CLI)
+- [x] New target: `.github/copilot-instructions.md` (GitHub Copilot extended)
+- [x] Add `schema_version: "1"` field to YAML schema — establishes the baseline for the 1.0 stability guarantee
+- [x] Improve `init` output: generated YAML includes inline comments explaining each field
+- [x] Update compatibility matrix docs
 
 #### Exit condition
 
