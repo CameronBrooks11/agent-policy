@@ -20,11 +20,15 @@ const TEMPLATE: &str = include_str!("../../templates/cursor_rule.mdc.j2");
 pub fn render(policy: &Policy) -> Result<RenderedOutput> {
     let mut env = Environment::new();
     env.add_template(TARGET, TEMPLATE)
-        .map_err(|e| Error::Render { target: TARGET.to_owned(), source: e })?;
+        .map_err(|e| Error::Render {
+            target: TARGET.to_owned(),
+            source: e,
+        })?;
 
-    let tmpl = env
-        .get_template(TARGET)
-        .map_err(|e| Error::Render { target: TARGET.to_owned(), source: e })?;
+    let tmpl = env.get_template(TARGET).map_err(|e| Error::Render {
+        target: TARGET.to_owned(),
+        source: e,
+    })?;
 
     let commands_defined = !policy.commands.is_empty();
     let content = tmpl
@@ -36,7 +40,10 @@ pub fn render(policy: &Policy) -> Result<RenderedOutput> {
             roles => &policy.roles,
             constraints => &policy.constraints,
         })
-        .map_err(|e| Error::Render { target: TARGET.to_owned(), source: e })?;
+        .map_err(|e| Error::Render {
+            target: TARGET.to_owned(),
+            source: e,
+        })?;
 
     Ok(RenderedOutput {
         path: Utf8PathBuf::from(TARGET),

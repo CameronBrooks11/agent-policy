@@ -22,8 +22,7 @@ use crate::{error::Result, model::policy::RawPolicy};
 #[allow(clippy::expect_used)] // RawPolicy derives Serialize; to_value is infallible for these types
 pub fn load_str(input: &str) -> Result<RawPolicy> {
     let raw = yaml::parse(input)?;
-    let doc = serde_json::to_value(&raw)
-        .expect("RawPolicy is always serializable to JSON");
+    let doc = serde_json::to_value(&raw).expect("RawPolicy is always serializable to JSON");
     schema::validate(&doc)?;
     Ok(raw)
 }

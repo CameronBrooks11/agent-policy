@@ -10,7 +10,10 @@ project:
   name: test-project
 "#;
     let result = load_str(yaml);
-    assert!(result.is_ok(), "minimal valid config should load: {result:?}");
+    assert!(
+        result.is_ok(),
+        "minimal valid config should load: {result:?}"
+    );
 }
 
 #[test]
@@ -106,7 +109,10 @@ outputs:
     let raw = load_str(yaml).expect("should parse");
     let policy = normalize(raw).expect("should normalize");
     assert_eq!(policy.project.name, "website");
-    assert_eq!(policy.project.summary.as_deref(), Some("Marketing website."));
+    assert_eq!(
+        policy.project.summary.as_deref(),
+        Some("Marketing website.")
+    );
     assert!(policy.outputs.agents_md);
     assert!(policy.outputs.claude_md);
     assert!(!policy.outputs.cursor_rules);
@@ -114,7 +120,10 @@ outputs:
     assert!(!policy.constraints.require_tests_for_code_changes);
     assert_eq!(policy.paths.editable, vec!["src/**"]);
     assert_eq!(policy.paths.protected, vec![".github/**"]);
-    let role = policy.roles.get("docs_agent").expect("docs_agent role should exist");
+    let role = policy
+        .roles
+        .get("docs_agent")
+        .expect("docs_agent role should exist");
     assert_eq!(role.editable, vec!["docs/**"]);
     assert_eq!(role.forbidden, vec!["src/**"]);
 }
@@ -127,7 +136,10 @@ project:
 "#;
     let raw = load_str(yaml).expect("should parse");
     let policy = normalize(raw).expect("should normalize");
-    assert!(policy.outputs.agents_md, "agents-md should be on by default");
+    assert!(
+        policy.outputs.agents_md,
+        "agents-md should be on by default"
+    );
     assert!(!policy.outputs.claude_md);
     assert!(!policy.outputs.cursor_rules);
 }

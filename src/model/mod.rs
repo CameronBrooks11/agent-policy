@@ -58,9 +58,7 @@ pub fn normalize(raw: RawPolicy) -> Result<Policy> {
     let raw_constraints = raw.constraints.unwrap_or_default();
 
     // When `outputs` is omitted entirely, default to generating agents-md only.
-    let enabled_targets: Vec<String> = raw
-        .outputs
-        .unwrap_or_else(|| vec!["agents-md".to_owned()]);
+    let enabled_targets: Vec<String> = raw.outputs.unwrap_or_else(|| vec!["agents-md".to_owned()]);
 
     // Validate all target IDs. Unknown IDs surface a clear error rather than
     // a cryptic JSON Schema message.

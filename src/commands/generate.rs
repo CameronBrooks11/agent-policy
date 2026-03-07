@@ -2,13 +2,7 @@
 
 use camino::Utf8Path;
 
-use crate::{
-    error::Result,
-    load,
-    model::normalize,
-    render,
-    util::fs::write_atomic,
-};
+use crate::{error::Result, load, model::normalize, render, util::fs::write_atomic};
 
 /// Run the `generate` command.
 ///

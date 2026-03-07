@@ -6,7 +6,9 @@ use camino::Utf8Path;
 
 use crate::{
     error::{Error, Result},
-    load, model::normalize, render,
+    load,
+    model::normalize,
+    render,
     util::{diff, fs::read_if_exists},
 };
 
@@ -91,9 +93,7 @@ pub fn run(config: &Utf8Path) -> Result<()> {
         path: failures
             .first()
             .map(|c| match c {
-                FileCheck::Missing { path } | FileCheck::Stale { path, .. } => {
-                    PathBuf::from(path)
-                }
+                FileCheck::Missing { path } | FileCheck::Stale { path, .. } => PathBuf::from(path),
                 FileCheck::Ok => unreachable!(),
             })
             .unwrap_or_default(),
