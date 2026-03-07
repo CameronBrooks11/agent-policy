@@ -80,16 +80,14 @@ paths:
     - .github/workflows/**
     - Cargo.toml
   generated:
-    - AGENTS.md
-    - CLAUDE.md
-    - .cursor/rules/**
+    - docs/api-reference.md
 ```
 
 | Field       | Type     | Description                                                                                                                                       |
 | ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `editable`  | string[] | Paths agents may freely modify. Rendered as the "allowed edit paths" in generated files.                                                          |
 | `protected` | string[] | Paths that require human review before agent changes are accepted. Rendered as a explicit list of paths that should not be modified unilaterally. |
-| `generated` | string[] | Paths that are generated artifacts — agents should not edit these directly; they are outputs of `agent-policy generate`.                          |
+| `generated` | string[] | Paths that are generated artifacts — agents should not edit these directly. **Note: Target outputs like `AGENTS.md` and `.cursor/rules/**` are automatically injected into this list based on your `outputs` configuration.** |
 
 !!! note "These are documentation, not enforcement"
 Path classifications are rendered into instruction files read by coding agents. They are not enforced at the file system level. Enforcement lives in `CODEOWNERS`, branch protection rules, and CI checks — see [Vision](vision.md) for the full picture.
