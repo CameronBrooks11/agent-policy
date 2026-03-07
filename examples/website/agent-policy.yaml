@@ -1,4 +1,56 @@
-# Website repo example — expanded in Phase 4
+# examples/website/agent-policy.yaml
 project:
   name: website
-  summary: Marketing website repository.
+  summary: Public marketing website and documentation.
+
+commands:
+  install: npm install
+  dev: npm run dev
+  lint: npm run lint
+  test: npm test
+  build: npm run build
+
+paths:
+  editable:
+    - src/**
+    - public/**
+    - docs/**
+    - content/**
+  protected:
+    - .github/workflows/**
+    - deployment.json
+    - functions/**
+    - package-lock.json
+  generated:
+    - AGENTS.md
+    - CLAUDE.md
+    - .cursor/rules/**
+
+roles:
+  docs_agent:
+    editable:
+      - docs/**
+      - content/**
+    forbidden:
+      - src/**
+      - functions/**
+      - .github/**
+
+  frontend_agent:
+    editable:
+      - src/**
+      - public/**
+    forbidden:
+      - functions/**
+      - deployment.json
+      - .github/**
+
+constraints:
+  require_tests_for_code_changes: false
+  forbid_secrets: true
+  require_human_review_for_protected_paths: true
+
+outputs:
+  - agents-md
+  - claude-md
+  - cursor-rules

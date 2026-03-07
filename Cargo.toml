@@ -1,6 +1,6 @@
 [package]
 name = "agent-policy"
-version = "0.0.0"
+version = "0.1.0"
 edition = "2021"
 rust-version = "1.75"
 authors = ["Cameron Brooks <cameron@cameronbrooks.ca>"]
@@ -10,6 +10,7 @@ repository = "https://github.com/CameronBrooks11/agent-policy"
 homepage = "https://github.com/CameronBrooks11/agent-policy"
 documentation = "https://docs.rs/agent-policy"
 readme = "README.md"
+changelog = "CHANGELOG.md"
 keywords = ["agent", "policy", "codegen", "cli", "llm"]
 categories = ["command-line-utilities", "development-tools"]
 exclude = [
@@ -47,3 +48,8 @@ insta = { version = "1", features = ["yaml"] }
 assert_cmd = "2"
 predicates = "3"
 tempfile = "3"
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"

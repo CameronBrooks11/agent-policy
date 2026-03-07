@@ -33,7 +33,8 @@ pub fn render_all(policy: &Policy) -> Result<Vec<RenderedOutput>> {
         outputs.push(claude_md::render(policy)?);
     }
     if policy.outputs.cursor_rules {
-        outputs.push(cursor_rules::render(policy)?);
+        // cursor_rules returns Vec — one default.mdc plus one per role
+        outputs.extend(cursor_rules::render(policy)?);
     }
     Ok(outputs)
 }

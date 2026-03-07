@@ -1,0 +1,27 @@
+---
+description: "{{ project.name }} — {{ role_name }} rules"
+globs: "{{ globs_pattern }}"
+alwaysApply: false
+---
+
+# Role: `{{ role_name }}`
+
+This rule applies when editing files matching: `{{ globs_pattern }}`
+
+## Allowed paths for this role
+{% for p in role.editable %}
+- `{{ p }}`
+{%- endfor %}
+
+## Forbidden paths for this role
+{% if role.forbidden %}
+{%- for p in role.forbidden %}
+- `{{ p }}`
+{%- endfor %}
+{%- else %}
+No additional restrictions beyond global policy.
+{%- endif %}
+
+---
+
+*Defined in `agent-policy.yaml` → roles → {{ role_name }}*

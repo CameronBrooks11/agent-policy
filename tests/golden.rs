@@ -1,4 +1,4 @@
-// Golden output tests — Phase 2
+// Golden output tests — Phase 2 + 4
 
 use agent_policy::{load::load_str, model::normalize, render::render_all};
 
@@ -12,10 +12,14 @@ fn render_yaml(yaml: &str) -> Vec<(String, String)> {
         .collect()
 }
 
+fn render_file(path: &str) -> Vec<(String, String)> {
+    let yaml = std::fs::read_to_string(path).expect("read failed");
+    render_yaml(&yaml)
+}
+
 #[test]
 fn golden_minimal() {
-    let yaml = std::fs::read_to_string("examples/minimal/agent-policy.yaml").unwrap();
-    for (path, content) in render_yaml(&yaml) {
+    for (path, content) in render_file("examples/minimal/agent-policy.yaml") {
         let name = format!("minimal__{path}");
         insta::assert_snapshot!(name, content);
     }
@@ -67,6 +71,14 @@ outputs:
 "#;
     for (path, content) in render_yaml(yaml) {
         let name = format!("no_commands_no_roles__{path}");
+        insta::assert_snapshot!(name, content);
+    }
+}
+
+#[test]
+fn golden_website() {
+    for (path, content) in render_file("examples/website/agent-policy.yaml") {
+        let name = format!("website__{path}");
         insta::assert_snapshot!(name, content);
     }
 }

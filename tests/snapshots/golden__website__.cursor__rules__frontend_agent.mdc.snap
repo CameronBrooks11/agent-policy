@@ -1,0 +1,28 @@
+---
+source: tests/golden.rs
+expression: content
+---
+---
+description: "website — frontend_agent rules"
+globs: "src/**,public/**"
+alwaysApply: false
+---
+
+# Role: `frontend_agent`
+
+This rule applies when editing files matching: `src/**,public/**`
+
+## Allowed paths for this role
+
+- `src/**`
+- `public/**`
+
+## Forbidden paths for this role
+
+- `functions/**`
+- `deployment.json`
+- `.github/**`
+
+---
+
+*Defined in `agent-policy.yaml` → roles → frontend_agent*
