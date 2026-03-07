@@ -1,0 +1,1384 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Schema-first generator for coding-agent repo policies and compatibility files.">
+      
+      
+      
+        <link rel="canonical" href="https://cameronbrooks11.github.io/agent-policy/decisions/">
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../contributing/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.4">
+    
+    
+      
+        <title>Architectural Decisions - agent-policy</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#architectural-decisions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="agent-policy" class="md-header__button md-logo" aria-label="agent-policy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            agent-policy
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Architectural Decisions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/CameronBrooks11/agent-policy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CameronBrooks11/agent-policy
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="agent-policy" class="md-nav__button md-logo" aria-label="agent-policy" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    agent-policy
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/CameronBrooks11/agent-policy" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    CameronBrooks11/agent-policy
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema-reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Targets
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Targets
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility-matrix/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility Matrix
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/targets/agents-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/targets/claude-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLAUDE.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reference/targets/cursor-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cursor Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Design
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vision/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vision: agent-policy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural Decisions
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architectural Decisions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-language-rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Language: Rust
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Language: Rust">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript-node-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript / Node (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rust-chosen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust (chosen)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#canonical-format-yaml-json-schema-not-markdown-not-a-custom-dsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical Format: YAML + JSON Schema (not Markdown, not a custom DSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Canonical Format: YAML + JSON Schema (not Markdown, not a custom DSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markdown-as-source-of-truth-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown as source of truth (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-universal-markdown-file-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One universal Markdown file (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-dsl-policy-language-rejected-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom DSL / policy language (rejected, locked)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-generation-hand-authored-not-schemars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema Generation: Hand-authored (not schemars)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templating-minijinja-not-handlebars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Templating: minijinja (not handlebars)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replacing-agentsmd-no" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replacing AGENTS.md: No
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codeowners-and-governance-generate-only-no-github-api-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CODEOWNERS and Governance: Generate only, no GitHub API automation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outputs-field-array-of-ids-not-a-boolean-map-per-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        outputs Field: Array of IDs (not a boolean map per target)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consuming-repo-layout-root-level-not-a-policy-subdirectory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consuming Repo Layout: Root-level (not a policy/ subdirectory)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-apache-20-not-mit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License: Apache-2.0 (not MIT)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-explicitly-deferred-or-ruled-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features Explicitly Deferred or Ruled Out
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-enforcement-conflation-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Enforcement Conflation Risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ROADMAP.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-language-rust" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Language: Rust
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Language: Rust">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Python (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typescript-node-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TypeScript / Node (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rust-chosen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rust (chosen)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#canonical-format-yaml-json-schema-not-markdown-not-a-custom-dsl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Canonical Format: YAML + JSON Schema (not Markdown, not a custom DSL)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Canonical Format: YAML + JSON Schema (not Markdown, not a custom DSL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#markdown-as-source-of-truth-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown as source of truth (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-universal-markdown-file-rejected" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        One universal Markdown file (rejected)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-dsl-policy-language-rejected-locked" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom DSL / policy language (rejected, locked)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#schema-generation-hand-authored-not-schemars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema Generation: Hand-authored (not schemars)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#templating-minijinja-not-handlebars" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Templating: minijinja (not handlebars)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replacing-agentsmd-no" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replacing AGENTS.md: No
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#codeowners-and-governance-generate-only-no-github-api-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CODEOWNERS and Governance: Generate only, no GitHub API automation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#outputs-field-array-of-ids-not-a-boolean-map-per-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        outputs Field: Array of IDs (not a boolean map per target)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consuming-repo-layout-root-level-not-a-policy-subdirectory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consuming Repo Layout: Root-level (not a policy/ subdirectory)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-apache-20-not-mit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License: Apache-2.0 (not MIT)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-explicitly-deferred-or-ruled-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Features Explicitly Deferred or Ruled Out
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-enforcement-conflation-risk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Enforcement Conflation Risk
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="architectural-decisions">Architectural Decisions<a class="headerlink" href="#architectural-decisions" title="Permanent link">&para;</a></h1>
+<p>This document records the reasoning behind key technical decisions made during the design and implementation of <code>agent-policy</code>. It exists so that future contributors can understand <em>why</em> certain choices were made and avoid re-litigating settled questions without new information.</p>
+<hr />
+<h2 id="implementation-language-rust">Implementation Language: Rust<a class="headerlink" href="#implementation-language-rust" title="Permanent link">&para;</a></h2>
+<p>Three languages were seriously evaluated before Rust was chosen.</p>
+<h3 id="python-rejected">Python (rejected)<a class="headerlink" href="#python-rejected" title="Permanent link">&para;</a></h3>
+<p>Strong case for it: fastest MVP iteration, rich YAML/JSON Schema tooling (<code>pyyaml</code>, <code>jsonschema</code>, <code>jinja2</code>), easy CLI packaging. Also the initial recommendation in early exploration.</p>
+<p>Rejected because: weak single-binary distribution story — consuming repos need a Python environment; harder to embed or wrap from other languages later. The specific variant explored — "start in Python, prove the schema, then reimplement in Rust once stable" — was also rejected because the rewrite cost would arrive at exactly the wrong time: when the tool is in active internal use and the schema is stabilizing.</p>
+<h3 id="typescript-node-rejected">TypeScript / Node (rejected)<a class="headerlink" href="#typescript-node-rejected" title="Permanent link">&para;</a></h3>
+<p>Strong case for it: easy npm distribution, natural for frontend teams, strong YAML/CLI ecosystem.</p>
+<p>Rejected because: Node becomes an implicit platform dependency for consuming repos that run <code>check</code> in CI; less clean as a language-neutral core if Python/Rust users want to treat the tool as neutral infrastructure.</p>
+<h3 id="rust-chosen">Rust (chosen)<a class="headerlink" href="#rust-chosen" title="Permanent link">&para;</a></h3>
+<p>Single static binary with zero runtime dependencies for consuming repos. Strong CLI ecosystem (<code>clap</code>, <code>serde</code>, <code>minijinja</code>). Ideal architecture for a "core compiler + thin language wrappers" model if Python or Node adapters are ever needed — those would be thin wrappers around the same Rust binary, not reimplementations. The schema and policy model are language-agnostic regardless of implementation language; the Rust binary is the first implementation, not the permanent constraint.</p>
+<hr />
+<h2 id="canonical-format-yaml-json-schema-not-markdown-not-a-custom-dsl">Canonical Format: YAML + JSON Schema (not Markdown, not a custom DSL)<a class="headerlink" href="#canonical-format-yaml-json-schema-not-markdown-not-a-custom-dsl" title="Permanent link">&para;</a></h2>
+<h3 id="markdown-as-source-of-truth-rejected">Markdown as source of truth (rejected)<a class="headerlink" href="#markdown-as-source-of-truth-rejected" title="Permanent link">&para;</a></h3>
+<p>An early framing considered whether the canonical policy could live in a specially structured <code>AGENTS.md</code> that served as both source and output. Rejected because: Markdown is not reliably machine-parseable; diffing policy intent in Markdown PRs is harder than diffing YAML; it cannot serve as a validation contract the way JSON Schema can; it conflates the authoring format with the output format.</p>
+<h3 id="one-universal-markdown-file-rejected">One universal Markdown file (rejected)<a class="headerlink" href="#one-universal-markdown-file-rejected" title="Permanent link">&para;</a></h3>
+<p>A related idea: generate a single universal Markdown file that all agent tools would read, replacing <code>AGENTS.md</code>, <code>CLAUDE.md</code>, and <code>.cursor/rules</code> with one file. Rejected because each tool already expects a specific file at a specific location with a specific structure. Trying to serve all tools from one file means either lowest-common-denominator content or tool-specific sections that defeat the purpose. The correct model is target-specific renderers, not a universal output format.</p>
+<h3 id="custom-dsl-policy-language-rejected-locked">Custom DSL / policy language (rejected, locked)<a class="headerlink" href="#custom-dsl-policy-language-rejected-locked" title="Permanent link">&para;</a></h3>
+<p>A custom policy language was considered at various points. Rejected because: YAML + JSON Schema provides portability, validation, editor support, and compatibility with nearly every language; a custom DSL requires a parser, a language spec, editor extensions, and ongoing maintenance; no sufficiently strong reason exists to justify that cost. <strong>This decision is locked.</strong> The history of custom policy DSLs in infrastructure tooling is a cautionary tale about unnecessary language inventions.</p>
+<hr />
+<h2 id="schema-generation-hand-authored-not-schemars">Schema Generation: Hand-authored (not schemars)<a class="headerlink" href="#schema-generation-hand-authored-not-schemars" title="Permanent link">&para;</a></h2>
+<p>The <code>schemars</code> Rust crate was considered for auto-generating the JSON Schema from Rust struct definitions. Rejected because: the JSON Schema is the stable, language-agnostic contract and should drive the types, not be derived from them. Auto-generating it from Rust types inverts the dependency and makes the schema harder to evolve independently. The decision: hand-authored <code>agent-policy.schema.json</code>. <code>schemars</code> may be revisited as a consistency-check tool, but never as the schema source of truth.</p>
+<hr />
+<h2 id="templating-minijinja-not-handlebars">Templating: minijinja (not handlebars)<a class="headerlink" href="#templating-minijinja-not-handlebars" title="Permanent link">&para;</a></h2>
+<p>Both were evaluated for the renderer layer. <code>minijinja</code> was chosen because:</p>
+<ul>
+<li>Rust-native Jinja2 implementation with a well-maintained API</li>
+<li>More expressive template logic (conditionals, loops, filters) than Handlebars</li>
+<li>Jinja2 syntax is widely known and readable for developers coming from Python tooling</li>
+</ul>
+<p><code>handlebars</code> remains a valid fallback if <code>minijinja</code> presents issues in the future.</p>
+<hr />
+<h2 id="replacing-agentsmd-no">Replacing AGENTS.md: No<a class="headerlink" href="#replacing-agentsmd-no" title="Permanent link">&para;</a></h2>
+<p>An early framing touched on whether <code>agent-policy</code> could become an alternative standard that replaces <code>AGENTS.md</code> entirely. Explicitly rejected:</p>
+<ol>
+<li>Tools already expect <code>AGENTS.md</code> — a replacement breaks existing compatibility</li>
+<li><code>AGENTS.md</code> is becoming a de facto discovery standard with real cross-tool momentum</li>
+<li>The Linux Foundation's Agentic AI Foundation now stewards AGENTS.md as part of open agent infrastructure</li>
+<li>Emitting <code>AGENTS.md</code> is strictly better than competing with it</li>
+</ol>
+<p><code>agent-policy</code> generates <code>AGENTS.md</code>. It does not eliminate or replace it.</p>
+<hr />
+<h2 id="codeowners-and-governance-generate-only-no-github-api-automation"><code>CODEOWNERS</code> and Governance: Generate only, no GitHub API automation<a class="headerlink" href="#codeowners-and-governance-generate-only-no-github-api-automation" title="Permanent link">&para;</a></h2>
+<p>Generating <code>CODEOWNERS</code> and branch ruleset configuration files is planned (Phase 5). Automating their application via the GitHub API (calling REST/GraphQL to set rules programmatically) is a different concern and is explicitly deferred. The tool generates artifacts; humans or separate automation apply them.</p>
+<hr />
+<h2 id="outputs-field-array-of-ids-not-a-boolean-map-per-target"><code>outputs</code> Field: Array of IDs (not a boolean map per target)<a class="headerlink" href="#outputs-field-array-of-ids-not-a-boolean-map-per-target" title="Permanent link">&para;</a></h2>
+<p>A boolean map per target (<code>outputs: { agents_md: true, claude_md: false }</code>) was considered. The chosen array design (<code>outputs: [agents-md, claude-md]</code>) was preferred because: adding a new target requires only a new <code>enum</code> value in the JSON Schema; no structural migration is needed; the array approach avoids one-key-per-target schema sprawl. This keeps the migration path clean as the target surface grows.</p>
+<hr />
+<h2 id="consuming-repo-layout-root-level-not-a-policy-subdirectory">Consuming Repo Layout: Root-level (not a policy/ subdirectory)<a class="headerlink" href="#consuming-repo-layout-root-level-not-a-policy-subdirectory" title="Permanent link">&para;</a></h2>
+<p>One early architecture exploration suggested consuming repos structure their policy under a <code>policy/</code> subdirectory with generated files committed under <code>generated/</code>. Rejected because: most repos will not have this structure; tools like Codex and Cursor expect their files at specific root-relative paths; the additional directory level adds indirection with no practical benefit. The convention: <code>agent-policy.yaml</code> at the repo root, generated files committed to their natural locations (<code>AGENTS.md</code> at root, <code>.cursor/rules/</code> at root, etc.).</p>
+<hr />
+<h2 id="license-apache-20-not-mit">License: Apache-2.0 (not MIT)<a class="headerlink" href="#license-apache-20-not-mit" title="Permanent link">&para;</a></h2>
+<p>Both MIT and Apache-2.0 were considered. Apache-2.0 was chosen for its explicit patent grant and its alignment with the type of infrastructure tooling this project represents. Either would have been acceptable.</p>
+<hr />
+<h2 id="features-explicitly-deferred-or-ruled-out">Features Explicitly Deferred or Ruled Out<a class="headerlink" href="#features-explicitly-deferred-or-ruled-out" title="Permanent link">&para;</a></h2>
+<p>The following were discussed and placed out of scope for the foreseeable future.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Status</th>
+<th>Reasoning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SaaS platform / hosted service</td>
+<td>Out of scope</td>
+<td>Policy files are local and version-controlled; a hosted service adds infrastructure cost and attack surface with no benefit</td>
+</tr>
+<tr>
+<td>Background daemon</td>
+<td>Out of scope</td>
+<td>The tool runs on demand and in CI; no persistent process is needed</td>
+</tr>
+<tr>
+<td>GUI</td>
+<td>Out of scope</td>
+<td>The tool's users are developers; CLI + CI is the correct interface</td>
+</tr>
+<tr>
+<td>Plugin / extension system</td>
+<td>Deferred to v0.8+</td>
+<td>Premature plugin systems are a common way to make tools unmaintainable; deferred until target surface is stable</td>
+</tr>
+<tr>
+<td>Deep GitHub API automation</td>
+<td>Deferred</td>
+<td>Generating governance artifacts is planned; applying them via GitHub API is a separate concern</td>
+</tr>
+<tr>
+<td>MCP server at MVP</td>
+<td>Deferred</td>
+<td>MCP consumption patterns in real agent tooling were not stable enough at the time of initial design to justify building against</td>
+</tr>
+<tr>
+<td>Policy language beyond YAML + schema</td>
+<td>Out of scope</td>
+<td>The MVP schema should "feel boring"; expressiveness comes later, if at all</td>
+</tr>
+<tr>
+<td><code>--profile</code> / profile system</td>
+<td>Deferred</td>
+<td>Only justified if target count and user workflow complexity outgrow boolean output flags; reassess when needed</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="the-enforcement-conflation-risk">The Enforcement Conflation Risk<a class="headerlink" href="#the-enforcement-conflation-risk" title="Permanent link">&para;</a></h2>
+<p>One failure mode identified in early analysis: building a tool that only generates documentation-style files and calling it enforcement (a "weak-guarantee trap"). The distinction drawn and preserved in the architecture:</p>
+<ul>
+<li><code>agent-policy</code> generates <strong>context files</strong> (AGENTS.md, CLAUDE.md, cursor rules) and <strong>governance artifacts</strong> (CODEOWNERS, hook configs, planned)</li>
+<li>Real enforcement still lives in GitHub rulesets, branch protections, environment approvals, and Claude Code hooks</li>
+<li>Conflating these two things leads to false confidence</li>
+</ul>
+<p>This is why <code>docs/vision.md</code> explicitly separates the Enforcement Layer as external and why the README states this boundary clearly.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 Cameron Brooks — Apache-2.0
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.top", "search.highlight", "search.suggest", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
