@@ -2,7 +2,7 @@
 
 **Goal:** `agent-policy init` and `agent-policy generate` work end-to-end. A valid `agent-policy.yaml` produces `AGENTS.md`, `CLAUDE.md`, and/or `.cursor/rules/default.mdc` on disk. Golden snapshot tests cover all renders. The CLI is fully wired.
 
-**Depends on:** Phase 1 (normalized `Policy` model, load pipeline)  
+**Depends on:** Phase 1 (normalized `Policy` model, load pipeline)
 **Unlocks:** Phase 3 (check command reuses the render pipeline in memory)
 
 ---
@@ -313,7 +313,6 @@ Cursor `.mdc` files use YAML frontmatter followed by Markdown content.
 ```jinja2
 ---
 description: {{ project.name }} agent policy rules
-globs: "**/*"
 alwaysApply: true
 ---
 

@@ -2,7 +2,7 @@
 
 **Goal:** Load a valid `agent-policy.yaml`, validate it against the JSON Schema, and produce a stable internal normalized policy model ready for rendering. No output files are written yet. Invalid input must fail cleanly with actionable error messages.
 
-**Depends on:** Phase 0 (project skeleton compiles)  
+**Depends on:** Phase 0 (project skeleton compiles)
 **Unlocks:** Phase 2 (renderers consume the normalized model)
 
 ---
@@ -42,6 +42,7 @@ thiserror = "1"
 camino = "1"
 globset = "0.4"
 indexmap = { version = "2", features = ["serde"] }
+minijinja = { version = "2", features = ["loader"] }
 
 [dev-dependencies]
 insta = { version = "1", features = ["yaml"] }
@@ -51,7 +52,8 @@ Notes:
 
 - `indexmap` preserves insertion order for role maps — important for deterministic output rendering.
 - `insta` is used for snapshot tests in Phase 1 (normalized model snapshots) and Golden tests in Phase 2.
-- Do not add `clap`, `minijinja`, or `similar` yet — those are Phase 2 and 3 concerns.
+- `minijinja` is added in Phase 1 (not Phase 2) because `Error::Render { source: minijinja::Error }` in `src/error.rs` requires the type to be in scope. Completing `error.rs` in Phase 1 — before renderers exist — keeps it as the stable foundation the rest of the codebase builds on. Deferring it would mean `error.rs` is incomplete until Phase 2 patching.
+- Do not add `clap` or `similar` yet — those are Phase 2 and 3 concerns.
 
 ---
 
@@ -257,7 +259,7 @@ pub enum Error {
 pub type Result<T> = std::result::Result<T, Error>;
 ```
 
-Note: `minijinja::Error` is referenced here even though `minijinja` is added in Phase 2. Add a placeholder comment and the actual variant in Phase 2 — or add `minijinja` as a dep in Phase 1 to keep the error module complete.
+`minijinja` is in scope because it is added as a Phase 1 dependency (see Dependencies section above). Having the full `Error` enum in place before Phase 2 renderers are built keeps this module stable and avoids patching a foundational type mid-phase.
 
 ---
 

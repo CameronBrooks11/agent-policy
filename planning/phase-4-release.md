@@ -2,7 +2,7 @@
 
 **Goal:** The tool is robust, well-documented, and published to crates.io as `v0.1.0`. Path-scoped Cursor rules are implemented. All documentation is complete. Seeking external adoption is a post-publish milestone tracked separately — it is not a blocker for tagging and publishing.
 
-**Depends on:** Phase 3 (check command, self-dogfooding, CI)  
+**Depends on:** Phase 3 (check command, self-dogfooding, CI)
 **Unlocks:** future phases (governance, enforcement, ecosystem)
 
 ---
@@ -23,7 +23,7 @@ All three must be complete before tagging `v0.1.0`. Do not tag and publish until
 
 ### Why
 
-The single `default.mdc` generated in Phase 2 applies to all files (`globs: "**/*"`). Cursor supports multiple `.mdc` files where each file's `globs` frontmatter field controls when it applies. This allows generating per-role rules that Cursor activates automatically based on which file is open.
+The single `default.mdc` generated in Phase 2 uses `alwaysApply: true` and applies globally. Cursor supports multiple `.mdc` files where each file's `globs` frontmatter field controls when it applies. This allows generating per-role rules that Cursor activates automatically based on which file is open — without requiring the always-on default to enumerate file patterns at all.
 
 ### Design
 

@@ -10,13 +10,13 @@ For the full architectural vision and design principles, see [docs/vision.md](..
 
 ## Phases at a Glance
 
-| Phase | Name                | Detail doc                                     | Status  |
-| ----- | ------------------- | ---------------------------------------------- | ------- |
-| 0     | Bootstrap           | [phase-0-bootstrap.md](phase-0-bootstrap.md)   | Pending |
-| 1     | Core Model          | [phase-1-core-model.md](phase-1-core-model.md) | Pending |
-| 2     | Generation          | [phase-2-generation.md](phase-2-generation.md) | Pending |
-| 3     | Integrity           | [phase-3-integrity.md](phase-3-integrity.md)   | Pending |
-| 4     | Hardening & Release | [phase-4-release.md](phase-4-release.md)       | Pending |
+| Phase | Name                | Detail doc                                     | Status   |
+| ----- | ------------------- | ---------------------------------------------- | -------- |
+| 0     | Bootstrap           | [phase-0-bootstrap.md](phase-0-bootstrap.md)   | Complete |
+| 1     | Core Model          | [phase-1-core-model.md](phase-1-core-model.md) | Pending  |
+| 2     | Generation          | [phase-2-generation.md](phase-2-generation.md) | Pending  |
+| 3     | Integrity           | [phase-3-integrity.md](phase-3-integrity.md)   | Pending  |
+| 4     | Hardening & Release | [phase-4-release.md](phase-4-release.md)       | Pending  |
 | 5     | Governance          | _(this doc)_                                   | Future  |
 | 6     | Enforcement         | _(this doc)_                                   | Future  |
 | 7     | Live Policy         | _(this doc)_                                   | Future  |
@@ -42,7 +42,7 @@ Each of these phases has a dedicated document covering goals, tasks, implementat
 
 | Phase | Name                | Key deliverable                                                                                                      | Detail                                         |
 | ----- | ------------------- | -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| 0     | Bootstrap           | Compiling skeleton, CI green, all scaffolding committed                                                              | [phase-0-bootstrap.md](phase-0-bootstrap.md)   |
+| 0     | Bootstrap           | Compiling skeleton, CI green, all scaffolding committed ✓                                                            | [phase-0-bootstrap.md](phase-0-bootstrap.md)   |
 | 1     | Core Model          | `agent-policy.yaml` loads, validates, and normalizes into a stable `Policy` struct                                   | [phase-1-core-model.md](phase-1-core-model.md) |
 | 2     | Generation          | `init` and `generate` commands work; `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` emitted; golden tests pass           | [phase-2-generation.md](phase-2-generation.md) |
 | 3     | Integrity           | `check` command works; CI uses it; tool self-dogfoods its own `AGENTS.md`                                            | [phase-3-integrity.md](phase-3-integrity.md)   |

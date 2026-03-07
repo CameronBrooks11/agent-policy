@@ -16,6 +16,8 @@ Core contract:
 
 ## Default Operator Workflow
 
+> **Implementation status:** This workflow describes the intended v0.1 end-state. CLI commands become operational as phases are completed. Phase 0 is done (project scaffolds and compiles). Phases 1–4 implement this workflow.
+
 1. Initialize policy:
 
 ```bash
