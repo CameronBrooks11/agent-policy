@@ -1,4 +1,39 @@
-// Render pipeline — implemented in Phase 2
+// Render pipeline — Phase 2
+
+use camino::Utf8PathBuf;
+
+use crate::{error::Result, model::normalized::Policy};
+
 pub mod agents_md;
 pub mod claude_md;
 pub mod cursor_rules;
+
+/// A single rendered output file.
+pub struct RenderedOutput {
+    /// Relative path from the repo root where this file should be written.
+    pub path: Utf8PathBuf,
+    /// The rendered string content.
+    pub content: String,
+}
+
+/// Render all outputs enabled by the policy.
+///
+/// Returns a list of outputs in a deterministic order:
+/// `AGENTS.md` → `CLAUDE.md` → cursor rules.
+///
+/// # Errors
+///
+/// Returns [`crate::Error::Render`] if any template fails to render.
+pub fn render_all(policy: &Policy) -> Result<Vec<RenderedOutput>> {
+    let mut outputs = Vec::new();
+    if policy.outputs.agents_md {
+        outputs.push(agents_md::render(policy)?);
+    }
+    if policy.outputs.claude_md {
+        outputs.push(claude_md::render(policy)?);
+    }
+    if policy.outputs.cursor_rules {
+        outputs.push(cursor_rules::render(policy)?);
+    }
+    Ok(outputs)
+}

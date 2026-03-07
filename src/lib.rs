@@ -22,6 +22,7 @@
 #![warn(clippy::pedantic)]
 #![allow(clippy::module_name_repetitions)]
 
+pub mod cli;
 pub mod commands;
 pub mod error;
 pub mod load;
