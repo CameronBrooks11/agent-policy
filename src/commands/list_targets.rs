@@ -14,7 +14,7 @@ pub fn run() {
             "{:<25} {:<35} {:<10}",
             target.id(),
             target.primary_path(),
-            target.tier(),
+            target.tier().as_str(),
         );
     }
 }

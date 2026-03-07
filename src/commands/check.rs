@@ -7,7 +7,7 @@ use camino::Utf8Path;
 use crate::{
     error::{Error, Result},
     load,
-    model::normalize,
+    model::{normalize, targets::TargetId},
     render,
     util::{diff, fs::read_if_exists},
 };
@@ -30,12 +30,21 @@ enum FileCheck {
 /// Returns [`Error::CheckFailed`] if any generated file is stale or missing.
 /// Returns other [`crate::Error`] variants if the load/normalize/render
 /// pipeline fails.
-pub fn run(config: &Utf8Path) -> Result<()> {
+pub fn run(config: &Utf8Path, targets: Option<&[String]>) -> Result<()> {
     let raw = load::load_file(config)?;
-    let (policy, warnings) = normalize(raw)?;
+    let (mut policy, warnings) = normalize(raw)?;
 
     for w in &warnings {
         eprintln!("warning: {w}");
+    }
+
+    if let Some(target_strs) = targets {
+        let mut explicit_targets = Vec::new();
+        for t in target_strs {
+            let id = TargetId::from_id(t).ok_or_else(|| Error::UnknownTarget { id: t.clone() })?;
+            explicit_targets.push(id);
+        }
+        policy.outputs = crate::model::targets::OutputTargets::from_targets(&explicit_targets);
     }
 
     let outputs = render::render_all(&policy)?;

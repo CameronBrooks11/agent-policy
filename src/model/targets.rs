@@ -35,6 +35,19 @@ impl TargetId {
         }
     }
 
+    /// Parse a target ID from its YAML string representation.
+    #[must_use]
+    pub fn from_id(id: &str) -> Option<Self> {
+        match id {
+            "agents-md" => Some(TargetId::AgentsMd),
+            "claude-md" => Some(TargetId::ClaudeMd),
+            "cursor-rules" => Some(TargetId::CursorRules),
+            "gemini-md" => Some(TargetId::GeminiMd),
+            "copilot-instructions" => Some(TargetId::CopilotInstructions),
+            _ => None,
+        }
+    }
+
     /// A human-readable display label.
     #[must_use]
     pub fn label(self) -> &'static str {
@@ -78,13 +91,32 @@ impl TargetId {
 
     /// Support tier: `"stable"` or `"experimental"`.
     #[must_use]
-    pub fn tier(self) -> &'static str {
+    pub fn tier(self) -> Tier {
         match self {
             TargetId::AgentsMd
             | TargetId::ClaudeMd
             | TargetId::CursorRules
             | TargetId::GeminiMd
-            | TargetId::CopilotInstructions => "stable",
+            | TargetId::CopilotInstructions => Tier::Stable,
+        }
+    }
+}
+
+/// The stability tier of a target.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum Tier {
+    Stable,
+    Experimental,
+}
+
+impl Tier {
+    /// String representation of the tier.
+    #[must_use]
+    pub fn as_str(self) -> &'static str {
+        match self {
+            Tier::Stable => "stable",
+            Tier::Experimental => "experimental",
         }
     }
 }
@@ -146,6 +178,28 @@ impl OutputTargets {
         }
         if self.copilot_instructions {
             out.push(TargetId::CopilotInstructions);
+        }
+        out
+    }
+
+    /// Construct `OutputTargets` directly from a list of `TargetId`s.
+    #[must_use]
+    pub fn from_targets(targets: &[TargetId]) -> Self {
+        let mut out = Self {
+            agents_md: false,
+            claude_md: false,
+            cursor_rules: false,
+            gemini_md: false,
+            copilot_instructions: false,
+        };
+        for t in targets {
+            match t {
+                TargetId::AgentsMd => out.agents_md = true,
+                TargetId::ClaudeMd => out.claude_md = true,
+                TargetId::CursorRules => out.cursor_rules = true,
+                TargetId::GeminiMd => out.gemini_md = true,
+                TargetId::CopilotInstructions => out.copilot_instructions = true,
+            }
         }
         out
     }

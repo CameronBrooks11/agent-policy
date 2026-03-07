@@ -7,8 +7,12 @@ fn main() {
 
     let result = match cli.command {
         Command::Init { force } => agent_policy::commands::init::run(force),
-        Command::Generate { config } => agent_policy::commands::generate::run(&config),
-        Command::Check { config } => agent_policy::commands::check::run(&config),
+        Command::Generate { config, targets } => {
+            agent_policy::commands::generate::run(&config, targets.as_deref())
+        }
+        Command::Check { config, targets } => {
+            agent_policy::commands::check::run(&config, targets.as_deref())
+        }
         Command::ListTargets => {
             agent_policy::commands::list_targets::run();
             Ok(())

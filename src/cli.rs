@@ -30,6 +30,10 @@ pub enum Command {
         /// Path to agent-policy.yaml.
         #[arg(long, short, default_value = "agent-policy.yaml")]
         config: camino::Utf8PathBuf,
+
+        /// Specific targets to generate (overrides targets from the config file).
+        #[arg(long, short, value_delimiter = ',')]
+        targets: Option<Vec<String>>,
     },
 
     /// Check that committed generated files match the current policy.
@@ -39,6 +43,10 @@ pub enum Command {
         /// Path to agent-policy.yaml.
         #[arg(long, short, default_value = "agent-policy.yaml")]
         config: camino::Utf8PathBuf,
+
+        /// Specific targets to check (overrides targets from the config file).
+        #[arg(long, short, value_delimiter = ',')]
+        targets: Option<Vec<String>>,
     },
 
     /// List all supported output targets and their output paths.

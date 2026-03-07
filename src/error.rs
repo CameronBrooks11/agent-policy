@@ -53,7 +53,7 @@ pub enum Error {
 
     /// An unrecognized target ID was specified in outputs.
     #[error(
-        "Unknown output target '{id}'. Supported targets for this version: agents-md, claude-md, cursor-rules."
+        "Unknown output target '{id}'. Run `agent-policy list-targets` to see all supported targets."
     )]
     UnknownTarget { id: String },
 }
