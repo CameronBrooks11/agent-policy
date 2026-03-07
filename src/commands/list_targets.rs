@@ -7,10 +7,7 @@ use crate::model::targets::TargetId;
 /// Prints a table of all supported output targets with their YAML ID,
 /// display label, output path, and support tier.
 pub fn run() {
-    println!(
-        "{:<25} {:<35} {:<10}",
-        "ID", "OUTPUT PATH", "TIER"
-    );
+    println!("{:<25} {:<35} {:<10}", "ID", "OUTPUT PATH", "TIER");
     println!("{}", "-".repeat(72));
     for target in TargetId::ALL {
         println!(
