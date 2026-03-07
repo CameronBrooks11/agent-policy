@@ -57,7 +57,19 @@
          <lastmod>2026-03-07</lastmod>
     </url>
     <url>
+         <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/copilot-instructions/</loc>
+         <lastmod>2026-03-07</lastmod>
+    </url>
+    <url>
          <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/cursor-rules/</loc>
+         <lastmod>2026-03-07</lastmod>
+    </url>
+    <url>
+         <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/gemini-md/</loc>
+         <lastmod>2026-03-07</lastmod>
+    </url>
+    <url>
+         <loc>https://cameronbrooks11.github.io/agent-policy/reference/targets/target-spec-template/</loc>
          <lastmod>2026-03-07</lastmod>
     </url>
 </urlset>

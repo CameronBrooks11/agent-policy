@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cameronbrooks11.github.io/agent-policy/reference/targets/agents-md/">
+        <link rel="canonical" href="https://cameronbrooks11.github.io/agent-policy/reference/targets/gemini-md/">
       
       
-        <link rel="prev" href="../target-spec-template/">
+        <link rel="prev" href="../cursor-rules/">
       
       
-        <link rel="next" href="../claude-md/">
+        <link rel="next" href="../copilot-instructions/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>AGENTS.md - agent-policy</title>
+        <title>gemini-md — GEMINI.md - agent-policy</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#agentsmd" class="md-skip">
+        <a href="#gemini-md-geminimd" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AGENTS.md
+              gemini-md — GEMINI.md
             
           </span>
         </div>
@@ -506,6 +506,90 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../agents-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../claude-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLAUDE.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cursor Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -525,7 +609,7 @@
   <span class="md-ellipsis">
     
   
-    AGENTS.md
+    gemini-md — GEMINI.md
   
 
     
@@ -543,7 +627,7 @@
   <span class="md-ellipsis">
     
   
-    AGENTS.md
+    gemini-md — GEMINI.md
   
 
     
@@ -726,90 +810,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../claude-md/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CLAUDE.md
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cursor-rules/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cursor Rules
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../gemini-md/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    gemini-md — GEMINI.md
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1275,107 +1275,175 @@
   
 
 
-<h1 id="agentsmd">AGENTS.md<a class="headerlink" href="#agentsmd" title="Permanent link">&para;</a></h1>
+<h1 id="gemini-md-geminimd"><code>gemini-md</code> — <code>GEMINI.md</code><a class="headerlink" href="#gemini-md-geminimd" title="Permanent link">&para;</a></h1>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>A plain Markdown file that gives an AI coding agent persistent instructions for a repository. An open format stewarded by the <a href="https://aaif.io/">Agentic AI Foundation (AAIF)</a> under the Linux Foundation, adopted by 60 000+ open-source projects. One file covers a broad ecosystem of tools with no per-tool syntax.</p>
+<p>A plain Markdown file placed at the repository root that provides persistent instructional context to the Google Gemini CLI. Contents are concatenated with context files from other locations and sent to the model with every prompt. Designed to replace per-prompt repetition of project-specific instructions with a once-defined, version-controlled file.</p>
 <h2 id="tool">Tool<a class="headerlink" href="#tool" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Primary:</strong> OpenAI Codex CLI (<code>codex</code>)</li>
-<li><strong>Also read natively by (confirmed):</strong></li>
-<li>Cursor — project root and subdirectories; plain-markdown alternative to <code>.cursor/rules/</code></li>
-<li>Windsurf/Cascade — root-level = always-on; subdirectory files = auto-glob scoped to that directory</li>
-<li>GitHub Copilot coding agent — any location in the repo; nearest file to the working directory takes precedence</li>
-<li>Devin (Cognition) — native support</li>
-<li>Aider — via <code>.aider.conf.yml</code>: <code>read: AGENTS.md</code> (opt-in)</li>
-<li>Gemini CLI — via <code>.gemini/settings.json</code>: <code>{ "contextFileName": "AGENTS.md" }</code> (opt-in)</li>
-<li>Zed editor AI — native support</li>
-<li>VS Code (GitHub Copilot in-editor agent)</li>
-<li>Amp, Kilo Code, Semgrep, UiPath coding agents — listed on agents.md ecosystem page</li>
-<li><strong>Standard body:</strong> AGENTS.md is stewarded by the Agentic AI Foundation, a Linux Foundation series project. Not a proprietary format; designed to be tool-neutral and community-maintained.</li>
+<li><strong>Primary:</strong> Google Gemini CLI (<code>gemini</code>) — open-source, Apache 2.0, npm package <code>@google/gemini-cli</code></li>
+<li><strong>No confirmed cross-tool support</strong> for <code>.github/copilot-instructions.md</code>-style reading. Gemini CLI can be configured to fall back to <code>AGENTS.md</code> via <code>settings.json</code> (see Alternate paths), but other tools do not natively read <code>GEMINI.md</code>.</li>
 </ul>
 <h2 id="support-level">Support level<a class="headerlink" href="#support-level" title="Permanent link">&para;</a></h2>
-<p><code>supported</code> — v0.1 Core target.</p>
+<p><code>planned</code> — v0.2 target. Researched 2026-03-07.</p>
 <h2 id="canonical-paths">Canonical path(s)<a class="headerlink" href="#canonical-paths" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>AGENTS.md</code> at repository root — primary project-scoped instruction file</li>
-<li><code>&lt;subdirectory&gt;/AGENTS.md</code> — nested scope, loaded when Codex is working in or below that directory</li>
+<li><code>GEMINI.md</code> — repository root. This is the default context filename for the project scope.</li>
+<li><code>~/.gemini/GEMINI.md</code> — user global scope (machine-local, not repo-committed; not generated by <code>agent-policy</code>).</li>
 </ul>
 <h2 id="alternate-legacy-paths">Alternate / legacy path(s)<a class="headerlink" href="#alternate-legacy-paths" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>AGENTS.override.md</code> — per-directory override; takes precedence over <code>AGENTS.md</code> in the same directory, allowing temporary overrides without deleting the base file</li>
-<li><code>~/.codex/AGENTS.md</code> — global scope, inherited by every repository (Codex CLI only)</li>
-<li><code>~/.codex/AGENTS.override.md</code> — global override</li>
-<li>Custom fallback filenames configurable in <code>~/.codex/config.toml</code> via <code>project_doc_fallback_filenames</code> (e.g. <code>TEAM_GUIDE.md</code>, <code>.agents.md</code>)</li>
-</ul>
+<p>The <code>GEMINI.md</code> filename is configurable via <code>~/.gemini/settings.json</code> (global) or <code>.gemini/settings.json</code> (project-local):</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;context&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;fileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;AGENTS.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;CONTEXT.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;GEMINI.md&quot;</span><span class="p">]</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>When <code>fileName</code> is an array, the CLI checks names <strong>in order</strong> and uses the first match found in each directory. This means a repo can opt in to having Gemini CLI read <code>AGENTS.md</code> instead of <code>GEMINI.md</code> — no <code>GEMINI.md</code> file is needed in that case.</p>
+<p>There are no legacy deprecated path names.</p>
 <h2 id="file-format">File format<a class="headerlink" href="#file-format" title="Permanent link">&para;</a></h2>
-<p>Plain Markdown. No frontmatter, no special syntax. Free-form prose and bullet lists. No structural requirements — headings are conventional only, not parsed specially by any tool.</p>
+<p>Plain Markdown. No required structure, no frontmatter. Free-form prose, headings, and bullet lists.</p>
+<p><strong>Vendor example</strong> (verbatim from <code>geminicli.com/docs/cli/gemini-md/</code>, accessed 2026-03-07):</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gh"># Project: My TypeScript Library</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="gu">## General Instructions</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">-</span><span class="w"> </span>When you generate new TypeScript code, follow the existing coding style.
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="k">-</span><span class="w"> </span>Ensure all new functions and classes have JSDoc comments.
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">-</span><span class="w"> </span>Prefer functional programming paradigms where appropriate.
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="gu">## Coding Style</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="k">-</span><span class="w"> </span>Use 2 spaces for indentation.
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">-</span><span class="w"> </span>Prefix interface names with <span class="sb">`I`</span> (for example, <span class="sb">`IUserService`</span>).
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="k">-</span><span class="w"> </span>Always use strict equality (<span class="sb">`===`</span> and <span class="sb">`!==`</span>).
+</span></code></pre></div>
+<p>No documented size limit. For context window efficiency, keep the file concise.</p>
 <h2 id="frontmatter">Frontmatter<a class="headerlink" href="#frontmatter" title="Permanent link">&para;</a></h2>
-<p>None. The format is plain Markdown with no YAML frontmatter. Windsurf does not require frontmatter for AGENTS.md; activation mode is determined by file location (root = always-on, subdirectory = glob-scoped).</p>
+<p>None. Plain Markdown only. Frontmatter is not parsed or used by Gemini CLI for <code>GEMINI.md</code>.</p>
 <h2 id="discovery-scope-behavior">Discovery / scope behavior<a class="headerlink" href="#discovery-scope-behavior" title="Permanent link">&para;</a></h2>
-<p><strong>OpenAI Codex CLI</strong> (per vendor docs):</p>
+<p>Gemini CLI uses a three-tier hierarchical context system. All found files are <strong>concatenated</strong> and sent with every prompt (source: <code>geminicli.com/docs/cli/gemini-md/</code>, accessed 2026-03-07):</p>
 <ol>
-<li><strong>Global scope:</strong> Reads <code>~/.codex/AGENTS.override.md</code> if present, else <code>~/.codex/AGENTS.md</code>. Uses only the first non-empty file.</li>
-<li><strong>Project scope:</strong> Starting at the git root, walks down to the current working directory. In each directory: checks <code>AGENTS.override.md</code>, then <code>AGENTS.md</code>, then <code>project_doc_fallback_filenames</code>. At most one file per directory.</li>
-<li><strong>Merge order:</strong> Concatenates from root to CWD, joined with blank lines. Files closer to the CWD appear later and therefore take precedence when instructions conflict.</li>
-<li><strong>Size limit:</strong> Combined instruction chain is capped at <code>project_doc_max_bytes</code> (default 32 KiB). Configurable in <code>~/.codex/config.toml</code>. Split across nested directories or raise the limit when hitting the cap.</li>
-<li><strong>Instruction chain is built once per run</strong> (once per TUI session launch).</li>
+<li><strong>Global context file</strong></li>
+<li>Path: <code>~/.gemini/GEMINI.md</code></li>
+<li>Scope: applies to all projects on this machine</li>
+<li>
+<p>Not repo-committed; not generated by <code>agent-policy</code></p>
+</li>
+<li>
+<p><strong>Workspace / environment context files</strong></p>
+</li>
+<li>Path: Gemini CLI searches for <code>GEMINI.md</code> in the configured workspace directories and their parent directories</li>
+<li>
+<p>Scope: context for the projects currently being worked on</p>
+</li>
+<li>
+<p><strong>Just-in-time (JIT) context files</strong></p>
+</li>
+<li>Path: when the CLI's file-access tool reads a file or directory, it automatically scans for <code>GEMINI.md</code> in that directory and all ancestors up to the trusted root</li>
+<li>Scope: highly specific instructions for individual components; loaded only on demand, not at session start</li>
 </ol>
-<p><strong>Cursor:</strong> Reads <code>AGENTS.md</code> at project root and in subdirectories. Treated as a plain-markdown alternative to <code>.cursor/rules/</code> with no frontmatter or metadata required.</p>
-<p><strong>Windsurf/Cascade:</strong> Root-level <code>AGENTS.md</code> is processed as always-on (equivalent to a <code>trigger: always_on</code> rule). Subdirectory <code>AGENTS.md</code> files are auto-glob scoped to that directory.</p>
-<p><strong>GitHub Copilot coding agent:</strong> Reads <code>AGENTS.md</code> files stored anywhere in the repository. The nearest file in the directory tree takes precedence over files higher up.</p>
+<p>The CLI footer displays the count of loaded context files as a visual indicator.</p>
+<p><strong><code>/memory</code> command</strong> — interactive context management during a session:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/memory show</code></td>
+<td>Displays the full concatenated content of all currently loaded context files</td>
+</tr>
+<tr>
+<td><code>/memory refresh</code></td>
+<td>Forces a re-scan and reload of all <code>GEMINI.md</code> files from all locations</td>
+</tr>
+<tr>
+<td><code>/memory add &lt;text&gt;</code></td>
+<td>Appends the text to <code>~/.gemini/GEMINI.md</code> (the global file only)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Import syntax</strong> — a <code>GEMINI.md</code> file can import other Markdown files using <code>@path</code> syntax:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gh"># Main GEMINI.md</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Main instructions here.
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>@./components/component-guide.md
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>@../shared/style-guide.md
+</span></code></pre></div>
+<p>Both relative and absolute paths are supported. Full reference: <code>geminicli.com/docs/reference/memport</code>.</p>
 <h2 id="repo-safe">Repo-safe<a class="headerlink" href="#repo-safe" title="Permanent link">&para;</a></h2>
-<p>Yes. <code>AGENTS.md</code> at the project root is designed to be committed to version control and shared with the team.</p>
-<p>User-global files (<code>~/.codex/AGENTS.md</code>) are machine-local and should not be committed.</p>
+<p><strong>Yes.</strong> <code>GEMINI.md</code> at the project root is designed to be version-controlled and shared with the team.</p>
+<p><code>~/.gemini/GEMINI.md</code> (the global scope file) is machine-local and must not be committed.</p>
 <h2 id="renderer-notes">Renderer notes<a class="headerlink" href="#renderer-notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Output path: <code>AGENTS.md</code> at repository root.</li>
-<li>Single file output — no per-directory variants are generated by <code>agent-policy</code> (v0.1).</li>
-<li>No header or frontmatter needed. Content is plain Markdown.</li>
-<li>Suggested section structure (conventional, not enforced by any tool):</li>
-<li>Build and test commands</li>
-<li>Coding standards and conventions</li>
-<li>Architecture notes</li>
-<li>Common workflows</li>
-<li>What the agent should and should not do</li>
+<li><strong>Target ID:</strong> <code>gemini-md</code></li>
+<li><strong>Output path:</strong> <code>GEMINI.md</code></li>
+<li><strong>Template:</strong> <code>templates/GEMINI.md.j2</code></li>
+<li><strong><code>OutputTargets</code> field:</strong> <code>gemini_md: bool</code></li>
+<li><strong>Notes:</strong> Content is structurally identical to <code>AGENTS.md</code>. The template can be a near-copy of <code>AGENTS.md.j2</code>. Keep as separate template files so they can diverge if Gemini-specific guidance is warranted in future versions. Single file output — no per-directory variants are generated.</li>
 </ul>
 <h2 id="known-limitations-gotchas">Known limitations / gotchas<a class="headerlink" href="#known-limitations-gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Override files take silent precedence:</strong> If an <code>AGENTS.override.md</code> exists anywhere in the directory tree, Codex will silently skip the corresponding <code>AGENTS.md</code>. The generator produces only <code>AGENTS.md</code>; authors must be aware that a pre-existing override in their repo will suppress it.</li>
-<li><strong>Global file is not repo-committed:</strong> The <code>~/.codex/AGENTS.md</code> global file is machine-local. Team members need to set it up individually.</li>
-<li><strong>32 KiB combined cap:</strong> The entire merged instruction chain is capped. Large nested files can crowd out parent instructions. Keep files concise.</li>
-<li><strong>Instructions are context, not enforcement:</strong> All tools treat AGENTS.md as context injected into the LLM prompt. The agent may not follow every instruction, especially vague or conflicting ones.</li>
-<li><strong>Cursor treats it as a simple alternative to rules:</strong> Cursor does not apply Cursor-specific activation logic (no <code>globs</code>, <code>description</code>, <code>alwaysApply</code>) to AGENTS.md.</li>
+<li>
+<p><strong>Configurable filename creates redundancy risk:</strong> If a user configures Gemini CLI to read <code>AGENTS.md</code> via <code>settings.json</code>, enabling both <code>agents-md</code> and <code>gemini-md</code> outputs in <code>agent-policy.yaml</code> will result in Gemini CLI receiving the same policy content twice (once from each file). Document this in the schema reference and getting-started guide.</p>
+</li>
+<li>
+<p><strong>JIT loading delivers context outside the root file:</strong> Component-level <code>GEMINI.md</code> files in subdirectories load when Gemini accesses files in those directories. <code>agent-policy</code> only generates the root-level file. Teams managing multi-component repos must be aware that subdirectory <code>GEMINI.md</code> files they create manually will be loaded.</p>
+</li>
+<li>
+<p><strong>Import chain not generated:</strong> <code>agent-policy</code> does not generate import-based modular context. Single-file output only.</p>
+</li>
+<li>
+<p><strong>No enforced size limit:</strong> Unlike Claude Code (200-line guideline) or Codex (32 KiB cap), Gemini CLI has no documented hard size limit. However, large files consume context tokens on every prompt; keep files concise.</p>
+</li>
+<li>
+<p><strong>Context, not enforcement:</strong> Like all tools in this ecosystem, Gemini CLI treats <code>GEMINI.md</code> as model context, not a hard constraint system. Instruction adherence depends on model behavior.</p>
+</li>
 </ul>
 <h2 id="official-references">Official references<a class="headerlink" href="#official-references" title="Permanent link">&para;</a></h2>
 <ul>
-<li>AGENTS.md open standard site: <a href="https://agents.md/">https://agents.md/</a> (accessed 2026-03-07)</li>
-<li>Agentic AI Foundation (AAIF): <a href="https://aaif.io/">https://aaif.io/</a> (Linux Foundation steward for AGENTS.md)</li>
-<li>OpenAI Codex AGENTS.md guide: <a href="https://developers.openai.com/codex/guides/agents-md">https://developers.openai.com/codex/guides/agents-md</a> (accessed 2026-03-07)</li>
-<li>OpenAI Codex advanced config (<code>project_doc_fallback_filenames</code>, <code>project_doc_max_bytes</code>): <a href="https://developers.openai.com/codex/config-advanced#project-instructions-discovery">https://developers.openai.com/codex/config-advanced#project-instructions-discovery</a> (accessed 2026-03-07)</li>
-<li>Cursor Rules — AGENTS.md section: <a href="https://cursor.com/docs/rules#agentsmd">https://cursor.com/docs/rules#agentsmd</a> (accessed 2026-03-07)</li>
-<li>Windsurf Memories &amp; Rules — AGENTS.md row in rules table: <a href="https://docs.windsurf.com/windsurf/cascade/memories">https://docs.windsurf.com/windsurf/cascade/memories</a> (accessed 2026-03-07)</li>
-<li>GitHub Copilot custom instructions — agent instructions section: <a href="https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions">https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions</a> (accessed 2026-03-07)</li>
+<li>Google Gemini CLI docs — "Provide context with GEMINI.md files": <a href="https://geminicli.com/docs/cli/gemini-md/">https://geminicli.com/docs/cli/gemini-md/</a> (accessed 2026-03-07)</li>
+<li>Google Gemini CLI npm package README (confirms canonical docs site and GEMINI.md feature): <a href="https://www.npmjs.com/package/@google/gemini-cli">https://www.npmjs.com/package/@google/gemini-cli</a> (accessed 2026-03-07)</li>
+<li>Google Gemini CLI GitHub repository: <a href="https://github.com/google-gemini/gemini-cli">https://github.com/google-gemini/gemini-cli</a> (accessed 2026-03-07)</li>
+<li>Memory import syntax reference: <a href="https://geminicli.com/docs/reference/memport">https://geminicli.com/docs/reference/memport</a> (not fetched; confirmed from gemini-md docs page links)</li>
 </ul>
 <h2 id="minimal-example">Minimal example<a class="headerlink" href="#minimal-example" title="Permanent link">&para;</a></h2>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># AGENTS.md</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">## Repository expectations</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>Run <span class="sb">`cargo test --all-targets`</span> before opening a pull request.
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">-</span><span class="w"> </span>Do not modify <span class="sb">`Cargo.lock`</span> manually.
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">-</span><span class="w"> </span>Document public API items with rustdoc comments.
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="gu">## Architecture</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">-</span><span class="w"> </span>All error types live in <span class="sb">`src/error.rs`</span>.
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">-</span><span class="w"> </span>Keep business logic in the library crate (<span class="sb">`src/lib.rs`</span>), not in <span class="sb">`src/main.rs`</span>.
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gh"># GEMINI.md</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gu">## Build and test</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="k">-</span><span class="w"> </span>Build: <span class="sb">`cargo build --release`</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="k">-</span><span class="w"> </span>Test: <span class="sb">`cargo test --all-targets`</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="k">-</span><span class="w"> </span>Lint: <span class="sb">`cargo clippy --all-targets -- -D warnings`</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="gu">## Coding standards</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="k">-</span><span class="w"> </span>MSRV is 1.75. Do not use APIs stabilized after 1.75.
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="k">-</span><span class="w"> </span>All public items must have rustdoc comments.
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="k">-</span><span class="w"> </span>Do not use <span class="sb">`unwrap()`</span> or <span class="sb">`expect()`</span> in library code.
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="gu">## Architecture</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="k">-</span><span class="w"> </span>Business logic lives in <span class="sb">`src/lib.rs`</span> and submodules, not <span class="sb">`src/main.rs`</span>.
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">-</span><span class="w"> </span>All error types are defined in <span class="sb">`src/error.rs`</span>.
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="k">-</span><span class="w"> </span>New output targets require: a renderer in <span class="sb">`src/render/`</span>, a template in <span class="sb">`templates/`</span>, and golden tests.
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="gu">## What not to do</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="k">-</span><span class="w"> </span>Do not modify <span class="sb">`Cargo.toml`</span> or <span class="sb">`.github/workflows/`</span> without human review.
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="k">-</span><span class="w"> </span>Do not commit secrets, credentials, or API keys.
 </span></code></pre></div>
 <h2 id="internal-mapping-notes">Internal mapping notes<a class="headerlink" href="#internal-mapping-notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Target ID: <code>agents-md</code></li>
-<li>Output path constant: <code>"AGENTS.md"</code></li>
-<li>Template: <code>templates/AGENTS.md.j2</code></li>
-<li><code>OutputTargets.agents_md: bool</code></li>
+<li><strong>Target ID:</strong> <code>gemini-md</code> — to be added to <code>TargetId</code> enum in <code>src/model/targets.rs</code></li>
+<li><strong>Output path constant:</strong> <code>"GEMINI.md"</code> — to be returned by <code>TargetId::primary_path()</code></li>
+<li><strong>Template file:</strong> <code>templates/GEMINI.md.j2</code> — not yet created</li>
+<li><strong>Golden test snapshots:</strong> not yet created</li>
+<li><strong>Renderer module:</strong> <code>src/render/gemini_md.rs</code> — not yet created</li>
+<li><strong>Status:</strong> planned for v0.2</li>
 </ul>
 
 

@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cameronbrooks11.github.io/agent-policy/reference/targets/agents-md/">
+        <link rel="canonical" href="https://cameronbrooks11.github.io/agent-policy/reference/targets/copilot-instructions/">
       
       
-        <link rel="prev" href="../target-spec-template/">
+        <link rel="prev" href="../gemini-md/">
       
       
-        <link rel="next" href="../claude-md/">
+        <link rel="next" href="../../../vision/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>AGENTS.md - agent-policy</title>
+        <title>copilot-instructions — .github/copilot-instructions.md - agent-policy</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#agentsmd" class="md-skip">
+        <a href="#copilot-instructions-githubcopilot-instructionsmd" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AGENTS.md
+              copilot-instructions — .github/copilot-instructions.md
             
           </span>
         </div>
@@ -506,6 +506,118 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../agents-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AGENTS.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../claude-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLAUDE.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cursor-rules/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cursor Rules
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gemini-md/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gemini-md — GEMINI.md
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -525,7 +637,7 @@
   <span class="md-ellipsis">
     
   
-    AGENTS.md
+    copilot-instructions — .github/copilot-instructions.md
   
 
     
@@ -543,7 +655,7 @@
   <span class="md-ellipsis">
     
   
-    AGENTS.md
+    copilot-instructions — .github/copilot-instructions.md
   
 
     
@@ -726,118 +838,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../claude-md/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    CLAUDE.md
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cursor-rules/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Cursor Rules
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../gemini-md/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    gemini-md — GEMINI.md
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../copilot-instructions/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    copilot-instructions — .github/copilot-instructions.md
-  
-
-    
-  </span>
-  
-  
-
-      </a>
     </li>
   
 
@@ -1275,107 +1275,157 @@
   
 
 
-<h1 id="agentsmd">AGENTS.md<a class="headerlink" href="#agentsmd" title="Permanent link">&para;</a></h1>
+<h1 id="copilot-instructions-githubcopilot-instructionsmd"><code>copilot-instructions</code> — <code>.github/copilot-instructions.md</code><a class="headerlink" href="#copilot-instructions-githubcopilot-instructionsmd" title="Permanent link">&para;</a></h1>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>A plain Markdown file that gives an AI coding agent persistent instructions for a repository. An open format stewarded by the <a href="https://aaif.io/">Agentic AI Foundation (AAIF)</a> under the Linux Foundation, adopted by 60 000+ open-source projects. One file covers a broad ecosystem of tools with no per-tool syntax.</p>
+<p>A repository-wide custom instructions file for GitHub Copilot. Placed at <code>.github/copilot-instructions.md</code>, it provides Copilot with context on how to understand the project and how to build, test, and validate changes. Instructions are automatically included in Copilot Chat, Copilot coding agent, and Copilot code review requests made in the context of the repository.</p>
+<p>This is the <strong>Copilot-specific</strong> extended instructions target. It is distinct from agent-neutral files (<code>AGENTS.md</code>, <code>CLAUDE.md</code>, <code>GEMINI.md</code>) that Copilot also reads. The <code>copilot-instructions.md</code> file applies only to GitHub Copilot and has no effect in other tools.</p>
 <h2 id="tool">Tool<a class="headerlink" href="#tool" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Primary:</strong> OpenAI Codex CLI (<code>codex</code>)</li>
-<li><strong>Also read natively by (confirmed):</strong></li>
-<li>Cursor — project root and subdirectories; plain-markdown alternative to <code>.cursor/rules/</code></li>
-<li>Windsurf/Cascade — root-level = always-on; subdirectory files = auto-glob scoped to that directory</li>
-<li>GitHub Copilot coding agent — any location in the repo; nearest file to the working directory takes precedence</li>
-<li>Devin (Cognition) — native support</li>
-<li>Aider — via <code>.aider.conf.yml</code>: <code>read: AGENTS.md</code> (opt-in)</li>
-<li>Gemini CLI — via <code>.gemini/settings.json</code>: <code>{ "contextFileName": "AGENTS.md" }</code> (opt-in)</li>
-<li>Zed editor AI — native support</li>
-<li>VS Code (GitHub Copilot in-editor agent)</li>
-<li>Amp, Kilo Code, Semgrep, UiPath coding agents — listed on agents.md ecosystem page</li>
-<li><strong>Standard body:</strong> AGENTS.md is stewarded by the Agentic AI Foundation, a Linux Foundation series project. Not a proprietary format; designed to be tool-neutral and community-maintained.</li>
+<li><strong>Primary:</strong> GitHub Copilot — Copilot Chat (github.com/copilot), Copilot coding agent, Copilot code review</li>
+<li><strong>Requires:</strong> GitHub Copilot subscription (Individual, Business, or Enterprise)</li>
+<li>Not read by Cursor, Claude Code, Gemini CLI, or any non-GitHub tool.</li>
 </ul>
 <h2 id="support-level">Support level<a class="headerlink" href="#support-level" title="Permanent link">&para;</a></h2>
-<p><code>supported</code> — v0.1 Core target.</p>
+<p><code>planned</code> — v0.2 target. Researched 2026-03-07.</p>
 <h2 id="canonical-paths">Canonical path(s)<a class="headerlink" href="#canonical-paths" title="Permanent link">&para;</a></h2>
 <ul>
-<li><code>AGENTS.md</code> at repository root — primary project-scoped instruction file</li>
-<li><code>&lt;subdirectory&gt;/AGENTS.md</code> — nested scope, loaded when Codex is working in or below that directory</li>
+<li><code>.github/copilot-instructions.md</code> — the only valid path; no alternatives exist.</li>
+<li>The <code>.github/</code> directory must be present at the repository root (standard for GitHub configuration files; typically already exists in GitHub-hosted repos).</li>
 </ul>
 <h2 id="alternate-legacy-paths">Alternate / legacy path(s)<a class="headerlink" href="#alternate-legacy-paths" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>AGENTS.override.md</code> — per-directory override; takes precedence over <code>AGENTS.md</code> in the same directory, allowing temporary overrides without deleting the base file</li>
-<li><code>~/.codex/AGENTS.md</code> — global scope, inherited by every repository (Codex CLI only)</li>
-<li><code>~/.codex/AGENTS.override.md</code> — global override</li>
-<li>Custom fallback filenames configurable in <code>~/.codex/config.toml</code> via <code>project_doc_fallback_filenames</code> (e.g. <code>TEAM_GUIDE.md</code>, <code>.agents.md</code>)</li>
-</ul>
+<p>None. The path <code>.github/copilot-instructions.md</code> is fixed by the vendor spec with no configurable alternatives and no legacy variants documented.</p>
 <h2 id="file-format">File format<a class="headerlink" href="#file-format" title="Permanent link">&para;</a></h2>
-<p>Plain Markdown. No frontmatter, no special syntax. Free-form prose and bullet lists. No structural requirements — headings are conventional only, not parsed specially by any tool.</p>
+<p>Natural language instructions in Markdown format. No required structure.</p>
+<ul>
+<li>Whitespace between instructions is ignored — instructions may be written as a single paragraph, each on a new line, or separated by blank lines.</li>
+<li>No frontmatter.</li>
+<li>Best practice per vendor guidance: keep to approximately 2 pages or fewer; instructions must not be task-specific (they persist across all Copilot interactions in the repo).</li>
+</ul>
+<p><strong>Copilot coding agent prompt guidance</strong> (verbatim abridged from GitHub Docs, accessed 2026-03-07):</p>
+<blockquote>
+<p>Your task is to "onboard" this repository to Copilot coding agent... Instructions must be no longer than 2 pages. Instructions must not be task specific.</p>
+</blockquote>
+<p>Recommended content categories (per vendor <code>WhatToAdd</code> guidance):</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>What to include</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>High-level details</td>
+<td>What the repo does, languages, frameworks, target runtimes, repo size/type</td>
+</tr>
+<tr>
+<td>Build instructions</td>
+<td>Bootstrap, build, test, run, lint commands with tool versions; document working command sequences and known failure modes</td>
+</tr>
+<tr>
+<td>Project layout</td>
+<td>Major architectural elements, relative paths to key files, location of config/lint/CI files; describe CI pipeline checks</td>
+</tr>
+</tbody>
+</table>
 <h2 id="frontmatter">Frontmatter<a class="headerlink" href="#frontmatter" title="Permanent link">&para;</a></h2>
-<p>None. The format is plain Markdown with no YAML frontmatter. Windsurf does not require frontmatter for AGENTS.md; activation mode is determined by file location (root = always-on, subdirectory = glob-scoped).</p>
+<p>None for <code>.github/copilot-instructions.md</code>.</p>
+<p>(Note: the related file type <code>.github/instructions/NAME.instructions.md</code> does use YAML frontmatter with <code>applyTo</code> for path-scoped instructions — but that is a separate, out-of-scope target for v0.2.)</p>
 <h2 id="discovery-scope-behavior">Discovery / scope behavior<a class="headerlink" href="#discovery-scope-behavior" title="Permanent link">&para;</a></h2>
-<p><strong>OpenAI Codex CLI</strong> (per vendor docs):</p>
+<p>Source: GitHub Docs — "Adding repository custom instructions for GitHub Copilot" (accessed 2026-03-07).</p>
+<ul>
+<li>Instructions are <strong>automatically</strong> added to all Copilot requests made in the context of the repository — no user action required beyond committing the file.</li>
+<li>Applied in: Copilot Chat (github.com), Copilot coding agent, Copilot code review.</li>
+<li>Whenever repository custom instructions are used, the file is listed as a <strong>reference</strong> in the chat response. Users can click it to inspect which instructions were applied.</li>
+</ul>
+<p><strong>Priority order</strong> (highest to lowest — all sets are provided to Copilot simultaneously):</p>
 <ol>
-<li><strong>Global scope:</strong> Reads <code>~/.codex/AGENTS.override.md</code> if present, else <code>~/.codex/AGENTS.md</code>. Uses only the first non-empty file.</li>
-<li><strong>Project scope:</strong> Starting at the git root, walks down to the current working directory. In each directory: checks <code>AGENTS.override.md</code>, then <code>AGENTS.md</code>, then <code>project_doc_fallback_filenames</code>. At most one file per directory.</li>
-<li><strong>Merge order:</strong> Concatenates from root to CWD, joined with blank lines. Files closer to the CWD appear later and therefore take precedence when instructions conflict.</li>
-<li><strong>Size limit:</strong> Combined instruction chain is capped at <code>project_doc_max_bytes</code> (default 32 KiB). Configurable in <code>~/.codex/config.toml</code>. Split across nested directories or raise the limit when hitting the cap.</li>
-<li><strong>Instruction chain is built once per run</strong> (once per TUI session launch).</li>
+<li>Personal instructions (user-level)</li>
+<li>Repository instructions — <code>.github/copilot-instructions.md</code> ← this target</li>
+<li>Organization instructions (org-level)</li>
 </ol>
-<p><strong>Cursor:</strong> Reads <code>AGENTS.md</code> at project root and in subdirectories. Treated as a plain-markdown alternative to <code>.cursor/rules/</code> with no frontmatter or metadata required.</p>
-<p><strong>Windsurf/Cascade:</strong> Root-level <code>AGENTS.md</code> is processed as always-on (equivalent to a <code>trigger: always_on</code> rule). Subdirectory <code>AGENTS.md</code> files are auto-glob scoped to that directory.</p>
-<p><strong>GitHub Copilot coding agent:</strong> Reads <code>AGENTS.md</code> files stored anywhere in the repository. The nearest file in the directory tree takes precedence over files higher up.</p>
+<p>All three levels are provided; Copilot uses all of them. Avoid providing conflicting sets across levels.</p>
+<p><strong>Code review behavior:</strong> When reviewing a pull request, Copilot uses the instructions from the <strong>base branch</strong>, not the head branch. Policy changes in a feature branch are not effective until merged.</p>
+<p><strong>Enabling/disabling:</strong> Repository custom instructions for code review can be toggled per-repo in: Settings → Copilot → Code review → "Use custom instructions when reviewing pull requests". Enabled by default.</p>
 <h2 id="repo-safe">Repo-safe<a class="headerlink" href="#repo-safe" title="Permanent link">&para;</a></h2>
-<p>Yes. <code>AGENTS.md</code> at the project root is designed to be committed to version control and shared with the team.</p>
-<p>User-global files (<code>~/.codex/AGENTS.md</code>) are machine-local and should not be committed.</p>
+<p><strong>Yes.</strong> <code>.github/copilot-instructions.md</code> is designed to be committed to version control.</p>
 <h2 id="renderer-notes">Renderer notes<a class="headerlink" href="#renderer-notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Output path: <code>AGENTS.md</code> at repository root.</li>
-<li>Single file output — no per-directory variants are generated by <code>agent-policy</code> (v0.1).</li>
-<li>No header or frontmatter needed. Content is plain Markdown.</li>
-<li>Suggested section structure (conventional, not enforced by any tool):</li>
-<li>Build and test commands</li>
-<li>Coding standards and conventions</li>
-<li>Architecture notes</li>
-<li>Common workflows</li>
-<li>What the agent should and should not do</li>
+<li><strong>Target ID:</strong> <code>copilot-instructions</code></li>
+<li><strong>Output path:</strong> <code>.github/copilot-instructions.md</code></li>
+<li><strong>Template:</strong> <code>templates/copilot-instructions.md.j2</code></li>
+<li><strong><code>OutputTargets</code> field:</strong> <code>copilot_instructions: bool</code></li>
+<li><strong>Notes:</strong></li>
+<li>Output path contains a subdirectory (<code>.github/</code>). The existing <code>util/fs.rs</code> atomic write creates parent directories automatically — no special handling needed.</li>
+<li>Content is structurally identical to <code>AGENTS.md</code>. Template can mirror <code>AGENTS.md.j2</code> closely.</li>
+<li>Single file output.</li>
+<li>Snapshot filename: insta will encode <code>.github/copilot-instructions.md</code> as <code>.github__copilot-instructions.md</code> in the snap filename — verify after first test run.</li>
 </ul>
 <h2 id="known-limitations-gotchas">Known limitations / gotchas<a class="headerlink" href="#known-limitations-gotchas" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Override files take silent precedence:</strong> If an <code>AGENTS.override.md</code> exists anywhere in the directory tree, Codex will silently skip the corresponding <code>AGENTS.md</code>. The generator produces only <code>AGENTS.md</code>; authors must be aware that a pre-existing override in their repo will suppress it.</li>
-<li><strong>Global file is not repo-committed:</strong> The <code>~/.codex/AGENTS.md</code> global file is machine-local. Team members need to set it up individually.</li>
-<li><strong>32 KiB combined cap:</strong> The entire merged instruction chain is capped. Large nested files can crowd out parent instructions. Keep files concise.</li>
-<li><strong>Instructions are context, not enforcement:</strong> All tools treat AGENTS.md as context injected into the LLM prompt. The agent may not follow every instruction, especially vague or conflicting ones.</li>
-<li><strong>Cursor treats it as a simple alternative to rules:</strong> Cursor does not apply Cursor-specific activation logic (no <code>globs</code>, <code>description</code>, <code>alwaysApply</code>) to AGENTS.md.</li>
+<li>
+<p><strong>Triple-redundant context with other Copilot-readable files:</strong> GitHub Copilot also reads <code>AGENTS.md</code>, <code>CLAUDE.md</code>, and <code>GEMINI.md</code>. If a user enables <code>agents-md</code>, <code>claude-md</code>, and <code>copilot-instructions</code> simultaneously, Copilot will receive the same policy content three times. This is by-design GitHub behavior but consumes additional context tokens. Recommend noting this in the schema reference.</p>
+</li>
+<li>
+<p><strong>Code review uses base branch:</strong> A policy change in a feature branch PR will not be applied to code review of that PR. Only takes effect after merge.</p>
+</li>
+<li>
+<p><strong>Not read by non-GitHub tools:</strong> Unlike <code>AGENTS.md</code>, this file has no effect in Cursor, Claude Code, Gemini CLI, or other non-GitHub Copilot tools.</p>
+</li>
+<li>
+<p><strong>No path-scoped variant generated (v0.2):</strong> GitHub supports path-specific instructions at <code>.github/instructions/NAME.instructions.md</code> with <code>applyTo</code> frontmatter globs. This is a distinct and more powerful feature not generated in v0.2; deferred to v0.3+.</p>
+</li>
+<li>
+<p><strong>Context, not enforcement:</strong> Like all tools in this ecosystem, GitHub Copilot treats the instructions as prompt context injected into the model. Adhering to specific constraints depends on model behavior.</p>
+</li>
 </ul>
 <h2 id="official-references">Official references<a class="headerlink" href="#official-references" title="Permanent link">&para;</a></h2>
 <ul>
-<li>AGENTS.md open standard site: <a href="https://agents.md/">https://agents.md/</a> (accessed 2026-03-07)</li>
-<li>Agentic AI Foundation (AAIF): <a href="https://aaif.io/">https://aaif.io/</a> (Linux Foundation steward for AGENTS.md)</li>
-<li>OpenAI Codex AGENTS.md guide: <a href="https://developers.openai.com/codex/guides/agents-md">https://developers.openai.com/codex/guides/agents-md</a> (accessed 2026-03-07)</li>
-<li>OpenAI Codex advanced config (<code>project_doc_fallback_filenames</code>, <code>project_doc_max_bytes</code>): <a href="https://developers.openai.com/codex/config-advanced#project-instructions-discovery">https://developers.openai.com/codex/config-advanced#project-instructions-discovery</a> (accessed 2026-03-07)</li>
-<li>Cursor Rules — AGENTS.md section: <a href="https://cursor.com/docs/rules#agentsmd">https://cursor.com/docs/rules#agentsmd</a> (accessed 2026-03-07)</li>
-<li>Windsurf Memories &amp; Rules — AGENTS.md row in rules table: <a href="https://docs.windsurf.com/windsurf/cascade/memories">https://docs.windsurf.com/windsurf/cascade/memories</a> (accessed 2026-03-07)</li>
-<li>GitHub Copilot custom instructions — agent instructions section: <a href="https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions">https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions</a> (accessed 2026-03-07)</li>
+<li>GitHub Docs — "Adding repository custom instructions for GitHub Copilot": <a href="https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions">https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions</a> (accessed 2026-03-07)</li>
+<li>GitHub Docs — "About customizing GitHub Copilot responses" (custom instruction support matrix): <a href="https://docs.github.com/en/copilot/concepts/prompting/response-customization">https://docs.github.com/en/copilot/concepts/prompting/response-customization</a> (not directly fetched; linked from primary source)</li>
+<li>GitHub Docs — "Support for different types of custom instructions": <a href="https://docs.github.com/en/copilot/reference/custom-instructions-support">https://docs.github.com/en/copilot/reference/custom-instructions-support</a> (not directly fetched; linked from primary source)</li>
 </ul>
 <h2 id="minimal-example">Minimal example<a class="headerlink" href="#minimal-example" title="Permanent link">&para;</a></h2>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># AGENTS.md</span>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&lt;!-- .github/copilot-instructions.md — generated by agent-policy. Do not edit manually. --&gt;
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">## Repository expectations</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">## About this repository</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>Run <span class="sb">`cargo test --all-targets`</span> before opening a pull request.
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">-</span><span class="w"> </span>Do not modify <span class="sb">`Cargo.lock`</span> manually.
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">-</span><span class="w"> </span>Document public API items with rustdoc comments.
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="gu">## Architecture</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">-</span><span class="w"> </span>All error types live in <span class="sb">`src/error.rs`</span>.
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">-</span><span class="w"> </span>Keep business logic in the library crate (<span class="sb">`src/lib.rs`</span>), not in <span class="sb">`src/main.rs`</span>.
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Schema-first generator for coding-agent repo policies and compatibility files.
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Written in Rust. Published to crates.io as <span class="sb">`agent-policy`</span>.
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="gu">## Build and test</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">-</span><span class="w"> </span>Build: <span class="sb">`cargo build --release`</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">-</span><span class="w"> </span>Test: <span class="sb">`cargo test --all-targets`</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">-</span><span class="w"> </span>Lint: <span class="sb">`cargo clippy --all-targets -- -D warnings`</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="k">-</span><span class="w"> </span>Format: <span class="sb">`cargo fmt --check`</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>MSRV: 1.75. Use only APIs stable in Rust 1.75.
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="gu">## Project layout</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="k">-</span><span class="w"> </span><span class="sb">`src/`</span> — library and CLI source
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="k">-</span><span class="w"> </span><span class="sb">`src/render/`</span> — one module per output target
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">-</span><span class="w"> </span><span class="sb">`templates/`</span> — minijinja templates for each target
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="k">-</span><span class="w"> </span><span class="sb">`tests/`</span> — integration tests; <span class="sb">`tests/snapshots/`</span> — golden snapshots
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="k">-</span><span class="w"> </span><span class="sb">`agent-policy.yaml`</span> — this repo&#39;s own policy (self-dogfooding)
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="k">-</span><span class="w"> </span><span class="sb">`agent-policy.schema.json`</span> — JSON Schema for the YAML format
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="gu">## Constraints</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="k">-</span><span class="w"> </span>Do not modify <span class="sb">`agent-policy.schema.json`</span> or <span class="sb">`Cargo.toml`</span> without human review.
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="k">-</span><span class="w"> </span>Do not modify <span class="sb">`.github/workflows/`</span> without human review.
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="k">-</span><span class="w"> </span>Always provide tests for changes to <span class="sb">`src/`</span>.
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="k">-</span><span class="w"> </span>Never commit secrets, credentials, or API keys.
 </span></code></pre></div>
 <h2 id="internal-mapping-notes">Internal mapping notes<a class="headerlink" href="#internal-mapping-notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Target ID: <code>agents-md</code></li>
-<li>Output path constant: <code>"AGENTS.md"</code></li>
-<li>Template: <code>templates/AGENTS.md.j2</code></li>
-<li><code>OutputTargets.agents_md: bool</code></li>
+<li><strong>Target ID:</strong> <code>copilot-instructions</code> — to be added to <code>TargetId</code> enum in <code>src/model/targets.rs</code></li>
+<li><strong>Output path constant:</strong> <code>".github/copilot-instructions.md"</code> — to be returned by <code>TargetId::primary_path()</code></li>
+<li><strong>Template file:</strong> <code>templates/copilot-instructions.md.j2</code> — not yet created</li>
+<li><strong>Golden test snapshots:</strong> not yet created</li>
+<li><strong>Renderer module:</strong> <code>src/render/copilot_instructions.rs</code> — not yet created</li>
+<li><strong>Status:</strong> planned for v0.2</li>
 </ul>
 
 

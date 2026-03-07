@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://cameronbrooks11.github.io/agent-policy/reference/targets/agents-md/">
+        <link rel="canonical" href="https://cameronbrooks11.github.io/agent-policy/reference/targets/target-spec-template/">
       
       
-        <link rel="prev" href="../target-spec-template/">
+        <link rel="prev" href="../">
       
       
-        <link rel="next" href="../claude-md/">
+        <link rel="next" href="../agents-md/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>AGENTS.md - agent-policy</title>
+        <title>Target Spec Template - agent-policy</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#agentsmd" class="md-skip">
+        <a href="#target-spec-template" class="md-skip">
           Skip to content
         </a>
       
@@ -114,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AGENTS.md
+              Target Spec Template
             
           </span>
         </div>
@@ -478,10 +478,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../target-spec-template/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -497,6 +506,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -506,37 +516,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    AGENTS.md
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../agents-md/" class="md-nav__link">
         
   
   
@@ -552,180 +535,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tool
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Support level
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#canonical-paths" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Canonical path(s)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alternate-legacy-paths" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternate / legacy path(s)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#file-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        File format
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#frontmatter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Frontmatter
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#discovery-scope-behavior" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Discovery / scope behavior
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#repo-safe" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Repo-safe
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#renderer-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Renderer notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#known-limitations-gotchas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Known limitations / gotchas
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#official-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Official references
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#minimal-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Minimal example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#internal-mapping-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Internal mapping notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1095,168 +904,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Summary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tool" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tool
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Support level
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#canonical-paths" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Canonical path(s)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#alternate-legacy-paths" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Alternate / legacy path(s)
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#file-format" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        File format
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#frontmatter" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Frontmatter
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#discovery-scope-behavior" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Discovery / scope behavior
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#repo-safe" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Repo-safe
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#renderer-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Renderer notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#known-limitations-gotchas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Known limitations / gotchas
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#official-references" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Official references
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#minimal-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Minimal example
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#internal-mapping-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Internal mapping notes
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -1275,108 +922,124 @@
   
 
 
-<h1 id="agentsmd">AGENTS.md<a class="headerlink" href="#agentsmd" title="Permanent link">&para;</a></h1>
+<h1 id="target-spec-template">Target Spec Template<a class="headerlink" href="#target-spec-template" title="Permanent link">&para;</a></h1>
+<p>Copy this file when documenting a new target. Replace every <code>&lt;placeholder&gt;</code> and every guidance comment (<code>&lt;!-- ... --&gt;</code> blocks) with real, source-cited content. Never guess — leave a section as <code>_Not yet researched._</code> if the information is unavailable, and note what source is needed.</p>
+<p>See <a href="../">index.md</a> for the registry of all target files.</p>
+<hr />
+<!-- File name convention: use the target ID as the filename, e.g. gemini-md.md for target ID `gemini-md`. -->
+
+<h1 id="target-id-canonical-output-filename"><code>&lt;target-id&gt;</code> — <code>&lt;canonical output filename&gt;</code><a class="headerlink" href="#target-id-canonical-output-filename" title="Permanent link">&para;</a></h1>
+<!-- Example: # `gemini-md` — `GEMINI.md` -->
+
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
-<p>A plain Markdown file that gives an AI coding agent persistent instructions for a repository. An open format stewarded by the <a href="https://aaif.io/">Agentic AI Foundation (AAIF)</a> under the Linux Foundation, adopted by 60 000+ open-source projects. One file covers a broad ecosystem of tools with no per-tool syntax.</p>
+<!-- 1–3 sentences. What is this file? Who reads it? What is it for? Name the vendor/tool and the agent ecosystem it serves. -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="tool">Tool<a class="headerlink" href="#tool" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Primary:</strong> OpenAI Codex CLI (<code>codex</code>)</li>
-<li><strong>Also read natively by (confirmed):</strong></li>
-<li>Cursor — project root and subdirectories; plain-markdown alternative to <code>.cursor/rules/</code></li>
-<li>Windsurf/Cascade — root-level = always-on; subdirectory files = auto-glob scoped to that directory</li>
-<li>GitHub Copilot coding agent — any location in the repo; nearest file to the working directory takes precedence</li>
-<li>Devin (Cognition) — native support</li>
-<li>Aider — via <code>.aider.conf.yml</code>: <code>read: AGENTS.md</code> (opt-in)</li>
-<li>Gemini CLI — via <code>.gemini/settings.json</code>: <code>{ "contextFileName": "AGENTS.md" }</code> (opt-in)</li>
-<li>Zed editor AI — native support</li>
-<li>VS Code (GitHub Copilot in-editor agent)</li>
-<li>Amp, Kilo Code, Semgrep, UiPath coding agents — listed on agents.md ecosystem page</li>
-<li><strong>Standard body:</strong> AGENTS.md is stewarded by the Agentic AI Foundation, a Linux Foundation series project. Not a proprietary format; designed to be tool-neutral and community-maintained.</li>
-</ul>
+<!-- Primary tool (vendor name, binary name). List any other tools confirmed to read this file natively. Format:
+- **Primary:** <Vendor Name> (`<binary>`)
+- **Also read natively by:** <Tool A> (cite source), <Tool B> (cite source)
+Note: do not list tools unless you have a cited vendor source confirming support. -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="support-level">Support level<a class="headerlink" href="#support-level" title="Permanent link">&para;</a></h2>
-<p><code>supported</code> — v0.1 Core target.</p>
+<!-- One of:
+- `supported` — implemented, tested, released
+- `experimental` — implemented but format is unstable / vendor may change it
+- `planned` — researched, not yet implemented
+- `stub` — placeholder, research incomplete
+Include which release added support, e.g. "supported — v0.1 Core target." -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="canonical-paths">Canonical path(s)<a class="headerlink" href="#canonical-paths" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>AGENTS.md</code> at repository root — primary project-scoped instruction file</li>
-<li><code>&lt;subdirectory&gt;/AGENTS.md</code> — nested scope, loaded when Codex is working in or below that directory</li>
-</ul>
+<!-- The exact file path(s) relative to the repository root that the tool reads by default. If multiple paths are valid, list primary first. Include any subdirectory creation requirements. Source each path to vendor docs. -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="alternate-legacy-paths">Alternate / legacy path(s)<a class="headerlink" href="#alternate-legacy-paths" title="Permanent link">&para;</a></h2>
-<ul>
-<li><code>AGENTS.override.md</code> — per-directory override; takes precedence over <code>AGENTS.md</code> in the same directory, allowing temporary overrides without deleting the base file</li>
-<li><code>~/.codex/AGENTS.md</code> — global scope, inherited by every repository (Codex CLI only)</li>
-<li><code>~/.codex/AGENTS.override.md</code> — global override</li>
-<li>Custom fallback filenames configurable in <code>~/.codex/config.toml</code> via <code>project_doc_fallback_filenames</code> (e.g. <code>TEAM_GUIDE.md</code>, <code>.agents.md</code>)</li>
-</ul>
+<!-- Any deprecated, legacy, or optional alternate paths. Include:
+- Legacy format files still supported by the tool.
+- Configurable filename alternatives (e.g. via a settings file).
+- Explicit note if there are none.
+Format as a table if multiple with distinct attributes, or a bullet list. -->
+
+<p>None documented. <em>(confirm from vendor docs)</em></p>
 <h2 id="file-format">File format<a class="headerlink" href="#file-format" title="Permanent link">&para;</a></h2>
-<p>Plain Markdown. No frontmatter, no special syntax. Free-form prose and bullet lists. No structural requirements — headings are conventional only, not parsed specially by any tool.</p>
+<!-- Plain Markdown, JSON, YAML, MDC, TOML, etc. Describe:
+- Required structure (headings, sections, keys).
+- Optional structure (conventional sections not enforced by tooling).
+- Size limits if documented.
+- Any vendor-provided example (quote verbatim, cite source).
+Do NOT describe renderer output format here — that belongs in Renderer notes. -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="frontmatter">Frontmatter<a class="headerlink" href="#frontmatter" title="Permanent link">&para;</a></h2>
-<p>None. The format is plain Markdown with no YAML frontmatter. Windsurf does not require frontmatter for AGENTS.md; activation mode is determined by file location (root = always-on, subdirectory = glob-scoped).</p>
+<!-- Does the file use YAML frontmatter? List every supported frontmatter key:
+| Key | Type | Required | Default | Description |
+|-----|------|----------|---------|-------------|
+Source each field to vendor docs. If no frontmatter: state "None." -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="discovery-scope-behavior">Discovery / scope behavior<a class="headerlink" href="#discovery-scope-behavior" title="Permanent link">&para;</a></h2>
-<p><strong>OpenAI Codex CLI</strong> (per vendor docs):</p>
-<ol>
-<li><strong>Global scope:</strong> Reads <code>~/.codex/AGENTS.override.md</code> if present, else <code>~/.codex/AGENTS.md</code>. Uses only the first non-empty file.</li>
-<li><strong>Project scope:</strong> Starting at the git root, walks down to the current working directory. In each directory: checks <code>AGENTS.override.md</code>, then <code>AGENTS.md</code>, then <code>project_doc_fallback_filenames</code>. At most one file per directory.</li>
-<li><strong>Merge order:</strong> Concatenates from root to CWD, joined with blank lines. Files closer to the CWD appear later and therefore take precedence when instructions conflict.</li>
-<li><strong>Size limit:</strong> Combined instruction chain is capped at <code>project_doc_max_bytes</code> (default 32 KiB). Configurable in <code>~/.codex/config.toml</code>. Split across nested directories or raise the limit when hitting the cap.</li>
-<li><strong>Instruction chain is built once per run</strong> (once per TUI session launch).</li>
-</ol>
-<p><strong>Cursor:</strong> Reads <code>AGENTS.md</code> at project root and in subdirectories. Treated as a plain-markdown alternative to <code>.cursor/rules/</code> with no frontmatter or metadata required.</p>
-<p><strong>Windsurf/Cascade:</strong> Root-level <code>AGENTS.md</code> is processed as always-on (equivalent to a <code>trigger: always_on</code> rule). Subdirectory <code>AGENTS.md</code> files are auto-glob scoped to that directory.</p>
-<p><strong>GitHub Copilot coding agent:</strong> Reads <code>AGENTS.md</code> files stored anywhere in the repository. The nearest file in the directory tree takes precedence over files higher up.</p>
+<!-- How does the tool find and load this file? Describe:
+- Search algorithm (root walk, CWD walk, fixed path, etc.)
+- Scope semantics (global, project, directory, file-specific)
+- Load order when multiple files apply
+- Merge strategy (concatenate, prepend, override, etc.)
+- Any size/count limits
+Cite vendor docs for each behavior. -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="repo-safe">Repo-safe<a class="headerlink" href="#repo-safe" title="Permanent link">&para;</a></h2>
-<p>Yes. <code>AGENTS.md</code> at the project root is designed to be committed to version control and shared with the team.</p>
-<p>User-global files (<code>~/.codex/AGENTS.md</code>) are machine-local and should not be committed.</p>
+<!-- Is this file designed to be committed to version control and shared with the team?
+Answer Yes / No / Partial (with explanation). If partial, clarify which paths are repo-safe and which are machine-local. -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="renderer-notes">Renderer notes<a class="headerlink" href="#renderer-notes" title="Permanent link">&para;</a></h2>
+<!-- agent-policy-specific implementation notes. Include:
+- Target ID (used in agent-policy.yaml `outputs` list)
+- Output path string (exactly as written to disk)
+- Template file name under `templates/`
+- OutputTargets struct field name
+- Any special rendering logic (e.g. one file per role, dynamic paths)
+- Content sections the template should include
+This section is written by the implementer, not sourced from vendor docs. -->
+
 <ul>
-<li>Output path: <code>AGENTS.md</code> at repository root.</li>
-<li>Single file output — no per-directory variants are generated by <code>agent-policy</code> (v0.1).</li>
-<li>No header or frontmatter needed. Content is plain Markdown.</li>
-<li>Suggested section structure (conventional, not enforced by any tool):</li>
-<li>Build and test commands</li>
-<li>Coding standards and conventions</li>
-<li>Architecture notes</li>
-<li>Common workflows</li>
-<li>What the agent should and should not do</li>
+<li><strong>Target ID:</strong> <code>&lt;target-id&gt;</code></li>
+<li><strong>Output path:</strong> <code>&lt;path/to/output/file&gt;</code></li>
+<li><strong>Template:</strong> <code>templates/&lt;template-file&gt;.j2</code></li>
+<li><strong><code>OutputTargets</code> field:</strong> <code>&lt;field_name&gt;: bool</code></li>
+<li><strong>Notes:</strong> <em>Add implementation-specific notes.</em></li>
 </ul>
 <h2 id="known-limitations-gotchas">Known limitations / gotchas<a class="headerlink" href="#known-limitations-gotchas" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Override files take silent precedence:</strong> If an <code>AGENTS.override.md</code> exists anywhere in the directory tree, Codex will silently skip the corresponding <code>AGENTS.md</code>. The generator produces only <code>AGENTS.md</code>; authors must be aware that a pre-existing override in their repo will suppress it.</li>
-<li><strong>Global file is not repo-committed:</strong> The <code>~/.codex/AGENTS.md</code> global file is machine-local. Team members need to set it up individually.</li>
-<li><strong>32 KiB combined cap:</strong> The entire merged instruction chain is capped. Large nested files can crowd out parent instructions. Keep files concise.</li>
-<li><strong>Instructions are context, not enforcement:</strong> All tools treat AGENTS.md as context injected into the LLM prompt. The agent may not follow every instruction, especially vague or conflicting ones.</li>
-<li><strong>Cursor treats it as a simple alternative to rules:</strong> Cursor does not apply Cursor-specific activation logic (no <code>globs</code>, <code>description</code>, <code>alwaysApply</code>) to AGENTS.md.</li>
-</ul>
+<!-- Practical issues implementers and users should know about:
+- Silent conflicts with other files, tools, or settings
+- Behaviors that differ from what the file format suggests
+- Context/token implications
+- Things the renderer does NOT generate (by design)
+Cite vendor docs if the gotcha comes from documented behavior; otherwise label as "observed" or "inferred." -->
+
+<p><em>Not yet researched.</em></p>
 <h2 id="official-references">Official references<a class="headerlink" href="#official-references" title="Permanent link">&para;</a></h2>
-<ul>
-<li>AGENTS.md open standard site: <a href="https://agents.md/">https://agents.md/</a> (accessed 2026-03-07)</li>
-<li>Agentic AI Foundation (AAIF): <a href="https://aaif.io/">https://aaif.io/</a> (Linux Foundation steward for AGENTS.md)</li>
-<li>OpenAI Codex AGENTS.md guide: <a href="https://developers.openai.com/codex/guides/agents-md">https://developers.openai.com/codex/guides/agents-md</a> (accessed 2026-03-07)</li>
-<li>OpenAI Codex advanced config (<code>project_doc_fallback_filenames</code>, <code>project_doc_max_bytes</code>): <a href="https://developers.openai.com/codex/config-advanced#project-instructions-discovery">https://developers.openai.com/codex/config-advanced#project-instructions-discovery</a> (accessed 2026-03-07)</li>
-<li>Cursor Rules — AGENTS.md section: <a href="https://cursor.com/docs/rules#agentsmd">https://cursor.com/docs/rules#agentsmd</a> (accessed 2026-03-07)</li>
-<li>Windsurf Memories &amp; Rules — AGENTS.md row in rules table: <a href="https://docs.windsurf.com/windsurf/cascade/memories">https://docs.windsurf.com/windsurf/cascade/memories</a> (accessed 2026-03-07)</li>
-<li>GitHub Copilot custom instructions — agent instructions section: <a href="https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions">https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions</a> (accessed 2026-03-07)</li>
-</ul>
+<!-- List every vendor doc URL used to write this file. Format:
+- <Description>: <URL> (accessed YYYY-MM-DD)
+All entries must have an access date. Do not list URLs you have not actually read. -->
+
+<p><em>No sources recorded yet.</em></p>
 <h2 id="minimal-example">Minimal example<a class="headerlink" href="#minimal-example" title="Permanent link">&para;</a></h2>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># AGENTS.md</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">## Repository expectations</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>Run <span class="sb">`cargo test --all-targets`</span> before opening a pull request.
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">-</span><span class="w"> </span>Do not modify <span class="sb">`Cargo.lock`</span> manually.
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="k">-</span><span class="w"> </span>Document public API items with rustdoc comments.
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="gu">## Architecture</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="k">-</span><span class="w"> </span>All error types live in <span class="sb">`src/error.rs`</span>.
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="k">-</span><span class="w"> </span>Keep business logic in the library crate (<span class="sb">`src/lib.rs`</span>), not in <span class="sb">`src/main.rs`</span>.
+<!-- A realistic, self-contained example of this file as it would appear in a real repo. Keep it short (10–30 lines). Use a fenced code block with the appropriate language tag (markdown, yaml, json, etc.). -->
+
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&lt;!-- replace with a realistic example --&gt;
 </span></code></pre></div>
 <h2 id="internal-mapping-notes">Internal mapping notes<a class="headerlink" href="#internal-mapping-notes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Target ID: <code>agents-md</code></li>
-<li>Output path constant: <code>"AGENTS.md"</code></li>
-<li>Template: <code>templates/AGENTS.md.j2</code></li>
-<li><code>OutputTargets.agents_md: bool</code></li>
-</ul>
+<!-- Cross-reference to the implementation. Update when the target is implemented:
+- Target ID confirmed in `TargetId` enum
+- Output path constant confirmed in `TargetId::primary_path()`
+- Template file exists at `templates/`
+- Golden test snapshot(s): list snapshot file names
+- Renderer module: `src/render/<module>.rs` -->
+
+<p><em>Not yet implemented.</em></p>
 
 
 
