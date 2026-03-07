@@ -5,11 +5,11 @@ Each file follows the same section template. Fill sections from vendor documenta
 
 ## v0.1 targets (supported)
 
-| ID | File | Tool |
-|---|---|---|
-| `agents-md` | [agents-md.md](agents-md.md) | OpenAI Codex CLI — also read natively by Cursor, Windsurf/Cascade, GitHub Copilot coding agent |
-| `claude-md` | [claude-md.md](claude-md.md) | Anthropic Claude Code — also accepted by GitHub Copilot coding agent |
-| `cursor-rules` | [cursor-rules.md](cursor-rules.md) | Cursor |
+| ID             | File                               | Tool                                                                                           |
+| -------------- | ---------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `agents-md`    | [agents-md.md](agents-md.md)       | OpenAI Codex CLI — also read natively by Cursor, Windsurf/Cascade, GitHub Copilot coding agent |
+| `claude-md`    | [claude-md.md](claude-md.md)       | Anthropic Claude Code — also accepted by GitHub Copilot coding agent                           |
+| `cursor-rules` | [cursor-rules.md](cursor-rules.md) | Cursor                                                                                         |
 
 ## Post-v0.1 targets (planned / experimental)
 

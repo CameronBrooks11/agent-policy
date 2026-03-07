@@ -35,8 +35,8 @@ For `v0.1.x`, output targets are declared as an array of string IDs in the `outp
 # outputs defaults to [agents-md] when omitted
 outputs:
   - agents-md
-  - claude-md       # optional
-  - cursor-rules    # optional
+  - claude-md # optional
+  - cursor-rules # optional
 ```
 
 Supported target IDs in v0.1: `agents-md`, `claude-md`, `cursor-rules`. Unknown IDs are rejected at normalization time with an explicit error. No profile or `--targets` override system is introduced in v0.1.
@@ -117,5 +117,4 @@ This keeps the migration path clean while avoiding the one-key-per-target schema
 ## Related Docs
 
 - [compatibility-matrix.md](compatibility-matrix.md)
-- [planning/target-expansion.md](../planning/target-expansion.md)
-- [planning/roadmap.md](../planning/roadmap.md)
+- [ROADMAP.md](../ROADMAP.md)

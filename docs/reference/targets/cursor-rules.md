@@ -34,20 +34,20 @@ Two supported extensions:
 
 Frontmatter fields (all optional):
 
-| Field | Type | Purpose |
-|---|---|---|
-| `description` | string | Shown to Cursor Agent to decide relevance when `alwaysApply` is false |
-| `globs` | string | File pattern(s), comma-separated for multiple — rule applies when matching files are in context |
-| `alwaysApply` | bool | If `true`, included in every chat session regardless of other fields |
+| Field         | Type   | Purpose                                                                                         |
+| ------------- | ------ | ----------------------------------------------------------------------------------------------- |
+| `description` | string | Shown to Cursor Agent to decide relevance when `alwaysApply` is false                           |
+| `globs`       | string | File pattern(s), comma-separated for multiple — rule applies when matching files are in context |
+| `alwaysApply` | bool   | If `true`, included in every chat session regardless of other fields                            |
 
 All three fields are optional. The combination of set/unset fields determines activation mode:
 
-| Mode | `alwaysApply` | `globs` | `description` | When applied |
-|---|---|---|---|---|
-| Always Apply | `true` | any | any | Every chat session |
-| Apply to Specific Files | — | set | — | When file matches glob pattern |
-| Apply Intelligently | `false` / unset | unset | set | When agent decides it is relevant based on description |
-| Apply Manually | `false` / unset | unset | unset | Only when @-mentioned in chat |
+| Mode                    | `alwaysApply`   | `globs` | `description` | When applied                                           |
+| ----------------------- | --------------- | ------- | ------------- | ------------------------------------------------------ |
+| Always Apply            | `true`          | any     | any           | Every chat session                                     |
+| Apply to Specific Files | —               | set     | —             | When file matches glob pattern                         |
+| Apply Intelligently     | `false` / unset | unset   | set           | When agent decides it is relevant based on description |
+| Apply Manually          | `false` / unset | unset   | unset         | Only when @-mentioned in chat                          |
 
 ## Frontmatter
 
