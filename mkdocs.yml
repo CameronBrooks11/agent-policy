@@ -58,9 +58,12 @@ nav:
     - compatibility-matrix.md
     - target-support-policy.md
     - reference/targets/index.md
+    - reference/targets/target-spec-template.md
     - reference/targets/agents-md.md
     - reference/targets/claude-md.md
     - reference/targets/cursor-rules.md
+    - reference/targets/gemini-md.md
+    - reference/targets/copilot-instructions.md
   - Design:
     - vision.md
     - architecture.md
