@@ -112,7 +112,7 @@ outputs:
   - claude-md
 "#;
     let raw = load_str(yaml).expect("should parse");
-    let policy = normalize(raw).expect("should normalize");
+    let (policy, _warnings) = normalize(raw).expect("should normalize");
     assert_eq!(policy.project.name, "website");
     assert_eq!(
         policy.project.summary.as_deref(),
@@ -141,7 +141,7 @@ project:
   name: bare
 "#;
     let raw = load_str(yaml).expect("should parse");
-    let policy = normalize(raw).expect("should normalize");
+    let (policy, _warnings) = normalize(raw).expect("should normalize");
     assert!(
         policy.outputs.agents_md,
         "agents-md should be on by default"
@@ -185,4 +185,107 @@ fn examples_minimal_loads() {
     let path = Utf8Path::new("examples/minimal/agent-policy.yaml");
     let result = load(path);
     assert!(result.is_ok(), "examples/minimal should load: {result:?}");
+}
+
+// ---- auto-generated paths behaviour ----
+
+#[test]
+fn generated_paths_auto_injected() {
+    // When paths.generated is omitted entirely, enabled output targets
+    // should automatically populate it.
+    let yaml = r#"
+schema_version: "1"
+project:
+  name: test
+outputs:
+  - agents-md
+  - claude-md
+"#;
+    let raw = load_str(yaml).expect("should parse");
+    let (policy, warnings) = normalize(raw).expect("should normalize");
+    assert!(
+        policy.paths.generated.contains(&"AGENTS.md".to_owned()),
+        "AGENTS.md should be auto-injected: {:?}",
+        policy.paths.generated
+    );
+    assert!(
+        policy.paths.generated.contains(&"CLAUDE.md".to_owned()),
+        "CLAUDE.md should be auto-injected: {:?}",
+        policy.paths.generated
+    );
+    assert!(warnings.is_empty(), "no warnings expected: {warnings:?}");
+}
+
+#[test]
+fn generated_paths_redundant_warns() {
+    // When the user lists a path that is already implied by outputs,
+    // a warning should be emitted and the path should appear exactly once.
+    let yaml = r#"
+schema_version: "1"
+project:
+  name: test
+paths:
+  generated:
+    - AGENTS.md
+outputs:
+  - agents-md
+"#;
+    let raw = load_str(yaml).expect("should parse");
+    let (policy, warnings) = normalize(raw).expect("should normalize");
+    // Path present exactly once
+    let count = policy
+        .paths
+        .generated
+        .iter()
+        .filter(|p| *p == "AGENTS.md")
+        .count();
+    assert_eq!(count, 1, "AGENTS.md should appear exactly once");
+    // At least one warning about it
+    assert!(
+        !warnings.is_empty(),
+        "expected a warning about redundant AGENTS.md"
+    );
+    assert!(
+        warnings.iter().any(|w| w.contains("AGENTS.md")),
+        "warning should mention AGENTS.md: {warnings:?}"
+    );
+    assert!(
+        warnings.iter().any(|w| w.contains("implied") || w.contains("remove") || w.contains("unnecessary")),
+        "warning should say it can be removed: {warnings:?}"
+    );
+}
+
+#[test]
+fn generated_paths_user_extras_preserved() {
+    // User-supplied paths that are NOT implied by outputs should be kept
+    // without any warning.
+    let yaml = r#"
+schema_version: "1"
+project:
+  name: test
+paths:
+  generated:
+    - site/**
+    - dist/**
+outputs:
+  - agents-md
+"#;
+    let raw = load_str(yaml).expect("should parse");
+    let (policy, warnings) = normalize(raw).expect("should normalize");
+    assert!(
+        policy.paths.generated.contains(&"AGENTS.md".to_owned()),
+        "AGENTS.md auto-injected: {:?}",
+        policy.paths.generated
+    );
+    assert!(
+        policy.paths.generated.contains(&"site/**".to_owned()),
+        "site/** preserved: {:?}",
+        policy.paths.generated
+    );
+    assert!(
+        policy.paths.generated.contains(&"dist/**".to_owned()),
+        "dist/** preserved: {:?}",
+        policy.paths.generated
+    );
+    assert!(warnings.is_empty(), "no warnings expected: {warnings:?}");
 }

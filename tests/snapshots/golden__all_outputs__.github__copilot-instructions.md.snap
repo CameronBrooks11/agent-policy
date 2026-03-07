@@ -40,10 +40,11 @@ The following paths require human review before changes are accepted. Do not mod
 
 Do not edit the following generated files directly:
 
-- `.github/copilot-instructions.md`
 - `AGENTS.md`
 - `CLAUDE.md`
-- `.cursor/rules/`
+- `.cursor/rules/**`
+- `GEMINI.md`
+- `.github/copilot-instructions.md`
 
 Edit `agent-policy.yaml` and run `agent-policy generate` instead.
 

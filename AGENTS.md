@@ -42,6 +42,7 @@ Do not edit the following generated files directly:
 
 - `AGENTS.md`
 - `CLAUDE.md`
+- `site/**`
 
 Edit `agent-policy.yaml` and run `agent-policy generate` instead.
 

@@ -22,10 +22,7 @@ paths:
     - deployment.json
     - functions/**
     - package-lock.json
-  generated:
-    - AGENTS.md
-    - CLAUDE.md
-    - .cursor/rules/**
+  generated: []  # AGENTS.md, CLAUDE.md, .cursor/rules/** are auto-derived from outputs:
 
 roles:
   docs_agent:

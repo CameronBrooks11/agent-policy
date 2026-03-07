@@ -42,7 +42,9 @@ Do not edit the following generated files directly:
 
 - `AGENTS.md`
 - `CLAUDE.md`
-- `.cursor/rules/`
+- `.cursor/rules/**`
+- `GEMINI.md`
+- `.github/copilot-instructions.md`
 
 Edit `agent-policy.yaml` and run `agent-policy generate` instead.
 

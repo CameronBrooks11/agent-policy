@@ -24,13 +24,17 @@ const VALID_TARGETS: &[&str] = &[
 /// Applies all defaults and validates semantic constraints:
 /// valid glob patterns, valid role names, known output target IDs.
 ///
+/// Returns the normalized policy and a list of diagnostic warnings. Warnings
+/// are non-fatal but indicate configuration that should be cleaned up
+/// (e.g. listing output files redundantly in `paths.generated`).
+///
 /// # Errors
 ///
 /// Returns [`Error::InvalidRoleName`] for role names with disallowed characters,
 /// [`Error::Glob`] for malformed glob patterns, [`Error::UnknownTarget`] for
 /// unrecognized output target IDs, or [`Error::NoOutputs`] if the resolved
 /// outputs list is empty.
-pub fn normalize(raw: RawPolicy) -> Result<Policy> {
+pub fn normalize(raw: RawPolicy) -> Result<(Policy, Vec<String>)> {
     // Validate and normalize roles
     let mut roles: IndexMap<String, Role> = IndexMap::new();
     if let Some(raw_roles) = raw.roles {
@@ -86,7 +90,32 @@ pub fn normalize(raw: RawPolicy) -> Result<Policy> {
         return Err(Error::NoOutputs);
     }
 
-    Ok(Policy {
+    // Derive auto-generated path globs from enabled output targets.
+    let auto_globs: Vec<String> = outputs
+        .enabled()
+        .iter()
+        .map(|t| t.generated_glob().to_owned())
+        .collect();
+
+    // Warn about user-specified generated paths that duplicate auto-derived ones.
+    let mut warnings: Vec<String> = Vec::new();
+    for entry in &generated {
+        if auto_globs.contains(entry) {
+            warnings.push(format!(
+                "paths.generated: '{entry}' is already implied by your outputs \u{2014} you can remove it"
+            ));
+        }
+    }
+
+    // Final list = auto-derived (always first) + user extras (preserving order, deduped).
+    let mut final_generated: Vec<String> = auto_globs.clone();
+    for entry in &generated {
+        if !auto_globs.contains(entry) {
+            final_generated.push(entry.clone());
+        }
+    }
+
+    Ok((Policy {
         project: Project {
             name: raw.project.name,
             summary: raw.project.summary,
@@ -101,7 +130,7 @@ pub fn normalize(raw: RawPolicy) -> Result<Policy> {
         paths: Paths {
             editable,
             protected,
-            generated,
+            generated: final_generated,
         },
         roles,
         constraints: Constraints {
@@ -114,7 +143,7 @@ pub fn normalize(raw: RawPolicy) -> Result<Policy> {
                 .unwrap_or(false),
         },
         outputs,
-    })
+    }, warnings))
 }
 
 fn validate_role_name(name: &str) -> Result<()> {

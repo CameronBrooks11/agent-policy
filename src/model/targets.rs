@@ -59,6 +59,23 @@ impl TargetId {
         }
     }
 
+    /// Glob pattern(s) that cover all output files produced by this target.
+    ///
+    /// Used to auto-populate `paths.generated` in the normalized model so that
+    /// users do not need to list output files in both `outputs:` and
+    /// `paths.generated:`.
+    #[must_use]
+    pub fn generated_glob(self) -> &'static str {
+        match self {
+            TargetId::AgentsMd => "AGENTS.md",
+            TargetId::ClaudeMd => "CLAUDE.md",
+            // cursor-rules emits default.mdc plus one file per role
+            TargetId::CursorRules => ".cursor/rules/**",
+            TargetId::GeminiMd => "GEMINI.md",
+            TargetId::CopilotInstructions => ".github/copilot-instructions.md",
+        }
+    }
+
     /// Support tier: `"stable"` or `"experimental"`.
     #[must_use]
     pub fn tier(self) -> &'static str {

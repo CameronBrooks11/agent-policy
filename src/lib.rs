@@ -7,9 +7,10 @@
 //! ```no_run
 //! use camino::Utf8Path;
 //!
-//! let policy = agent_policy::load(Utf8Path::new("agent-policy.yaml"))
+//! let (policy, warnings) = agent_policy::load(Utf8Path::new("agent-policy.yaml"))
 //!     .expect("failed to load policy");
 //!
+//! for w in &warnings { eprintln!("warning: {w}"); }
 //! println!("Project: {}", policy.project.name);
 //! ```
 //!
@@ -37,11 +38,15 @@ pub use model::normalized::Policy;
 ///
 /// This is the main entry point for the entire load pipeline.
 ///
+/// Returns the normalized policy and any diagnostic warnings. Warnings are
+/// non-fatal and should be printed to stderr so the user can clean up their
+/// configuration.
+///
 /// # Errors
 ///
 /// Returns an [`Error`] if the file cannot be read, the YAML is invalid, the
 /// document fails schema validation, or normalization encounters invalid values.
-pub fn load(path: &camino::Utf8Path) -> Result<Policy> {
+pub fn load(path: &camino::Utf8Path) -> Result<(Policy, Vec<String>)> {
     let raw = load::load_file(path)?;
     model::normalize(raw)
 }

@@ -4,7 +4,7 @@ use agent_policy::{load::load_str, model::normalize, render::render_all};
 
 fn render_yaml(yaml: &str) -> Vec<(String, String)> {
     let raw = load_str(yaml).expect("parse failed");
-    let policy = normalize(raw).expect("normalize failed");
+    let (policy, _warnings) = normalize(raw).expect("normalize failed");
     let outputs = render_all(&policy).expect("render failed");
     outputs
         .into_iter()

@@ -14,7 +14,12 @@ use crate::{error::Result, load, model::normalize, render, util::fs::write_atomi
 /// Returns an [`crate::Error`] if any step of the pipeline fails.
 pub fn run(config: &Utf8Path) -> Result<()> {
     let raw = load::load_file(config)?;
-    let policy = normalize(raw)?;
+    let (policy, warnings) = normalize(raw)?;
+
+    for w in &warnings {
+        eprintln!("warning: {w}");
+    }
+
     let outputs = render::render_all(&policy)?;
 
     for output in &outputs {

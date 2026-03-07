@@ -34,8 +34,6 @@ No paths are explicitly protected.
 Do not edit the following generated files directly:
 
 - `AGENTS.md`
-- `CLAUDE.md`
-- `.cursor/rules/`
 
 Edit `agent-policy.yaml` and run `agent-policy generate` instead.
 

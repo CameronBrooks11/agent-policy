@@ -20,8 +20,7 @@ paths:
     - agent-policy.schema.json
     - Cargo.toml
   generated:
-    - AGENTS.md
-    - CLAUDE.md
+    - site/**  # MkDocs build output (not managed by outputs:)
 
 constraints:
   forbid_secrets: true
