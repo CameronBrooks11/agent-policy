@@ -30,4 +30,4 @@ This matrix captures retained ideas from ecosystem research while mapping them t
 ## Source of Truth
 
 Target selection decisions are governed by [target-support-policy.md](target-support-policy.md).
-Execution order and milestones are tracked in [ROADMAP.md](../ROADMAP.md).
+Execution order and milestones are tracked in [roadmap.md](roadmap.md).

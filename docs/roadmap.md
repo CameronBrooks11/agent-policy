@@ -21,12 +21,12 @@ v0.1.0 is a well-architected proof of concept with the right foundations:
 
 ## Completed: v0.1.0 (Phases 0–4)
 
-| Phase | Name                | Key deliverable                                                                    | Status    |
-| ----- | ------------------- | ---------------------------------------------------------------------------------- | --------- |
-| 0     | Bootstrap           | Compiling skeleton, CI green, all scaffolding committed                            | ✅ Done   |
-| 1     | Core Model          | `agent-policy.yaml` loads, validates, normalizes into stable `Policy` struct       | ✅ Done   |
-| 2     | Generation          | `init` + `generate` commands; `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` emitted  | ✅ Done   |
-| 3     | Integrity           | `check` command; CI policy-check job; tool self-dogfoods                           | ✅ Done   |
+| Phase | Name                | Key deliverable                                                                     | Status  |
+| ----- | ------------------- | ----------------------------------------------------------------------------------- | ------- |
+| 0     | Bootstrap           | Compiling skeleton, CI green, all scaffolding committed                             | ✅ Done |
+| 1     | Core Model          | `agent-policy.yaml` loads, validates, normalizes into stable `Policy` struct        | ✅ Done |
+| 2     | Generation          | `init` + `generate` commands; `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/` emitted    | ✅ Done |
+| 3     | Integrity           | `check` command; CI policy-check job; tool self-dogfoods                            | ✅ Done |
 | 4     | Hardening & Release | Path-scoped Cursor rules; v0.1.0 published to crates.io; cargo-dist binary releases | ✅ Done |
 
 ---
@@ -117,8 +117,8 @@ Enterprise and team adoption driver. Teams using code review workflows need gene
 - [ ] Add `governance` section to schema (additive):
   ```yaml
   governance:
-    codeowners: true          # derive CODEOWNERS from roles + protected paths
-    branch_protection: false   # optional GitHub ruleset JSON export
+    codeowners: true # derive CODEOWNERS from roles + protected paths
+    branch_protection: false # optional GitHub ruleset JSON export
   ```
 - [ ] `CODEOWNERS` renderer — derive ownership from `roles` + `paths.protected`
 - [ ] Add `codeowners` target to valid `outputs` values
@@ -160,7 +160,7 @@ Not a feature release — a commitment release. The goal is formal declaration t
 
 - [ ] Schema `v1` formally frozen: documented compatibility guarantee, deprecation policy
 - [ ] All targets designated `stable` or `experimental` with documented update criteria
-- [ ] CONTRIBUTING.md, code of conduct, issue and PR templates
+- [ ] contributing.md, code of conduct, issue and PR templates
 - [ ] User guide, schema reference, cookbook, CI integration guide (complete documentation)
 - [ ] CHANGELOG mature and accurate from 0.1 forward
 - [ ] Upgrade guide: 0.x → 1.0 migration notes
@@ -177,12 +177,12 @@ Not a feature release — a commitment release. The goal is formal declaration t
 
 ## What to Defer (Not Before 1.0)
 
-| Item | Reason |
-| ---- | ------ |
+| Item                              | Reason                                                                                                                                 |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 | MCP server (`agent-policy serve`) | MCP spec still churning; phase 7 only begins once spec is stable and real agent tooling demonstrates reliable MCP resource consumption |
-| Python/npm wrappers | `cargo install` is sufficient; wrappers add maintenance without proven demand |
-| Community template registry | Needs a stable, matured target model first; Milestone E in target-expansion.md |
-| Profile system / `--profile` flag | Only justified if target count + user workflow complexity outgrows boolean output flags; reassess at v0.5 |
+| Python/npm wrappers               | `cargo install` is sufficient; wrappers add maintenance without proven demand                                                          |
+| Community template registry       | Needs a stable, matured target model first; Milestone E in target-expansion.md                                                         |
+| Profile system / `--profile` flag | Only justified if target count + user workflow complexity outgrows boolean output flags; reassess at v0.5                              |
 
 ---
 
@@ -198,12 +198,12 @@ Not a feature release — a commitment release. The goal is formal declaration t
 
 ## Version Summary
 
-| Version | Theme                     | Key deliverable                                      |
-| ------- | ------------------------- | ---------------------------------------------------- |
-| v0.1    | Proof of concept          | Core pipeline, 3 targets, crates.io, self-dogfooding |
-| v0.2    | Target breadth            | GEMINI.md, Copilot instructions, `list-targets`, schema_version |
-| v0.3    | Full target coverage      | Windsurf, Cline, Junie, `--targets` flag, stability tiers |
-| v0.4    | Migration + linting       | `import`, `lint`, `install-hooks`                    |
-| v0.5    | Governance                | CODEOWNERS generation, branch protection export      |
-| v0.6    | Enforcement integration   | Claude hooks config, `audit` command                 |
-| v1.0    | Stability declaration     | Frozen schema, full docs, formal compat guarantee    |
+| Version | Theme                   | Key deliverable                                                 |
+| ------- | ----------------------- | --------------------------------------------------------------- |
+| v0.1    | Proof of concept        | Core pipeline, 3 targets, crates.io, self-dogfooding            |
+| v0.2    | Target breadth          | GEMINI.md, Copilot instructions, `list-targets`, schema_version |
+| v0.3    | Full target coverage    | Windsurf, Cline, Junie, `--targets` flag, stability tiers       |
+| v0.4    | Migration + linting     | `import`, `lint`, `install-hooks`                               |
+| v0.5    | Governance              | CODEOWNERS generation, branch protection export                 |
+| v0.6    | Enforcement integration | Claude hooks config, `audit` command                            |
+| v1.0    | Stability declaration   | Frozen schema, full docs, formal compat guarantee               |

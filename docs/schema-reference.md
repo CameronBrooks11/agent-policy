@@ -1,0 +1,226 @@
+# Schema Reference
+
+`agent-policy.yaml` is validated against [`agent-policy.schema.json`](https://github.com/CameronBrooks11/agent-policy/blob/main/agent-policy.schema.json) on every `generate` and `check` invocation. Unknown top-level keys are rejected.
+
+Only `project.name` is required. All other fields are optional.
+
+---
+
+## `project`
+
+**Required.**
+
+Identity and purpose of the repository.
+
+```yaml
+project:
+  name: my-repo
+  summary: A one-sentence description of what this repo does.
+```
+
+| Field     | Type   | Required | Description                                                                                             |
+| --------- | ------ | -------- | ------------------------------------------------------------------------------------------------------- |
+| `name`    | string | **yes**  | Short identifier for this repository. Used in headings and descriptions of generated files.             |
+| `summary` | string | no       | One-sentence description of the repository's purpose. Included verbatim in generated instruction files. |
+
+---
+
+## `commands`
+
+Shell commands agents should use in this repository. All fields are optional — omit any command that doesn't apply.
+
+```yaml
+commands:
+  install: npm install
+  dev: npm run dev
+  lint: npm run lint
+  test: npm test
+  build: npm run build
+```
+
+| Field     | Type   | Description                       |
+| --------- | ------ | --------------------------------- |
+| `install` | string | Dependency installation command.  |
+| `dev`     | string | Local development server command. |
+| `lint`    | string | Lint command.                     |
+| `test`    | string | Test suite command.               |
+| `build`   | string | Build or compile command.         |
+
+These commands are rendered into generated files as the authoritative commands agents should use. An agent reading `AGENTS.md` or `CLAUDE.md` will see only the commands listed here — not guesses or defaults.
+
+---
+
+## `paths`
+
+Repository path classifications using [glob patterns](<https://en.wikipedia.org/wiki/Glob_(programming)>). All three sub-fields are optional arrays of glob strings.
+
+```yaml
+paths:
+  editable:
+    - src/**
+    - tests/**
+    - docs/**
+  protected:
+    - .github/workflows/**
+    - Cargo.toml
+  generated:
+    - AGENTS.md
+    - CLAUDE.md
+    - .cursor/rules/**
+```
+
+| Field       | Type     | Description                                                                                                                                       |
+| ----------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `editable`  | string[] | Paths agents may freely modify. Rendered as the "allowed edit paths" in generated files.                                                          |
+| `protected` | string[] | Paths that require human review before agent changes are accepted. Rendered as a explicit list of paths that should not be modified unilaterally. |
+| `generated` | string[] | Paths that are generated artifacts — agents should not edit these directly; they are outputs of `agent-policy generate`.                          |
+
+!!! note "These are documentation, not enforcement"
+Path classifications are rendered into instruction files read by coding agents. They are not enforced at the file system level. Enforcement lives in `CODEOWNERS`, branch protection rules, and CI checks — see [Vision](vision.md) for the full picture.
+
+---
+
+## `roles`
+
+Named agent roles with path-scoped permissions. Roles let you define different access boundaries for different agent personas in the same repository.
+
+```yaml
+roles:
+  docs_agent:
+    editable:
+      - docs/**
+      - content/**
+    forbidden:
+      - src/**
+      - infrastructure/**
+
+  backend_agent:
+    editable:
+      - src/**
+      - tests/**
+    forbidden:
+      - infrastructure/**
+```
+
+Role names must match `^[a-z][a-z0-9_]*$` — lowercase letters, digits, and underscores only, starting with a letter.
+
+Each role is an object with:
+
+| Field       | Type     | Description                                                                                                                                        |
+| ----------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `editable`  | string[] | Paths this role may edit. When `cursor-rules` is enabled, these patterns become the `globs` field of the per-role `.cursor/rules/{role}.mdc` file. |
+| `forbidden` | string[] | Paths this role must never edit, even if they appear in the global `paths.editable` list.                                                          |
+
+Both fields are optional. A role with neither `editable` nor `forbidden` is valid but generates minimal output.
+
+### Cursor rules and roles
+
+When `cursor-rules` is in `outputs` and a role has one or more `editable` paths, `agent-policy` generates a dedicated `.cursor/rules/{role_name}.mdc` file for that role. Cursor activates this rule automatically when files matching the glob patterns are in context:
+
+```
+.cursor/rules/default.mdc        ←  global, alwaysApply: true
+.cursor/rules/docs_agent.mdc     ←  globs: docs/**,content/**
+.cursor/rules/backend_agent.mdc  ←  globs: src/**,tests/**
+```
+
+---
+
+## `constraints`
+
+Behavioral guardrails agents must observe. All fields are boolean and default to `false` when omitted.
+
+```yaml
+constraints:
+  forbid_secrets: true
+  require_tests_for_code_changes: true
+  require_human_review_for_protected_paths: true
+```
+
+| Field                                      | Type | Default | Description                                                                  |
+| ------------------------------------------ | ---- | ------- | ---------------------------------------------------------------------------- |
+| `forbid_secrets`                           | bool | `false` | Agents must never commit secrets, credentials, API keys, or tokens.          |
+| `require_tests_for_code_changes`           | bool | `false` | Agents must include appropriate tests when making code changes.              |
+| `require_human_review_for_protected_paths` | bool | `false` | Changes to protected paths require human review and approval before merging. |
+
+Enabled constraints are rendered as explicit rules in generated instruction files.
+
+---
+
+## `outputs`
+
+The list of output target IDs to generate. When omitted entirely, defaults to `[agents-md]`.
+
+```yaml
+outputs:
+  - agents-md
+  - claude-md
+  - cursor-rules
+```
+
+| Value          | Files generated                              | Tools                                              |
+| -------------- | -------------------------------------------- | -------------------------------------------------- |
+| `agents-md`    | `AGENTS.md`                                  | Codex, Cursor, Copilot agent, Windsurf, and others |
+| `claude-md`    | `CLAUDE.md`                                  | Claude Code, GitHub Copilot                        |
+| `cursor-rules` | `.cursor/rules/default.mdc` + per-role files | Cursor                                             |
+
+- Order in the array does not affect output.
+- Unknown target IDs are rejected at normalization time with an explicit error.
+- An explicitly empty array (`outputs: []`) is also rejected — at least one target is required.
+
+See [Targets](compatibility-matrix.md) for the full list of supported and planned targets.
+
+---
+
+## Complete example
+
+```yaml
+project:
+  name: acme-platform
+  summary: Core backend services and API gateway for the Acme platform.
+
+commands:
+  install: go mod download
+  lint: golangci-lint run
+  test: go test -race ./...
+  build: go build ./...
+
+paths:
+  editable:
+    - internal/**
+    - pkg/**
+    - cmd/**
+    - tests/**
+  protected:
+    - .github/workflows/**
+    - go.mod
+    - go.sum
+    - deployment/**
+  generated:
+    - AGENTS.md
+    - CLAUDE.md
+    - .cursor/rules/**
+
+roles:
+  api_agent:
+    editable:
+      - internal/api/**
+      - pkg/models/**
+    forbidden:
+      - deployment/**
+  infra_agent:
+    editable:
+      - deployment/**
+    forbidden:
+      - internal/**
+      - pkg/**
+
+constraints:
+  forbid_secrets: true
+  require_tests_for_code_changes: true
+  require_human_review_for_protected_paths: true
+
+outputs:
+  - agents-md
+  - claude-md
+  - cursor-rules
+```

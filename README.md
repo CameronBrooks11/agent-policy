@@ -6,6 +6,7 @@ Schema-first generator for coding-agent repo policies and compatibility files.
 
 [![crates.io](https://img.shields.io/crates/v/agent-policy)](https://crates.io/crates/agent-policy)
 [![docs.rs](https://img.shields.io/docsrs/agent-policy)](https://docs.rs/agent-policy)
+[![Docs site](https://img.shields.io/badge/docs-site-blue)](https://cameronbrooks11.github.io/agent-policy/)
 [![CI](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml/badge.svg)](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
