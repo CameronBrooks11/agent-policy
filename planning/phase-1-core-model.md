@@ -36,7 +36,7 @@ The raw types mirror the YAML structure exactly. The normalized model is what re
 serde = { version = "1", features = ["derive"] }
 serde_yaml = "0.9"
 serde_json = "1"
-jsonschema = "0.18"
+jsonschema = "0.44"
 anyhow = "1"
 thiserror = "1"
 camino = "1"

@@ -1,1 +1,116 @@
-{}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/CameronBrooks11/agent-policy/agent-policy.schema.json",
+  "title": "AgentPolicy",
+  "description": "Schema for agent-policy.yaml configuration files.",
+  "type": "object",
+  "required": ["project"],
+  "additionalProperties": false,
+  "properties": {
+    "project": {
+      "description": "Project identity and purpose.",
+      "type": "object",
+      "required": ["name"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Short identifier for this repository.",
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "description": "One-sentence description of the repository purpose.",
+          "type": "string"
+        }
+      }
+    },
+    "commands": {
+      "description": "Shell commands agents should use in this repository.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "install": { "type": "string", "description": "Dependency installation command." },
+        "dev":     { "type": "string", "description": "Local development server command." },
+        "lint":    { "type": "string", "description": "Lint command." },
+        "test":    { "type": "string", "description": "Test suite command." },
+        "build":   { "type": "string", "description": "Build command." }
+      }
+    },
+    "paths": {
+      "description": "Repository path classifications using glob patterns.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "editable": {
+          "description": "Paths agents may freely edit.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "protected": {
+          "description": "Paths that require human review before agent changes are accepted.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "generated": {
+          "description": "Paths that are generated artifacts agents should not edit directly.",
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "roles": {
+      "description": "Named agent roles with scoped path permissions.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "editable": {
+            "description": "Paths this role may edit.",
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "forbidden": {
+            "description": "Paths this role must never edit.",
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "constraints": {
+      "description": "Behavioral guardrails agents must observe.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "require_tests_for_code_changes": {
+          "description": "Agent must include tests when making code changes.",
+          "type": "boolean"
+        },
+        "forbid_secrets": {
+          "description": "Agent must never commit secrets, credentials, or tokens.",
+          "type": "boolean"
+        },
+        "require_human_review_for_protected_paths": {
+          "description": "Changes to protected paths require human approval before merge.",
+          "type": "boolean"
+        }
+      }
+    },
+    "outputs": {
+      "description": "List of output target IDs to generate. Defaults to [\"agents-md\"] when omitted.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["agents-md", "claude-md", "cursor-rules"]
+      },
+      "uniqueItems": true
+    }
+  }
+}
+
