@@ -13,6 +13,7 @@ fn main() {
         Command::Check { config, targets } => {
             agent_policy::commands::check::run(&config, targets.as_deref())
         }
+        Command::Lint { config } => agent_policy::commands::lint::run(&config),
         Command::ListTargets => {
             agent_policy::commands::list_targets::run();
             Ok(())

@@ -116,3 +116,63 @@ fn generate_missing_config_exits_nonzero() {
         .assert()
         .failure();
 }
+
+#[test]
+fn lint_exits_zero_on_valid_config() {
+    let dir = TempDir::new().unwrap();
+    std::fs::copy(
+        "examples/minimal/agent-policy.yaml",
+        dir.path().join("agent-policy.yaml"),
+    )
+    .unwrap();
+    agent_policy()
+        .arg("lint")
+        .current_dir(dir.path())
+        .assert()
+        .success()
+        .stdout(contains("Lint passed"));
+}
+
+#[test]
+fn lint_exits_nonzero_on_path_conflicts() {
+    let dir = TempDir::new().unwrap();
+    let bad_config = r#"
+schema_version: "1"
+project:
+  name: bad
+paths:
+  editable:
+    - src/**
+  protected:
+    - src/**
+"#;
+    std::fs::write(dir.path().join("agent-policy.yaml"), bad_config).unwrap();
+    agent_policy()
+        .arg("lint")
+        .current_dir(dir.path())
+        .assert()
+        .failure()
+        .stderr(contains("Path conflict"))
+        .stderr(contains("Lint failed with errors"));
+}
+
+#[test]
+fn lint_emits_warning_on_empty_role_scope() {
+    let dir = TempDir::new().unwrap();
+    let warning_config = r#"
+schema_version: "1"
+project:
+  name: warn_mode
+roles:
+  empty_role:
+    editable: []
+"#;
+    std::fs::write(dir.path().join("agent-policy.yaml"), warning_config).unwrap();
+    agent_policy()
+        .arg("lint")
+        .current_dir(dir.path())
+        .assert()
+        .success() // Should succeed because it is only a warning!
+        .stdout(contains("Lint passed"))
+        .stdout(contains("Warning"));
+}

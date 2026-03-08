@@ -49,6 +49,15 @@ pub enum Command {
         targets: Option<Vec<String>>,
     },
 
+    /// Analyze agent-policy.yaml for semantic errors and warnings.
+    ///
+    /// Exits non-zero if validation errors (e.g., path conflicts) are found.
+    Lint {
+        /// Path to agent-policy.yaml.
+        #[arg(long, short, default_value = "agent-policy.yaml")]
+        config: camino::Utf8PathBuf,
+    },
+
     /// List all supported output targets and their output paths.
     #[command(name = "list-targets")]
     ListTargets,

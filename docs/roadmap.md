@@ -1,6 +1,6 @@
 # Roadmap: agent-policy
 
-> Last updated: 2026-03-07 — post v0.1.0 release review.
+> Last updated: 2026-03-07 — post v0.3.1 release review.
 > For architectural vision and design principles, see [vision.md](vision.md).
 
 ---
@@ -65,17 +65,17 @@ Complete the target matrix so no major tool is missing. After this release, "wha
 
 #### Targets
 
-- [ ] `.github/instructions/*.instructions.md` (GitHub Copilot scoped instructions)
-- [ ] `.windsurf/rules/*.md` (Windsurf)
-- [ ] `.clinerules/` (Cline)
-- [ ] `.junie/guidelines.md` (JetBrains Junie)
+- [x] `.github/instructions/*.instructions.md` (GitHub Copilot scoped instructions)
+- [x] `.windsurf/rules/*.md` (Windsurf)
+- [x] `.clinerules/` (Cline)
+- [x] `.junie/guidelines.md` (JetBrains Junie)
 
 #### Supporting work
 
-- [ ] `--targets` CLI flag — generate a subset of outputs without editing YAML
-- [ ] Stability tiers formally defined (`stable` / `experimental`) and surfaced in `list-targets`
-- [ ] Expanded examples: monorepo, frontend-heavy, backend-heavy, open source project
-- [ ] Full compatibility matrix table in docs
+- [x] `--targets` CLI flag — generate a subset of outputs without editing YAML
+- [x] Stability tiers formally defined (`stable` / `experimental`) and surfaced in `list-targets`
+- [x] Expanded examples: monorepo, frontend-heavy, backend-heavy, open source project
+- [x] Full compatibility matrix table in docs
 
 #### Exit condition
 
