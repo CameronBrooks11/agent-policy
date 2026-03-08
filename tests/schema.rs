@@ -204,12 +204,18 @@ outputs:
     let raw = load_str(yaml).expect("should parse");
     let (policy, warnings) = normalize(raw).expect("should normalize");
     assert!(
-        policy.paths.generated_policy.contains(&"AGENTS.md".to_owned()),
+        policy
+            .paths
+            .generated_policy
+            .contains(&"AGENTS.md".to_owned()),
         "AGENTS.md should be auto-injected: {:?}",
         policy.paths.generated_policy
     );
     assert!(
-        policy.paths.generated_policy.contains(&"CLAUDE.md".to_owned()),
+        policy
+            .paths
+            .generated_policy
+            .contains(&"CLAUDE.md".to_owned()),
         "CLAUDE.md should be auto-injected: {:?}",
         policy.paths.generated_policy
     );
@@ -240,7 +246,10 @@ outputs:
         .filter(|p| *p == "AGENTS.md")
         .count();
     assert_eq!(count, 1, "AGENTS.md should appear exactly once");
-    assert!(!policy.paths.generated_project.contains(&"AGENTS.md".to_owned()));
+    assert!(!policy
+        .paths
+        .generated_project
+        .contains(&"AGENTS.md".to_owned()));
     // At least one warning about it
     assert!(
         !warnings.is_empty(),
@@ -276,17 +285,26 @@ outputs:
     let raw = load_str(yaml).expect("should parse");
     let (policy, warnings) = normalize(raw).expect("should normalize");
     assert!(
-        policy.paths.generated_policy.contains(&"AGENTS.md".to_owned()),
+        policy
+            .paths
+            .generated_policy
+            .contains(&"AGENTS.md".to_owned()),
         "AGENTS.md auto-injected: {:?}",
         policy.paths.generated_policy
     );
     assert!(
-        policy.paths.generated_project.contains(&"site/**".to_owned()),
+        policy
+            .paths
+            .generated_project
+            .contains(&"site/**".to_owned()),
         "site/** preserved: {:?}",
         policy.paths.generated_project
     );
     assert!(
-        policy.paths.generated_project.contains(&"dist/**".to_owned()),
+        policy
+            .paths
+            .generated_project
+            .contains(&"dist/**".to_owned()),
         "dist/** preserved: {:?}",
         policy.paths.generated_project
     );
