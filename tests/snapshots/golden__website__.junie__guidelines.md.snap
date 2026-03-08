@@ -1,0 +1,54 @@
+---
+source: tests/golden.rs
+expression: content
+---
+# website — Junie Guidelines
+
+Public marketing website and documentation.
+
+## Commands
+
+- Test: `npm test`
+- Install: `npm install`
+- Lint: `npm run lint`
+- Build: `npm run build`
+
+## Directories & Permissions
+
+You may freely edit:
+- `src/**`
+- `public/**`
+- `docs/**`
+- `content/**`
+
+Do not modify without human review:
+- `.github/workflows/**`
+- `deployment.json`
+- `functions/**`
+- `package-lock.json`
+
+## Roles
+
+### Role: docs_agent
+Allowed paths:
+- `docs/**`
+- `content/**`
+
+Forbidden paths:
+- `src/**`
+- `functions/**`
+- `.github/**`
+
+### Role: frontend_agent
+Allowed paths:
+- `src/**`
+- `public/**`
+
+Forbidden paths:
+- `functions/**`
+- `deployment.json`
+- `.github/**`
+
+
+## Rules & Anti-patterns
+- Never commit secrets or credentials.- Escalate protected path changes for human review.

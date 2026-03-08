@@ -1,0 +1,28 @@
+---
+source: tests/golden.rs
+expression: content
+---
+---
+paths:
+  - "src/**"
+  - "public/**"
+---
+
+# Role: `frontend_agent`
+
+This rule applies when editing files mapped to this role.
+
+## Allowed paths for this role
+
+- `src/**`
+- `public/**`
+
+## Forbidden paths for this role
+
+- `functions/**`
+- `deployment.json`
+- `.github/**`
+
+---
+
+*Defined in `agent-policy.yaml` → roles → frontend_agent*

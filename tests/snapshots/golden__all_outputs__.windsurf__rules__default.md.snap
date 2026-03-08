@@ -1,0 +1,30 @@
+---
+source: tests/golden.rs
+expression: content
+---
+---
+description: "website — Agent Policy Rules"
+trigger: always_on
+---
+
+# website — Agent Policy
+
+Marketing website.
+
+## Commands
+
+- Test: `npm test`
+- Install: `npm install`
+- Lint: `npm run lint`
+
+## Edit permissions
+
+You may freely edit:
+- `src/**`
+- `docs/**`
+
+Do not modify without human review:
+- `.github/**`
+
+## Constraints
+- Never commit secrets or credentials.- Include tests with code changes.

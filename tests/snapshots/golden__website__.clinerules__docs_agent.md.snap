@@ -1,0 +1,28 @@
+---
+source: tests/golden.rs
+expression: content
+---
+---
+paths:
+  - "docs/**"
+  - "content/**"
+---
+
+# Role: `docs_agent`
+
+This rule applies when editing files mapped to this role.
+
+## Allowed paths for this role
+
+- `docs/**`
+- `content/**`
+
+## Forbidden paths for this role
+
+- `src/**`
+- `functions/**`
+- `.github/**`
+
+---
+
+*Defined in `agent-policy.yaml` → roles → docs_agent*

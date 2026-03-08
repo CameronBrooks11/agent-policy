@@ -32,7 +32,7 @@ Do not modify without human review:
 
 ## Roles
 {% if roles %}
-{%- for role_name, role in roles %}
+{%- for role_name, role in roles|items %}
 ### Role: {{ role_name }}
 Allowed paths:
 {%- for p in role.editable %}

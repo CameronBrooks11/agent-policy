@@ -1,0 +1,35 @@
+---
+source: tests/golden.rs
+expression: content
+---
+# website — Junie Guidelines
+
+Marketing website.
+
+## Commands
+
+- Test: `npm test`
+- Install: `npm install`
+- Lint: `npm run lint`
+
+## Directories & Permissions
+
+You may freely edit:
+- `src/**`
+- `docs/**`
+
+Do not modify without human review:
+- `.github/**`
+
+## Roles
+
+### Role: docs_agent
+Allowed paths:
+- `docs/**`
+
+Forbidden paths:
+- `src/**`
+
+
+## Rules & Anti-patterns
+- Never commit secrets or credentials.- Include tests with code changes.
