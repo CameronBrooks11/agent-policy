@@ -16,6 +16,18 @@ npm install -g agent-policy
 
 Requires Node.js 18+. npm automatically installs only the pre-built binary for your current platform — no compilation needed.
 
+### From PyPI (no Rust toolchain required)
+
+```bash
+pip install agent-policy
+# or with pipx (recommended for CLI tools)
+pipx install agent-policy
+# or with uv
+uv tool install agent-policy
+```
+
+Requires Python 3.8+. pip automatically selects the correct pre-built binary wheel for your platform — no compilation needed.
+
 ### From crates.io
 
 Requires [Rust](https://rustup.rs/) (stable, MSRV 1.75):
@@ -175,6 +187,16 @@ Or if you have npm available:
 ```yaml
 - name: Install agent-policy
   run: npm install -g agent-policy
+
+- name: Check agent policy
+  run: agent-policy check
+```
+
+Or with pip/pipx:
+
+```yaml
+- name: Install agent-policy
+  run: pipx install agent-policy
 
 - name: Check agent policy
   run: agent-policy check

@@ -6,6 +6,7 @@ Schema-first generator for coding-agent repo policies and compatibility files.
 
 [![crates.io](https://img.shields.io/crates/v/agent-policy)](https://crates.io/crates/agent-policy)
 [![npm](https://img.shields.io/npm/v/agent-policy)](https://www.npmjs.com/package/agent-policy)
+[![PyPI](https://img.shields.io/pypi/v/agent-policy)](https://pypi.org/project/agent-policy/)
 [![docs.rs](https://img.shields.io/docsrs/agent-policy)](https://docs.rs/agent-policy)
 [![Docs site](https://img.shields.io/badge/docs-site-blue)](https://cameronbrooks11.github.io/agent-policy/)
 [![CI](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml/badge.svg)](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml)
@@ -25,6 +26,16 @@ Keep one policy file. Generate all agent instruction files from it. Detect drift
 npx agent-policy
 # or install globally
 npm install -g agent-policy
+```
+
+### From PyPI (no Rust toolchain required)
+
+```bash
+pip install agent-policy
+# or with pipx (recommended for CLI tools)
+pipx install agent-policy
+# or with uv
+uv tool install agent-policy
 ```
 
 ### From crates.io
