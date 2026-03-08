@@ -18,6 +18,8 @@ fn main() {
             agent_policy::commands::list_targets::run();
             Ok(())
         }
+        Command::InstallHooks { pre_push } => agent_policy::commands::install_hooks::run(pre_push),
+        Command::Import => agent_policy::commands::import::run(),
     };
 
     if let Err(e) = result {

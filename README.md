@@ -8,7 +8,7 @@ Schema-first generator for coding-agent repo policies and compatibility files.
 [![docs.rs](https://img.shields.io/docsrs/agent-policy)](https://docs.rs/agent-policy)
 [![Docs site](https://img.shields.io/badge/docs-site-blue)](https://cameronbrooks11.github.io/agent-policy/)
 [![CI](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml/badge.svg)](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml)
-[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-7d247e.svg)](LICENSE)
 
 ## What it does
 
@@ -43,13 +43,13 @@ agent-policy check
 
 ## Commands
 
-| Command | Description |
-|---|---|
-| `agent-policy init` | Write a starter `agent-policy.yaml` in the current directory |
+| Command                     | Description                                                      |
+| --------------------------- | ---------------------------------------------------------------- |
+| `agent-policy init`         | Write a starter `agent-policy.yaml` in the current directory     |
 | `agent-policy list-targets` | View a table of all available export formats and their stability |
-| `agent-policy generate` | Generate all enabled output files from `agent-policy.yaml` |
-| `agent-policy lint` | Analyze `agent-policy.yaml` for semantic errors and warnings |
-| `agent-policy check` | Verify committed files match the current policy (CI use) |
+| `agent-policy generate`     | Generate all enabled output files from `agent-policy.yaml`       |
+| `agent-policy lint`         | Analyze `agent-policy.yaml` for semantic errors and warnings     |
+| `agent-policy check`        | Verify committed files match the current policy (CI use)         |
 
 Both `generate` and `check` accept `--config` / `-c` to specify a non-default config path, and `--targets` to natively override outputs:
 
@@ -70,7 +70,7 @@ outputs:
   - agents-md
 ```
 
-*Note: You do not need to manually add `.md` outputs or target paths to your `paths.generated` config list. Any active `outputs` are injected into your generated list automatically!*
+_Note: You do not need to manually add `.md` outputs or target paths to your `paths.generated` config list. Any active `outputs` are injected into your generated list automatically!_
 
 Full example — see [`examples/website/agent-policy.yaml`](examples/website/agent-policy.yaml).
 
@@ -78,17 +78,17 @@ The file is validated against [`agent-policy.schema.json`](agent-policy.schema.j
 
 ## Generated outputs
 
-| Target ID | File | Enabled by default | Tool(s) |
-|---|---|---|---|
-| `agents-md` | `AGENTS.md` | Yes | Codex, Windsurf, Copilot |
-| `claude-md` | `CLAUDE.md` | No | Claude Code, Copilot |
-| `cursor-rules` | `.cursor/rules/*.mdc` | No | Cursor |
-| `gemini-md` | `GEMINI.md` | No | Google Gemini CLI |
-| `windsurf-rules` | `.windsurf/rules/*.md` | No | Codeium Windsurf |
-| `clinerules` | `.clinerules/*.md` | No | Cline |
-| `copilot-instructions` | `.github/copilot-instructions.md` | No | Copilot (Global) |
-| `copilot-instructions-scoped` | `.github/instructions/*.md` | No | Copilot (Scoped Context) |
-| `junie-guidelines` | `.junie/guidelines.md` | No | JetBrains Junie |
+| Target ID                     | File                              | Enabled by default | Tool(s)                  |
+| ----------------------------- | --------------------------------- | ------------------ | ------------------------ |
+| `agents-md`                   | `AGENTS.md`                       | Yes                | Codex, Windsurf, Copilot |
+| `claude-md`                   | `CLAUDE.md`                       | No                 | Claude Code, Copilot     |
+| `cursor-rules`                | `.cursor/rules/*.mdc`             | No                 | Cursor                   |
+| `gemini-md`                   | `GEMINI.md`                       | No                 | Google Gemini CLI        |
+| `windsurf-rules`              | `.windsurf/rules/*.md`            | No                 | Codeium Windsurf         |
+| `clinerules`                  | `.clinerules/*.md`                | No                 | Cline                    |
+| `copilot-instructions`        | `.github/copilot-instructions.md` | No                 | Copilot (Global)         |
+| `copilot-instructions-scoped` | `.github/instructions/*.md`       | No                 | Copilot (Scoped Context) |
+| `junie-guidelines`            | `.junie/guidelines.md`            | No                 | JetBrains Junie          |
 
 When outputting directory rules like `cursor-rules` or `clinerules`, `agent-policy` generates one default layout and optionally one file per customized role, intelligently assigning frontmatter globs and path references directly into the generated configurations to cleanly silo AI behaviors scope-to-scope!
 

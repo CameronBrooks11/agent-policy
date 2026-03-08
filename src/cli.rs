@@ -61,4 +61,15 @@ pub enum Command {
     /// List all supported output targets and their output paths.
     #[command(name = "list-targets")]
     ListTargets,
+
+    /// Install a git hook to automatically check agent-policy during commits.
+    #[command(name = "install-hooks")]
+    InstallHooks {
+        /// Install as a pre-push hook instead of pre-commit
+        #[arg(long)]
+        pre_push: bool,
+    },
+
+    /// Import existing AGENTS.md or CLAUDE.md to scaffold a new agent-policy.yaml.
+    Import,
 }

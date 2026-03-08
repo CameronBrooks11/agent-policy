@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] — 2026-03-07
+
+### Added
+
+- `agent-policy install-hooks` command — generates `.git/hooks/pre-commit` or `.git/hooks/pre-push` scripts to automatically run `agent-policy check` and enforce generated file synchronization locally.
+- `agent-policy import` command — scaffolds a new `agent-policy.yaml` configuration by naively scraping/extracting paths from existing convention markdown files (e.g., `AGENTS.md` and `CLAUDE.md`).
+
+### Changed
+
+- Monorepo Support: `generate` and `check` commands now output rendered artifact streams relative to the directory containing the loaded `--config` file rather than assuming root shell execution.
+
 ## [0.4.0] — 2026-03-07
 
 ### Added

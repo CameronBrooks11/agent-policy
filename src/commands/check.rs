@@ -50,15 +50,17 @@ pub fn run(config: &Utf8Path, targets: Option<&[String]>) -> Result<()> {
     let outputs = render::render_all(&policy)?;
 
     let mut checks: Vec<FileCheck> = Vec::new();
+    let base_dir = config.parent().unwrap_or(Utf8Path::new(""));
 
     for output in &outputs {
+        let path = base_dir.join(&output.path);
         let generated = diff::normalize_line_endings(&output.content);
-        let committed = read_if_exists(output.path.as_std_path())?;
+        let committed = read_if_exists(path.as_std_path())?;
 
         match committed {
             None => {
                 checks.push(FileCheck::Missing {
-                    path: output.path.to_string(),
+                    path: path.to_string(),
                 });
             }
             Some(committed_raw) => {
@@ -66,9 +68,9 @@ pub fn run(config: &Utf8Path, targets: Option<&[String]>) -> Result<()> {
                 if committed_norm == generated {
                     checks.push(FileCheck::Ok);
                 } else {
-                    let d = diff::unified_diff(output.path.as_str(), &committed_norm, &generated);
+                    let d = diff::unified_diff(path.as_str(), &committed_norm, &generated);
                     checks.push(FileCheck::Stale {
-                        path: output.path.to_string(),
+                        path: path.to_string(),
                         diff: d,
                     });
                 }

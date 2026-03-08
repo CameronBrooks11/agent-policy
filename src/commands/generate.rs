@@ -37,9 +37,12 @@ pub fn run(config: &Utf8Path, targets: Option<&[String]>) -> Result<()> {
 
     let outputs = render::render_all(&policy)?;
 
+    let base_dir = config.parent().unwrap_or(Utf8Path::new(""));
+
     for output in &outputs {
-        write_atomic(output.path.as_std_path(), &output.content)?;
-        println!("  wrote  {}", output.path);
+        let path = base_dir.join(&output.path);
+        write_atomic(path.as_std_path(), &output.content)?;
+        println!("  wrote  {path}");
     }
 
     println!("\nGenerated {} file(s).", outputs.len());
