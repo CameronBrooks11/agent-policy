@@ -1,5 +1,5 @@
 {
-  "name": "@agent-policy/darwin-arm64",
+  "name": "@cameronbrooks11/agent-policy-darwin-arm64",
   "version": "0.6.0",
   "description": "macOS arm64 (Apple Silicon) binary for agent-policy",
   "repository": {
@@ -9,8 +9,12 @@
   },
   "license": "Apache-2.0",
   "main": "agent-policy",
-  "os": ["darwin"],
-  "cpu": ["arm64"],
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "arm64"
+  ],
   "files": [
     "agent-policy"
   ]

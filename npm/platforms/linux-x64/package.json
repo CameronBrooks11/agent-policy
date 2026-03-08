@@ -1,5 +1,5 @@
 {
-  "name": "@agent-policy/linux-x64",
+  "name": "@cameronbrooks11/agent-policy-linux-x64",
   "version": "0.6.0",
   "description": "Linux x64 binary for agent-policy",
   "repository": {
@@ -9,8 +9,12 @@
   },
   "license": "Apache-2.0",
   "main": "agent-policy",
-  "os": ["linux"],
-  "cpu": ["x64"],
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "x64"
+  ],
   "files": [
     "agent-policy"
   ]

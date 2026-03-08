@@ -5,11 +5,11 @@ const { execFileSync } = require("child_process");
 const path = require("path");
 
 const PLATFORMS = {
-  "linux-x64":    { pkg: "@agent-policy/linux-x64",    bin: "agent-policy"     },
-  "linux-arm64":  { pkg: "@agent-policy/linux-arm64",   bin: "agent-policy"     },
-  "darwin-x64":   { pkg: "@agent-policy/darwin-x64",    bin: "agent-policy"     },
-  "darwin-arm64": { pkg: "@agent-policy/darwin-arm64",  bin: "agent-policy"     },
-  "win32-x64":    { pkg: "@agent-policy/win32-x64",     bin: "agent-policy.exe" },
+  "linux-x64":    { pkg: "@cameronbrooks11/agent-policy-linux-x64",    bin: "agent-policy"     },
+  "linux-arm64":  { pkg: "@cameronbrooks11/agent-policy-linux-arm64",   bin: "agent-policy"     },
+  "darwin-x64":   { pkg: "@cameronbrooks11/agent-policy-darwin-x64",    bin: "agent-policy"     },
+  "darwin-arm64": { pkg: "@cameronbrooks11/agent-policy-darwin-arm64",  bin: "agent-policy"     },
+  "win32-x64":    { pkg: "@cameronbrooks11/agent-policy-win32-x64",     bin: "agent-policy.exe" },
 };
 
 const key = `${process.platform}-${process.arch}`;
