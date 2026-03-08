@@ -1,6 +1,6 @@
 {
   "name": "@agent-policy/darwin-arm64",
-  "version": "0.0.0",
+  "version": "0.6.0",
   "description": "macOS arm64 (Apple Silicon) binary for agent-policy",
   "repository": {
     "type": "git",

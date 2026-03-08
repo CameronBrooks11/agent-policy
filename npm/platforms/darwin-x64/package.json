@@ -1,6 +1,6 @@
 {
   "name": "@agent-policy/darwin-x64",
-  "version": "0.0.0",
+  "version": "0.6.0",
   "description": "macOS x64 binary for agent-policy",
   "repository": {
     "type": "git",
