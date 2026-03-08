@@ -18,14 +18,20 @@ Each file follows the same section template from [target-spec-template.md](targe
 | `gemini-md`             | [gemini-md.md](gemini-md.md)                               | Google Gemini CLI                             |
 | `copilot-instructions`  | [copilot-instructions.md](copilot-instructions.md)         | GitHub Copilot (Chat, coding agent, code review) |
 
-## Future targets (post-v0.2, not yet researched)
+## v0.3 targets (supported)
+
+| ID                          | File                                                       | Tool                                          |
+| --------------------------- | ---------------------------------------------------------- | --------------------------------------------- |
+| `windsurf-rules`            | [windsurf-rules.md](windsurf-rules.md)                     | Windsurf (Codeium)                            |
+| `clinerules`                | [clinerules.md](clinerules.md)                             | Cline                                         |
+| `junie-guidelines`          | [junie-guidelines.md](junie-guidelines.md)                 | JetBrains Junie                               |
+| `copilot-instructions-scoped`| [copilot-instructions-scoped.md](copilot-instructions-scoped.md) | GitHub Copilot (path-scoped)           |
+
+## Future targets (post-v0.3, not yet researched)
 
 | ID                       | Output path                                  | Tool                  | Milestone |
 | ------------------------ | -------------------------------------------- | --------------------- | --------- |
-| `windsurf-rules`         | `.windsurf/rules/*.md`                       | Windsurf (Codeium)    | v0.3      |
-| `cline-rules`            | `.clinerules/`                               | Cline                 | v0.3      |
-| `junie-guidelines`       | `.junie/guidelines.md`                       | JetBrains Junie       | v0.3      |
-| `copilot-path-instructions` | `.github/instructions/*.instructions.md`  | GitHub Copilot (path-scoped) | v0.3 |
+| `continue-rules`         | `.continue/rules/*.md`                       | Continue              | TBD      |
 
 Add a spec file (from [target-spec-template.md](target-spec-template.md)) here when you begin researching each target before implementation.
 

@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] — 2026-03-07
+
+### Added
+
+- `windsurf-rules` output target — generates `.windsurf/rules/` rule files for Codeium's Cascade AI based on `trigger: glob`
+- `clinerules` output target — generates scoped `.clinerules/` logic via `paths:` matching schemas
+- `copilot-instructions-scoped` output target — generates domain specific path-centric rules into `.github/instructions/`
+- `junie-guidelines` output target — generates single-file framework rules for JetBrains Junie inside `.junie/guidelines.md`
+- Added `--targets` flag to the CLI (`generate` and `check`) to quickly override configured behaviors dynamically
+- Established formal Support Tiers `enum Tier { Stable, Experimental }` to classify targets and output requirements going forward
+
+### Changed
+
+- Expanded the validation schema (`agent-policy.schema.json`) to allow four new outputs mapping
+- `docs/compatibility-matrix.md` updated reflecting `windsurf-rules`, `clinerules`, `copilot-instructions-scoped`, and `junie-guidelines` graduation to Core execution wave targets
+- `docs/reference/targets/index.md` appropriately updated resolving all four experimental specs
+
 ## [0.2.1] — 2026-03-07
 
 ### Added
