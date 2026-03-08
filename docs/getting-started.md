@@ -6,6 +6,16 @@ This guide walks through installing `agent-policy`, setting up a policy for your
 
 ## Install
 
+### From npm (no Rust toolchain required)
+
+```bash
+npx agent-policy
+# or install globally
+npm install -g agent-policy
+```
+
+Requires Node.js 18+. npm automatically installs only the pre-built binary for your current platform — no compilation needed.
+
 ### From crates.io
 
 Requires [Rust](https://rustup.rs/) (stable, MSRV 1.75):
@@ -160,6 +170,16 @@ Add `agent-policy check` to your CI pipeline. It runs the same generation pipeli
     ./agent-policy check
 ```
 
+Or if you have npm available:
+
+```yaml
+- name: Install agent-policy
+  run: npm install -g agent-policy
+
+- name: Check agent policy
+  run: agent-policy check
+```
+
 Or if you use Rust in CI already:
 
 ```yaml
@@ -212,5 +232,7 @@ Manual edits to generated files will be caught and rejected by the CI check. The
 | `agent-policy generate --config <path>` | Use a config file at a custom path                                      |
 | `agent-policy check`                    | Verify committed files match the current policy; exit 1 on any mismatch |
 | `agent-policy check --config <path>`    | Check using a config file at a custom path                              |
+| `agent-policy install-hooks`            | Install a pre-commit or pre-push git hook that runs `check` locally     |
+| `agent-policy import`                   | Scaffold `agent-policy.yaml` by scraping an existing `AGENTS.md` or `CLAUDE.md` |
 | `agent-policy --version`                | Print the installed version                                             |
 | `agent-policy --help`                   | Print help                                                              |

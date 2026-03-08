@@ -5,6 +5,7 @@ Schema-first generator for coding-agent repo policies and compatibility files.
 **Generates `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/`, and `.windsurf/rules/` (among others) from a single `agent-policy.yaml`.**
 
 [![crates.io](https://img.shields.io/crates/v/agent-policy)](https://crates.io/crates/agent-policy)
+[![npm](https://img.shields.io/npm/v/agent-policy)](https://www.npmjs.com/package/agent-policy)
 [![docs.rs](https://img.shields.io/docsrs/agent-policy)](https://docs.rs/agent-policy)
 [![Docs site](https://img.shields.io/badge/docs-site-blue)](https://cameronbrooks11.github.io/agent-policy/)
 [![CI](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml/badge.svg)](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml)
@@ -17,6 +18,14 @@ Maintaining `AGENTS.md`, `CLAUDE.md`, and Cursor rules separately means the same
 Keep one policy file. Generate all agent instruction files from it. Detect drift in CI.
 
 ## Install
+
+### From npm (no Rust toolchain required)
+
+```bash
+npx agent-policy
+# or install globally
+npm install -g agent-policy
+```
 
 ### From crates.io
 
@@ -43,13 +52,15 @@ agent-policy check
 
 ## Commands
 
-| Command                     | Description                                                      |
-| --------------------------- | ---------------------------------------------------------------- |
-| `agent-policy init`         | Write a starter `agent-policy.yaml` in the current directory     |
-| `agent-policy list-targets` | View a table of all available export formats and their stability |
-| `agent-policy generate`     | Generate all enabled output files from `agent-policy.yaml`       |
-| `agent-policy lint`         | Analyze `agent-policy.yaml` for semantic errors and warnings     |
-| `agent-policy check`        | Verify committed files match the current policy (CI use)         |
+| Command                          | Description                                                              |
+| -------------------------------- | ------------------------------------------------------------------------ |
+| `agent-policy init`              | Write a starter `agent-policy.yaml` in the current directory             |
+| `agent-policy list-targets`      | View a table of all available export formats and their stability         |
+| `agent-policy generate`          | Generate all enabled output files from `agent-policy.yaml`               |
+| `agent-policy lint`              | Analyze `agent-policy.yaml` for semantic errors and warnings             |
+| `agent-policy check`             | Verify committed files match the current policy (CI use)                 |
+| `agent-policy install-hooks`     | Install a pre-commit or pre-push git hook that runs `check` locally      |
+| `agent-policy import`            | Scaffold `agent-policy.yaml` by scraping an existing `AGENTS.md` or `CLAUDE.md` |
 
 Both `generate` and `check` accept `--config` / `-c` to specify a non-default config path, and `--targets` to natively override outputs:
 

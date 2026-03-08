@@ -12,7 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - npm wrapper: `agent-policy` is now available on npm. `npx agent-policy` and `npm install -g agent-policy` work with no Rust toolchain installed.
-- Per-platform npm packages (`@agent-policy/linux-x64`, `@agent-policy/linux-arm64`, `@agent-policy/darwin-x64`, `@agent-policy/darwin-arm64`, `@agent-policy/win32-x64`) — npm installs only the binary matching the current platform using `optionalDependencies`.
+- Per-platform npm packages (`@cameronbrooks11/linux-x64`, `@cameronbrooks11/linux-arm64`, `@cameronbrooks11/darwin-x64`, `@cameronbrooks11/darwin-arm64`, `@cameronbrooks11/win32-x64`) — npm installs only the binary matching the current platform using `optionalDependencies`.
 - Thin JS shim (`npm/agent-policy/bin/agent-policy.js`) resolves the correct platform binary at runtime with no network access.
 
 ## [0.5.0] — 2026-03-07
@@ -105,5 +105,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Self-dogfooding: `agent-policy` uses itself to manage its own `AGENTS.md` and `CLAUDE.md`
 - CI `policy-check` job enforcing that generated files stay in sync
 
+[0.6.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.6.0
+[0.5.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.5.0
+[0.4.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.4.0
+[0.3.1]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.3.1
+[0.3.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.3.0
+[0.2.1]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.2.1
 [0.2.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.2.0
 [0.1.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.1.0
