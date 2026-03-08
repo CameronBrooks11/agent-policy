@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] — 2026-03-07
+
+### Added
+
+- `agent-policy lint` command — performs deep semantic validation of policies prior to generation. Catches structural conflicts like matching patterns in both `editable` and `protected` path loops, and warns about roles having isolated empty access control bounds.
+
 ## [0.3.1] — 2026-03-07
 
 ### Changed

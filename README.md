@@ -48,6 +48,7 @@ agent-policy check
 | `agent-policy init` | Write a starter `agent-policy.yaml` in the current directory |
 | `agent-policy list-targets` | View a table of all available export formats and their stability |
 | `agent-policy generate` | Generate all enabled output files from `agent-policy.yaml` |
+| `agent-policy lint` | Analyze `agent-policy.yaml` for semantic errors and warnings |
 | `agent-policy check` | Verify committed files match the current policy (CI use) |
 
 Both `generate` and `check` accept `--config` / `-c` to specify a non-default config path, and `--targets` to natively override outputs:
