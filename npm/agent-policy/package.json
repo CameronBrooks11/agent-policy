@@ -1,0 +1,31 @@
+{
+  "name": "agent-policy",
+  "version": "0.0.0",
+  "description": "Schema-first generator for coding-agent repo policies and compatibility files.",
+  "keywords": ["agent", "policy", "codegen", "cli", "llm", "cursor", "copilot", "claude"],
+  "homepage": "https://github.com/CameronBrooks11/agent-policy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CameronBrooks11/agent-policy.git",
+    "directory": "npm/agent-policy"
+  },
+  "license": "Apache-2.0",
+  "main": "bin/agent-policy.js",
+  "bin": {
+    "agent-policy": "bin/agent-policy.js"
+  },
+  "files": [
+    "bin/agent-policy.js",
+    "README.md"
+  ],
+  "optionalDependencies": {
+    "@agent-policy/linux-x64": "0.0.0",
+    "@agent-policy/linux-arm64": "0.0.0",
+    "@agent-policy/darwin-x64": "0.0.0",
+    "@agent-policy/darwin-arm64": "0.0.0",
+    "@agent-policy/win32-x64": "0.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

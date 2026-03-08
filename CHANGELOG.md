@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] — 2026-03-07
+
+### Added
+
+- npm wrapper: `agent-policy` is now available on npm. `npx agent-policy` and `npm install -g agent-policy` work with no Rust toolchain installed.
+- Per-platform npm packages (`@agent-policy/linux-x64`, `@agent-policy/linux-arm64`, `@agent-policy/darwin-x64`, `@agent-policy/darwin-arm64`, `@agent-policy/win32-x64`) — npm installs only the binary matching the current platform using `optionalDependencies`.
+- Thin JS shim (`npm/agent-policy/bin/agent-policy.js`) resolves the correct platform binary at runtime with no network access.
+
 ## [0.5.0] — 2026-03-07
 
 ### Added

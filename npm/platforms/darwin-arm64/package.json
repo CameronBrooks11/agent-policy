@@ -1,0 +1,17 @@
+{
+  "name": "@agent-policy/darwin-arm64",
+  "version": "0.0.0",
+  "description": "macOS arm64 (Apple Silicon) binary for agent-policy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CameronBrooks11/agent-policy.git",
+    "directory": "npm/platforms/darwin-arm64"
+  },
+  "license": "Apache-2.0",
+  "main": "agent-policy",
+  "os": ["darwin"],
+  "cpu": ["arm64"],
+  "files": [
+    "agent-policy"
+  ]
+}
