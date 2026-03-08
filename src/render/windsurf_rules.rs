@@ -11,6 +11,11 @@ const DEFAULT_TARGET: &str = ".windsurf/rules/default.md";
 const DEFAULT_TEMPLATE: &str = include_str!("../../templates/windsurf_default.md.j2");
 const ROLE_TEMPLATE: &str = include_str!("../../templates/windsurf_role.md.j2");
 
+/// Render all `.windsurf/rules/` outputs for the given policy.
+///
+/// # Errors
+///
+/// Returns [`Error::Render`] if any template fails to compile or render.
 pub fn render(policy: &Policy) -> Result<Vec<RenderedOutput>> {
     let mut outputs = Vec::new();
 

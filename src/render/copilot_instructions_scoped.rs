@@ -11,6 +11,11 @@ const DEFAULT_TARGET: &str = ".github/instructions/default.md";
 const DEFAULT_TEMPLATE: &str = include_str!("../../templates/clinerules_default.md.j2");
 const ROLE_TEMPLATE: &str = include_str!("../../templates/copilot_instructions_role.md.j2");
 
+/// Render all `.github/instructions/` outputs for the given policy.
+///
+/// # Errors
+///
+/// Returns [`Error::Render`] if any template fails to compile or render.
 pub fn render(policy: &Policy) -> Result<Vec<RenderedOutput>> {
     let mut outputs = Vec::new();
 

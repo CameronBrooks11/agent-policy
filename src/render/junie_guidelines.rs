@@ -13,6 +13,10 @@ const TARGET: &str = ".junie/guidelines.md";
 const TEMPLATE_STR: &str = include_str!("../../templates/junie_guidelines.md.j2");
 
 /// Render the `.junie/guidelines.md` output for the given policy.
+///
+/// # Errors
+///
+/// Returns [`Error::Render`] if any template fails to compile or render.
 pub fn render(policy: &Policy) -> Result<RenderedOutput> {
     let mut env = Environment::new();
     env.add_template("junie_guidelines.md", TEMPLATE_STR)
