@@ -52,3 +52,7 @@ outputs:
   - agents-md
   - claude-md
   - cursor-rules
+  - clinerules
+  - windsurf-rules
+  - copilot-instructions-scoped
+  - junie-guidelines

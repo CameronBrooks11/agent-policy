@@ -46,3 +46,7 @@ pub fn render_all(policy: &Policy) -> Result<Vec<RenderedOutput>> {
     }
     Ok(outputs)
 }
+pub mod clinerules;
+pub mod copilot_instructions_scoped;
+pub mod junie_guidelines;
+pub mod windsurf_rules;

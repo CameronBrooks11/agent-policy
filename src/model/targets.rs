@@ -11,6 +11,10 @@ pub enum TargetId {
     CursorRules,
     GeminiMd,
     CopilotInstructions,
+    Clinerules,
+    WindsurfRules,
+    CopilotInstructionsScoped,
+    JunieGuidelines,
 }
 
 impl TargetId {
@@ -21,6 +25,10 @@ impl TargetId {
         TargetId::CursorRules,
         TargetId::GeminiMd,
         TargetId::CopilotInstructions,
+        TargetId::Clinerules,
+        TargetId::WindsurfRules,
+        TargetId::CopilotInstructionsScoped,
+        TargetId::JunieGuidelines,
     ];
 
     /// The YAML ID string used in `outputs:` lists.
@@ -32,6 +40,10 @@ impl TargetId {
             TargetId::CursorRules => "cursor-rules",
             TargetId::GeminiMd => "gemini-md",
             TargetId::CopilotInstructions => "copilot-instructions",
+            TargetId::Clinerules => "clinerules",
+            TargetId::WindsurfRules => "windsurf-rules",
+            TargetId::CopilotInstructionsScoped => "copilot-instructions-scoped",
+            TargetId::JunieGuidelines => "junie-guidelines",
         }
     }
 
@@ -44,6 +56,10 @@ impl TargetId {
             "cursor-rules" => Some(TargetId::CursorRules),
             "gemini-md" => Some(TargetId::GeminiMd),
             "copilot-instructions" => Some(TargetId::CopilotInstructions),
+            "clinerules" => Some(TargetId::Clinerules),
+            "windsurf-rules" => Some(TargetId::WindsurfRules),
+            "copilot-instructions-scoped" => Some(TargetId::CopilotInstructionsScoped),
+            "junie-guidelines" => Some(TargetId::JunieGuidelines),
             _ => None,
         }
     }
@@ -57,6 +73,10 @@ impl TargetId {
             TargetId::CursorRules => ".cursor/rules/",
             TargetId::GeminiMd => "GEMINI.md",
             TargetId::CopilotInstructions => ".github/copilot-instructions.md",
+            TargetId::Clinerules => ".clinerules/",
+            TargetId::WindsurfRules => ".windsurf/rules/",
+            TargetId::CopilotInstructionsScoped => ".github/instructions/",
+            TargetId::JunieGuidelines => ".junie/guidelines.md",
         }
     }
 
@@ -69,6 +89,10 @@ impl TargetId {
             TargetId::CursorRules => ".cursor/rules/default.mdc",
             TargetId::GeminiMd => "GEMINI.md",
             TargetId::CopilotInstructions => ".github/copilot-instructions.md",
+            TargetId::Clinerules => ".clinerules/default.md",
+            TargetId::WindsurfRules => ".windsurf/rules/default.md",
+            TargetId::CopilotInstructionsScoped => ".github/instructions/default.md",
+            TargetId::JunieGuidelines => ".junie/guidelines.md",
         }
     }
 
@@ -82,10 +106,13 @@ impl TargetId {
         match self {
             TargetId::AgentsMd => "AGENTS.md",
             TargetId::ClaudeMd => "CLAUDE.md",
-            // cursor-rules emits default.mdc plus one file per role
             TargetId::CursorRules => ".cursor/rules/**",
             TargetId::GeminiMd => "GEMINI.md",
             TargetId::CopilotInstructions => ".github/copilot-instructions.md",
+            TargetId::Clinerules => ".clinerules/**",
+            TargetId::WindsurfRules => ".windsurf/rules/**",
+            TargetId::CopilotInstructionsScoped => ".github/instructions/**",
+            TargetId::JunieGuidelines => ".junie/guidelines.md",
         }
     }
 
@@ -98,6 +125,10 @@ impl TargetId {
             | TargetId::CursorRules
             | TargetId::GeminiMd
             | TargetId::CopilotInstructions => Tier::Stable,
+            TargetId::Clinerules
+            | TargetId::WindsurfRules
+            | TargetId::CopilotInstructionsScoped
+            | TargetId::JunieGuidelines => Tier::Experimental,
         }
     }
 }
@@ -135,6 +166,14 @@ pub struct OutputTargets {
     pub gemini_md: bool,
     /// Generate `.github/copilot-instructions.md`.
     pub copilot_instructions: bool,
+    /// Generate `.clinerules/` directory.
+    pub clinerules: bool,
+    /// Generate `.windsurf/rules/` directory.
+    pub windsurf_rules: bool,
+    /// Generate `.github/instructions/` directory.
+    pub copilot_instructions_scoped: bool,
+    /// Generate `.junie/guidelines.md`.
+    pub junie_guidelines: bool,
 }
 
 impl Default for OutputTargets {
@@ -145,6 +184,10 @@ impl Default for OutputTargets {
             cursor_rules: false,
             gemini_md: false,
             copilot_instructions: false,
+            clinerules: false,
+            windsurf_rules: false,
+            copilot_instructions_scoped: false,
+            junie_guidelines: false,
         }
     }
 }
@@ -158,6 +201,10 @@ impl OutputTargets {
             && !self.cursor_rules
             && !self.gemini_md
             && !self.copilot_instructions
+            && !self.clinerules
+            && !self.windsurf_rules
+            && !self.copilot_instructions_scoped
+            && !self.junie_guidelines
     }
 
     /// Returns the list of enabled [`TargetId`]s in stable order.
@@ -179,6 +226,18 @@ impl OutputTargets {
         if self.copilot_instructions {
             out.push(TargetId::CopilotInstructions);
         }
+        if self.clinerules {
+            out.push(TargetId::Clinerules);
+        }
+        if self.windsurf_rules {
+            out.push(TargetId::WindsurfRules);
+        }
+        if self.copilot_instructions_scoped {
+            out.push(TargetId::CopilotInstructionsScoped);
+        }
+        if self.junie_guidelines {
+            out.push(TargetId::JunieGuidelines);
+        }
         out
     }
 
@@ -191,6 +250,10 @@ impl OutputTargets {
             cursor_rules: false,
             gemini_md: false,
             copilot_instructions: false,
+            clinerules: false,
+            windsurf_rules: false,
+            copilot_instructions_scoped: false,
+            junie_guidelines: false,
         };
         for t in targets {
             match t {
@@ -199,6 +262,10 @@ impl OutputTargets {
                 TargetId::CursorRules => out.cursor_rules = true,
                 TargetId::GeminiMd => out.gemini_md = true,
                 TargetId::CopilotInstructions => out.copilot_instructions = true,
+                TargetId::Clinerules => out.clinerules = true,
+                TargetId::WindsurfRules => out.windsurf_rules = true,
+                TargetId::CopilotInstructionsScoped => out.copilot_instructions_scoped = true,
+                TargetId::JunieGuidelines => out.junie_guidelines = true,
             }
         }
         out

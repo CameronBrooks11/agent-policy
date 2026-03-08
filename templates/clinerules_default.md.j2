@@ -1,0 +1,33 @@
+# {{ project.name }} — Agent Policy
+{% if project.summary %}
+{{ project.summary }}
+{% endif %}
+## Commands
+{% if commands.test %}
+- Test: `{{ commands.test }}`
+{%- endif %}
+{%- if commands.install %}
+- Install: `{{ commands.install }}`
+{%- endif %}
+{%- if commands.lint %}
+- Lint: `{{ commands.lint }}`
+{%- endif %}
+
+## Edit permissions
+{% if paths.editable %}
+You may freely edit:
+{%- for p in paths.editable %}
+- `{{ p }}`
+{%- endfor %}
+{%- endif %}
+{% if paths.protected %}
+Do not modify without human review:
+{%- for p in paths.protected %}
+- `{{ p }}`
+{%- endfor %}
+{%- endif %}
+
+## Constraints
+{% if constraints.forbid_secrets %}- Never commit secrets or credentials.{% endif %}
+{%- if constraints.require_tests_for_code_changes %}- Include tests with code changes.{% endif %}
+{%- if constraints.require_human_review_for_protected_paths %}- Escalate protected path changes for human review.{% endif %}

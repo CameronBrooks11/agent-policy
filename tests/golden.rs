@@ -57,6 +57,10 @@ outputs:
   - cursor-rules
   - gemini-md
   - copilot-instructions
+  - clinerules
+  - windsurf-rules
+  - copilot-instructions-scoped
+  - junie-guidelines
 "#;
     for (path, content) in render_yaml(yaml) {
         let name = format!("all_outputs__{path}");

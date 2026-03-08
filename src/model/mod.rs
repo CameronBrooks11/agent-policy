@@ -17,6 +17,10 @@ const VALID_TARGETS: &[&str] = &[
     "cursor-rules",
     "gemini-md",
     "copilot-instructions",
+    "clinerules",
+    "windsurf-rules",
+    "copilot-instructions-scoped",
+    "junie-guidelines",
 ];
 
 /// Normalize a validated [`RawPolicy`] into the stable [`Policy`] model.
@@ -84,6 +88,11 @@ pub fn normalize(raw: RawPolicy) -> Result<(Policy, Vec<String>)> {
         cursor_rules: enabled_targets.contains(&"cursor-rules".to_owned()),
         gemini_md: enabled_targets.contains(&"gemini-md".to_owned()),
         copilot_instructions: enabled_targets.contains(&"copilot-instructions".to_owned()),
+        clinerules: enabled_targets.contains(&"clinerules".to_owned()),
+        windsurf_rules: enabled_targets.contains(&"windsurf-rules".to_owned()),
+        copilot_instructions_scoped: enabled_targets
+            .contains(&"copilot-instructions-scoped".to_owned()),
+        junie_guidelines: enabled_targets.contains(&"junie-guidelines".to_owned()),
     };
 
     if outputs.is_empty() {

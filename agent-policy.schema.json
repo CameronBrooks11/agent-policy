@@ -4,18 +4,25 @@
   "title": "AgentPolicy",
   "description": "Schema for agent-policy.yaml configuration files.",
   "type": "object",
-  "required": ["schema_version", "project"],
+  "required": [
+    "schema_version",
+    "project"
+  ],
   "additionalProperties": false,
   "properties": {
     "schema_version": {
       "description": "Declares the schema version. Use \"1\" for all new files.",
       "type": "string",
-      "enum": ["1"]
+      "enum": [
+        "1"
+      ]
     },
     "project": {
       "description": "Project identity and purpose.",
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "additionalProperties": false,
       "properties": {
         "name": {
@@ -34,11 +41,26 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "install": { "type": "string", "description": "Dependency installation command." },
-        "dev":     { "type": "string", "description": "Local development server command." },
-        "lint":    { "type": "string", "description": "Lint command." },
-        "test":    { "type": "string", "description": "Test suite command." },
-        "build":   { "type": "string", "description": "Build command." }
+        "install": {
+          "type": "string",
+          "description": "Dependency installation command."
+        },
+        "dev": {
+          "type": "string",
+          "description": "Local development server command."
+        },
+        "lint": {
+          "type": "string",
+          "description": "Lint command."
+        },
+        "test": {
+          "type": "string",
+          "description": "Test suite command."
+        },
+        "build": {
+          "type": "string",
+          "description": "Build command."
+        }
       }
     },
     "paths": {
@@ -49,19 +71,28 @@
         "editable": {
           "description": "Paths agents may freely edit.",
           "type": "array",
-          "items": { "type": "string", "minLength": 1 },
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "uniqueItems": true
         },
         "protected": {
           "description": "Paths that require human review before agent changes are accepted.",
           "type": "array",
-          "items": { "type": "string", "minLength": 1 },
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "uniqueItems": true
         },
         "generated": {
           "description": "Paths that are generated artifacts agents should not edit directly.",
           "type": "array",
-          "items": { "type": "string", "minLength": 1 },
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "uniqueItems": true
         }
       }
@@ -76,13 +107,19 @@
           "editable": {
             "description": "Paths this role may edit.",
             "type": "array",
-            "items": { "type": "string", "minLength": 1 },
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
             "uniqueItems": true
           },
           "forbidden": {
             "description": "Paths this role must never edit.",
             "type": "array",
-            "items": { "type": "string", "minLength": 1 },
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
             "uniqueItems": true
           }
         }
@@ -112,10 +149,19 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": ["agents-md", "claude-md", "cursor-rules", "gemini-md", "copilot-instructions"]
+        "enum": [
+          "agents-md",
+          "claude-md",
+          "cursor-rules",
+          "gemini-md",
+          "copilot-instructions",
+          "clinerules",
+          "windsurf-rules",
+          "copilot-instructions-scoped",
+          "junie-guidelines"
+        ]
       },
       "uniqueItems": true
     }
   }
 }
-

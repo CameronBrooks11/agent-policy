@@ -45,6 +45,10 @@ Do not edit the following generated files directly:
 - `.cursor/rules/**`
 - `GEMINI.md`
 - `.github/copilot-instructions.md`
+- `.clinerules/**`
+- `.windsurf/rules/**`
+- `.github/instructions/**`
+- `.junie/guidelines.md`
 
 Edit `agent-policy.yaml` and run `agent-policy generate` instead.
 
