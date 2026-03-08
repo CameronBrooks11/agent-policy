@@ -49,7 +49,8 @@ impl Commands {
 pub struct Paths {
     pub editable: Vec<String>,
     pub protected: Vec<String>,
-    pub generated: Vec<String>,
+    pub generated_policy: Vec<String>,
+    pub generated_project: Vec<String>,
 }
 
 #[derive(Debug, Clone, Serialize)]

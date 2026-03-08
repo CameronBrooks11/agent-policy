@@ -38,8 +38,9 @@ The following paths require human review before changes are accepted. Do not mod
 
 ## Generated Files
 
-Do not edit the following generated files directly:
+Do not modify the following files manually:
 
+**Policy Configuration**
 - `AGENTS.md`
 - `CLAUDE.md`
 - `.cursor/rules/**`
@@ -50,7 +51,9 @@ Do not edit the following generated files directly:
 - `.github/instructions/**`
 - `.junie/guidelines.md`
 
-Edit `agent-policy.yaml` and run `agent-policy generate` instead.
+*(To update these, edit `agent-policy.yaml` and run `agent-policy generate`)*
+
+
 
 ---
 

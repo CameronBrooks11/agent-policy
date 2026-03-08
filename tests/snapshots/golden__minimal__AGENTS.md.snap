@@ -31,11 +31,14 @@ No paths are explicitly protected.
 
 ## Generated Files
 
-Do not edit the following generated files directly:
+Do not modify the following files manually:
 
+**Policy Configuration**
 - `AGENTS.md`
 
-Edit `agent-policy.yaml` and run `agent-policy generate` instead.
+*(To update these, edit `agent-policy.yaml` and run `agent-policy generate`)*
+
+
 
 ---
 

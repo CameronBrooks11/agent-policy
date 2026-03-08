@@ -116,11 +116,10 @@ pub fn normalize(raw: RawPolicy) -> Result<(Policy, Vec<String>)> {
         }
     }
 
-    // Final list = auto-derived (always first) + user extras (preserving order, deduped).
-    let mut final_generated: Vec<String> = auto_globs.clone();
+    let mut generated_project: Vec<String> = Vec::new();
     for entry in &generated {
         if !auto_globs.contains(entry) {
-            final_generated.push(entry.clone());
+            generated_project.push(entry.clone());
         }
     }
 
@@ -140,7 +139,8 @@ pub fn normalize(raw: RawPolicy) -> Result<(Policy, Vec<String>)> {
             paths: Paths {
                 editable,
                 protected,
-                generated: final_generated,
+                generated_policy: auto_globs,
+                generated_project,
             },
             roles,
             constraints: Constraints {

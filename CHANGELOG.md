@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] — 2026-03-07
+
+### Changed
+
+- Enhanced `paths.generated` instructions separation in output templates. Rendered guidelines now explicitly separate **Policy Configuration** paths (managed automatically by `agent-policy`) from **Project Build Artifacts** (specified manually in `paths.generated`, e.g., `dist/`). This prevents agents from confusing the tool's generative artifacts with actual CI/project build artifacts.
+
 ## [0.3.0] — 2026-03-07
 
 ### Added
