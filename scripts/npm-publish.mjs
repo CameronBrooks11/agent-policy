@@ -37,28 +37,28 @@ const PLATFORMS = [
     dir:     "npm/platforms/linux-x64",
     pkg:     "@agent-policy/linux-x64",
     bin:     "agent-policy",
-    archive: "tar.gz",
+    archive: "tar.xz",
   },
   {
     triple:  "aarch64-unknown-linux-gnu",
     dir:     "npm/platforms/linux-arm64",
     pkg:     "@agent-policy/linux-arm64",
     bin:     "agent-policy",
-    archive: "tar.gz",
+    archive: "tar.xz",
   },
   {
     triple:  "x86_64-apple-darwin",
     dir:     "npm/platforms/darwin-x64",
     pkg:     "@agent-policy/darwin-x64",
     bin:     "agent-policy",
-    archive: "tar.gz",
+    archive: "tar.xz",
   },
   {
     triple:  "aarch64-apple-darwin",
     dir:     "npm/platforms/darwin-arm64",
     pkg:     "@agent-policy/darwin-arm64",
     bin:     "agent-policy",
-    archive: "tar.gz",
+    archive: "tar.xz",
   },
   {
     triple:  "x86_64-pc-windows-msvc",
@@ -112,14 +112,16 @@ async function download(url, dest) {
   await pipeline(Readable.fromWeb(res.body), createWriteStream(dest));
 }
 
-function extract(archivePath, destDir, binName, format) {
+function extract(archivePath, destDir, triple, binName, format) {
   mkdirSync(destDir, { recursive: true });
-  if (format === "tar.gz") {
-    execFileSync("tar", ["-xzf", archivePath, "--strip-components=1", "-C", destDir, binName], {
+  if (format === "tar.xz") {
+    // Filter must be the full in-archive path; --strip-components=1 removes the top dir
+    // cargo-dist names the inner dir `agent-policy-<triple>/`
+    execFileSync("tar", ["-xJf", archivePath, "--strip-components=1", "-C", destDir, `agent-policy-${triple}/${binName}`], {
       stdio: "inherit",
     });
   } else {
-    // zip — Windows binary, use tar (available in Windows 10+)
+    // zip — Windows binary; cargo-dist zips without a top-level subdirectory
     execFileSync("tar", ["-xf", archivePath, "-C", destDir, binName], { stdio: "inherit" });
   }
 }
@@ -166,10 +168,10 @@ for (const p of PLATFORMS) {
 
   log(`  extracting ${p.bin} from ${archiveFile} → ${p.dir}/`);
   const platformDir = join(ROOT, p.dir);
-  extract(archiveDest, platformDir, p.bin, p.archive);
+  extract(archiveDest, platformDir, p.triple, p.bin, p.archive);
 
   // Ensure executable on Unix
-  if (p.archive === "tar.gz") {
+  if (p.archive === "tar.xz") {
     try { chmodSync(join(platformDir, p.bin), 0o755); } catch {}
   }
 
