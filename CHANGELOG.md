@@ -24,6 +24,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `docs/compatibility-matrix.md` updated reflecting `windsurf-rules`, `clinerules`, `copilot-instructions-scoped`, and `junie-guidelines` graduation to Core execution wave targets
 - `docs/reference/targets/index.md` appropriately updated resolving all four experimental specs
 
+### Fixed
+
+- Resolved a Jinja template unpack error during `roles` iteration when rendering JetBrains Junie templates
+- Added missing `# Errors` documentation block in newly introduced renderers fixing strict Clippy warnings
+
 ## [0.2.1] — 2026-03-07
 
 ### Added
