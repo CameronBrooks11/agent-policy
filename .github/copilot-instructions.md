@@ -1,4 +1,4 @@
-# Agent Instructions — agent-policy
+# Copilot Instructions — agent-policy
 
 Schema-first generator for coding-agent repo policies and compatibility files.
 

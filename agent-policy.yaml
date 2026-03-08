@@ -29,3 +29,10 @@ constraints:
 outputs:
   - agents-md
   - claude-md
+  - cursor-rules
+  - gemini-md
+  - copilot-instructions
+  - clinerules
+  - windsurf-rules
+  - copilot-instructions-scoped
+  - junie-guidelines

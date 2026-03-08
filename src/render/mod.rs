@@ -6,9 +6,13 @@ use crate::{error::Result, model::normalized::Policy};
 
 pub mod agents_md;
 pub mod claude_md;
+pub mod clinerules;
 pub mod copilot_instructions;
+pub mod copilot_instructions_scoped;
 pub mod cursor_rules;
 pub mod gemini_md;
+pub mod junie_guidelines;
+pub mod windsurf_rules;
 
 /// A single rendered output file.
 pub struct RenderedOutput {
@@ -44,9 +48,17 @@ pub fn render_all(policy: &Policy) -> Result<Vec<RenderedOutput>> {
     if policy.outputs.copilot_instructions {
         outputs.push(copilot_instructions::render(policy)?);
     }
+    if policy.outputs.clinerules {
+        outputs.extend(clinerules::render(policy)?);
+    }
+    if policy.outputs.windsurf_rules {
+        outputs.extend(windsurf_rules::render(policy)?);
+    }
+    if policy.outputs.copilot_instructions_scoped {
+        outputs.extend(copilot_instructions_scoped::render(policy)?);
+    }
+    if policy.outputs.junie_guidelines {
+        outputs.push(junie_guidelines::render(policy)?);
+    }
     Ok(outputs)
 }
-pub mod clinerules;
-pub mod copilot_instructions_scoped;
-pub mod junie_guidelines;
-pub mod windsurf_rules;
