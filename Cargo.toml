@@ -2,7 +2,7 @@
 name = "agent-policy"
 version = "0.6.0"
 edition = "2021"
-rust-version = "1.75"
+rust-version = "1.88"  # globset 0.4.20 requires 1.88; verified by the msrv CI job
 authors = ["Cameron Brooks <cambrooks3393@gmail.com>"]
 description = "Schema-first generator for coding-agent repo policies and compatibility files."
 license = "Apache-2.0"
