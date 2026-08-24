@@ -33,6 +33,9 @@ jobs:
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
+    # Advisory: -D warnings turns any lint added by a new Rust release into a
+    # failure on code nobody touched. Findings stay visible in the job log.
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@stable
@@ -73,3 +76,13 @@ jobs:
         run: cargo build --release
       - name: Check generated files
         run: ./target/release/agent-policy check
+
+  # Proves the rust-version in Cargo.toml is true rather than aspirational.
+  msrv:
+    name: MSRV (1.88)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@1.88
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo check --all-targets
