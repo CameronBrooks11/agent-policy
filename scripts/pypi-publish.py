@@ -193,7 +193,12 @@ def build_wheel(
     # Build the zip
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
-        zf.writestr(script_path, binary_data)
+        # writestr(name, ...) stores mode 0o600, and pip installs the binary
+        # with the mode it finds, so it would land on PATH non-executable.
+        script_info = zipfile.ZipInfo(script_path)
+        script_info.external_attr = 0o100755 << 16
+        script_info.compress_type = zipfile.ZIP_DEFLATED
+        zf.writestr(script_info, binary_data)
         zf.writestr(wheel_path,  wheel_meta_content)
         zf.writestr(meta_path,   metadata_content)
         zf.writestr(record_path, record_content)
@@ -207,14 +212,16 @@ def update_pyproject_version(root: Path, version: str) -> None:
     """Bump the version field in python/pyproject.toml."""
     path = root / "python" / "pyproject.toml"
     text = path.read_text(encoding="utf-8")
-    updated = re.sub(
+    updated, found = re.subn(
         r'^(version\s*=\s*")[^"]*(")',
         rf"\g<1>{version}\g<2>",
         text,
         count=1,
         flags=re.MULTILINE,
     )
-    if updated == text:
+    # Count the match, not the change: re-running for the version already in
+    # the file is a no-op, not a missing field.
+    if not found:
         raise RuntimeError("version field not found in python/pyproject.toml")
     path.write_text(updated, encoding="utf-8")
     ok(f"bumped python/pyproject.toml → {version}")
@@ -243,10 +250,13 @@ def main() -> None:
                         help="Build wheels but skip twine upload")
     parser.add_argument("--repository", default="pypi",
                         help="twine --repository target (default: pypi; use 'testpypi' to test)")
+    parser.add_argument("--out-dir", type=Path,
+                        help="Copy the wheels here and skip the twine upload "
+                             "(for CI, where trusted publishing uploads them)")
     args = parser.parse_args()
 
     version    = args.version
-    dry_run    = args.dry_run
+    dry_run    = args.dry_run or args.out_dir is not None
     repository = args.repository
 
     root = Path(__file__).resolve().parent.parent
@@ -290,7 +300,12 @@ def main() -> None:
     # ------------------------------------------------------------------
     log(f"Step 3 — {'[dry-run] skipping upload' if dry_run else 'upload wheels via twine'}")
 
-    if dry_run:
+    if args.out_dir is not None:
+        args.out_dir.mkdir(parents=True, exist_ok=True)
+        for w in wheels:
+            shutil.copy2(w, args.out_dir / w.name)
+            info(f"copied {w.name} → {args.out_dir}")
+    elif dry_run:
         for w in wheels:
             info(f"would upload: {w.name}")
     else:
