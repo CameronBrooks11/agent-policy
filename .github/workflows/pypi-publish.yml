@@ -1,0 +1,67 @@
+name: Publish to PyPI
+
+# Assembles platform wheels from the binaries the Release workflow attached to
+# the GitHub release, then uploads them with PyPI trusted publishing (OIDC), so
+# no PyPI token is stored anywhere.
+#
+# It runs after Release rather than on `release: published`, because a release
+# created with the default GITHUB_TOKEN does not trigger other workflows.
+# Release also runs on pull requests, so only a successful tag push counts.
+#
+# PyPI trusted publisher: owner CameronBrooks11, repository agent-policy,
+# workflow pypi-publish.yml, environment pypi.
+
+on:
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Released version to publish, without the leading v (e.g. 0.7.0)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       startsWith(github.event.workflow_run.head_branch, 'v'))
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/agent-policy
+    permissions:
+      contents: read
+      id-token: write # trusted publishing
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Resolve version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          TAG: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          v="${INPUT_VERSION:-${TAG#v}}"
+          if ! [[ "$v" =~ ^[0-9]+\.[0-9]+\.[0-9]+([.+-].*)?$ ]]; then
+            echo "::error::not a release version: '$v'"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Assemble wheels from the GitHub release
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: python3 scripts/pypi-publish.py --version "$VERSION" --out-dir dist
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: dist/
