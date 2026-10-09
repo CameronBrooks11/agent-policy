@@ -55,8 +55,7 @@ pub fn run(config_path: &Utf8Path) -> Result<()> {
     if has_errors {
         eprintln!("\nLint failed with errors.");
         std::process::exit(1);
-    } else {
-        println!("\n✅ Lint passed.");
-        Ok(())
     }
+    println!("\n✅ Lint passed.");
+    Ok(())
 }
