@@ -9,6 +9,11 @@ updates:
     groups:
       actions:
         patterns: ["*"]
+    ignore:
+      # This action's ref selects the Rust toolchain, so a "version bump" here
+      # would edit the MSRV. The floor lives in Cargo.toml and the msrv job
+      # reads it from there; nothing in CI pins a toolchain version to update.
+      - dependency-name: "dtolnay/rust-toolchain"
 
   - package-ecosystem: pip
     directory: /docs

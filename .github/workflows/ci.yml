@@ -78,11 +78,30 @@ jobs:
         run: ./target/release/agent-policy check
 
   # Proves the rust-version in Cargo.toml is true rather than aspirational.
+  #
+  # The floor is read from Cargo.toml at run time so it is stated in exactly one
+  # place. Do NOT reintroduce a pinned `dtolnay/rust-toolchain@<version>` ref
+  # here: that ref *is* the toolchain selector, so Dependabot reads the MSRV as
+  # an ordinary version and raises the very floor this job exists to hold --
+  # quietly, and green, once the target release actually exists.
   msrv:
-    name: MSRV (1.88)
+    name: MSRV
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@1.88
+      - name: Read MSRV from Cargo.toml
+        id: msrv
+        run: |
+          version=$(cargo metadata --no-deps --format-version 1 \
+            | jq -r '.packages[0].rust_version')
+          if [ -z "$version" ] || [ "$version" = null ]; then
+            echo "::error::Cargo.toml declares no rust-version; the MSRV gate would be vacuous."
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "MSRV from Cargo.toml: \`$version\`" >> "$GITHUB_STEP_SUMMARY"
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ steps.msrv.outputs.version }}
       - uses: Swatinem/rust-cache@v2
       - run: cargo check --all-targets
