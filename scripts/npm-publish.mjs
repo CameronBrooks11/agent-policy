@@ -13,7 +13,7 @@
  * Requirements:
  *   - Linux or macOS (Windows cannot set the Unix binaries' execute bit)
  *   - Node.js >= 18 (uses built-in fetch + ReadableStream)
- *   - `tar` in PATH  (available on macOS, Linux, Windows 10+)
+ *   - `tar` and `unzip` in PATH
  *   - npm logged in, or NPM_TOKEN set in environment
  */
 
@@ -128,8 +128,9 @@ function extract(archivePath, destDir, triple, binName, format) {
       stdio: "inherit",
     });
   } else {
-    // zip — Windows binary; cargo-dist zips without a top-level subdirectory
-    execFileSync("tar", ["-xf", archivePath, "-C", destDir, binName], { stdio: "inherit" });
+    // zip — Windows binary; cargo-dist zips without a top-level subdirectory.
+    // GNU tar cannot read zip (only bsdtar can), so use unzip.
+    execFileSync("unzip", ["-o", "-q", archivePath, binName, "-d", destDir], { stdio: "inherit" });
   }
 }
 
