@@ -1479,7 +1479,7 @@
 
 <h1 id="roadmap-agent-policy">Roadmap: agent-policy<a class="headerlink" href="#roadmap-agent-policy" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>Last updated: 2026-03-07 — post v0.5.0 release.
+<p>Last updated: 2026-11-13 — post v0.7.0 release.
 For architectural vision and design principles, see <a href="../vision/">vision.md</a>.</p>
 </blockquote>
 <hr />
@@ -1491,7 +1491,7 @@ For architectural vision and design principles, see <a href="../vision/">vision.
 <li>Monorepo support via <code>--config</code> relative path resolution</li>
 <li>Self-dogfooding, golden tests, CI drift detection, crates.io releases</li>
 </ul>
-<p>The install story still requires <code>cargo install agent-policy</code>, which is a blocker for the majority of potential users (JS/TS and Python shops). That is the next priority.</p>
+<p>Since v0.7.0 the CLI also installs without a Rust toolchain: <code>npx agent-policy</code> (npm, since v0.6.0, working on Linux since v0.7.0) and <code>pip install agent-policy-cli</code> (PyPI, since v0.7.0).</p>
 <hr />
 <h2 id="completed">Completed<a class="headerlink" href="#completed" title="Permanent link">&para;</a></h2>
 <table>
@@ -1534,6 +1534,18 @@ For architectural vision and design principles, see <a href="../vision/">vision.
 <td><code>import</code>, <code>install-hooks</code>, monorepo <code>--config</code> path resolution</td>
 <td>✅ Done</td>
 </tr>
+<tr>
+<td>v0.6</td>
+<td>npm wrapper</td>
+<td><code>npx agent-policy</code> via per-platform binary packages</td>
+<td>✅ Done</td>
+</tr>
+<tr>
+<td>v0.7</td>
+<td>pip wrapper</td>
+<td><code>pip install agent-policy-cli</code>, npm execute-bit fix</td>
+<td>✅ Done</td>
+</tr>
 </tbody>
 </table>
 <hr />
@@ -1544,9 +1556,9 @@ For architectural vision and design principles, see <a href="../vision/">vision.
 <p>Removes the Rust toolchain requirement for the largest segment of potential users. JS/TS monorepos are this tool's primary natural habitat.</p>
 <h4 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">&para;</a></h4>
 <ul>
-<li>[ ] Publish <code>agent-policy</code> to npm as a thin JS wrapper that downloads and runs the correct prebuilt binary from GitHub releases</li>
-<li>[ ] Platform packages (<code>agent-policy-linux-x64</code>, <code>agent-policy-darwin-arm64</code>, <code>agent-policy-win32-x64</code>) using <code>optionalDependencies</code></li>
-<li>[ ] <code>npx agent-policy</code> works zero-install</li>
+<li>[x] Publish <code>agent-policy</code> to npm as a thin JS wrapper that runs the prebuilt binary from the matching platform package</li>
+<li>[x] Platform packages (<code>agent-policy-linux-x64</code>, <code>agent-policy-darwin-arm64</code>, <code>agent-policy-win32-x64</code>) using <code>optionalDependencies</code></li>
+<li>[x] <code>npx agent-policy</code> works zero-install (verified on Linux for v0.7.0)</li>
 <li>[ ] npm publish step added to release workflow</li>
 </ul>
 <h4 id="exit-condition">Exit condition<a class="headerlink" href="#exit-condition" title="Permanent link">&para;</a></h4>
@@ -1559,9 +1571,9 @@ For architectural vision and design principles, see <a href="../vision/">vision.
 <p>Covers Python-first teams and CI environments where pip is the standard install mechanism.</p>
 <h4 id="tasks_1">Tasks<a class="headerlink" href="#tasks_1" title="Permanent link">&para;</a></h4>
 <ul>
-<li>[ ] Publish <code>agent-policy-cli</code> to PyPI as a package that downloads and runs the correct prebuilt binary</li>
-<li>[ ] <code>pip install agent-policy-cli</code> + <code>agent-policy generate</code> works with no Rust toolchain</li>
-<li>[ ] pip publish step added to release workflow</li>
+<li>[x] Publish <code>agent-policy-cli</code> to PyPI as platform wheels that install the prebuilt binary</li>
+<li>[x] <code>pip install agent-policy-cli</code> + <code>agent-policy generate</code> works with no Rust toolchain (verified on Linux for v0.7.0)</li>
+<li>[x] pip publish step added to release workflow</li>
 </ul>
 <h4 id="exit-condition_1">Exit condition<a class="headerlink" href="#exit-condition_1" title="Permanent link">&para;</a></h4>
 <ul>
