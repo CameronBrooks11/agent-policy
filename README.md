@@ -87,6 +87,7 @@ agent-policy check --targets agents-md,clinerules
 Minimal example:
 
 ```yaml
+schema_version: "1"
 project:
   name: my-project
   summary: A short description.

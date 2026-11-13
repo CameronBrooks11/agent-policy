@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - `scripts/npm-publish.mjs`: on Linux the Windows binary failed to extract (`tar: This does not look like a tar archive`). GNU tar cannot read zip archives, so the script now uses `unzip`.
+- `agent-policy init` wrote a config that `generate` and `lint` warned about (#34). Its `paths.generated` listed `AGENTS.md`, `CLAUDE.md` and `.cursor/rules/**`, which agent-policy already covers from `outputs`. The ones not enabled were rendered under "Project Build Artifacts" in `AGENTS.md`. The starter now leaves `paths.generated` as a commented build-artifact example. The examples in the getting-started guide, the docs home page and the schema reference made the same mistake and are fixed too.
 
 ## [0.7.0] — 2026-11-13
 

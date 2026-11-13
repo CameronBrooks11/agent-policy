@@ -43,6 +43,8 @@ agent-policy init
 **2. Edit `agent-policy.yaml`:**
 
 ```yaml
+schema_version: "1"
+
 project:
   name: my-repo
   summary: A web application.
@@ -60,8 +62,7 @@ paths:
     - .github/workflows/**
     - package-lock.json
   generated:
-    - AGENTS.md
-    - CLAUDE.md
+    - dist/**
 
 constraints:
   forbid_secrets: true
