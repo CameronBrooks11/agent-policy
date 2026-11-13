@@ -216,9 +216,7 @@ paths:
     - go.sum
     - deployment/**
   generated:
-    - AGENTS.md
-    - CLAUDE.md
-    - .cursor/rules/**
+    - "**/*.pb.go"
 
 roles:
   api_agent:

@@ -61,6 +61,65 @@ fn init_force_overwrites() {
         .success();
 }
 
+/// Run `init` in a fresh directory, apply `edit` to the starter config, then
+/// run `generate` and `lint`. Returns the directory and both commands'
+/// combined stdout + stderr.
+fn init_then_generate_and_lint(edit: impl Fn(String) -> String) -> (TempDir, String) {
+    let dir = TempDir::new().unwrap();
+    agent_policy()
+        .arg("init")
+        .current_dir(dir.path())
+        .assert()
+        .success();
+    let config = dir.path().join("agent-policy.yaml");
+    let yaml = std::fs::read_to_string(&config).unwrap();
+    std::fs::write(&config, edit(yaml)).unwrap();
+
+    let mut output = String::new();
+    for cmd in ["generate", "lint"] {
+        let out = agent_policy()
+            .arg(cmd)
+            .current_dir(dir.path())
+            .assert()
+            .success()
+            .get_output()
+            .clone();
+        output.push_str(&String::from_utf8_lossy(&out.stdout));
+        output.push_str(&String::from_utf8_lossy(&out.stderr));
+    }
+    (dir, output)
+}
+
+#[test]
+fn init_config_generates_and_lints_without_warnings() {
+    let (_dir, output) = init_then_generate_and_lint(|yaml| yaml);
+    assert!(!output.to_lowercase().contains("warning"), "{output}");
+}
+
+#[test]
+fn init_config_with_suggested_outputs_enabled_has_no_warnings() {
+    // The template suggests uncommenting these targets.
+    let (_dir, output) = init_then_generate_and_lint(|yaml| {
+        yaml.replace("  # - claude-md ", "  - claude-md ")
+            .replace("  # - cursor-rules ", "  - cursor-rules ")
+    });
+    assert!(
+        output.contains("CLAUDE.md"),
+        "claude-md was not enabled: {output}"
+    );
+    assert!(!output.to_lowercase().contains("warning"), "{output}");
+}
+
+#[test]
+fn init_config_lists_no_agent_outputs_as_build_artifacts() {
+    let (dir, _output) = init_then_generate_and_lint(|yaml| yaml);
+    let agents_md = std::fs::read_to_string(dir.path().join("AGENTS.md")).unwrap();
+    assert!(
+        !agents_md.contains("Project Build Artifacts"),
+        "{agents_md}"
+    );
+}
+
 #[test]
 fn generate_minimal_produces_agents_md() {
     let dir = TempDir::new().unwrap();

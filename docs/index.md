@@ -60,8 +60,7 @@ paths:
     - .github/workflows/**
     - package-lock.json
   generated:
-    - AGENTS.md
-    - CLAUDE.md
+    - dist/**
 
 constraints:
   forbid_secrets: true

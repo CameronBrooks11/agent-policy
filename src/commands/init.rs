@@ -36,10 +36,10 @@ paths:
   protected:
     - .github/workflows/**
     - deployment.json
-  generated:
-    - AGENTS.md
-    - CLAUDE.md
-    - .cursor/rules/**
+  # Files your own build produces. The files agent-policy generates are
+  # covered automatically from `outputs`, so do not list them here.
+  # generated:
+  #   - dist/**
 
 # Define named agent roles with scoped permissions (optional)
 # roles:

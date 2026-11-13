@@ -102,9 +102,7 @@ paths:
     - package-lock.json
     - infrastructure/**
   generated:
-    - AGENTS.md
-    - CLAUDE.md
-    - .cursor/rules/**
+    - dist/**
 
 roles:
   docs_agent:
