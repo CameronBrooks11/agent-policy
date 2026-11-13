@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- pip wrapper: `agent-policy` is now available on PyPI. `pip install agent-policy`, `pipx install agent-policy`, and `uv tool install agent-policy` all work with no Rust toolchain required.
+- pip wrapper: `agent-policy` is now available on PyPI as `agent-policy-cli` (PyPI treats `agent-policy` as a duplicate of the unrelated `agentpolicy` project). `pip install agent-policy-cli`, `pipx install agent-policy-cli`, and `uv tool install agent-policy-cli` all work with no Rust toolchain required, and install the `agent-policy` command.
 - `python/pyproject.toml` — maturin project configuration for source builds and canonical PyPI metadata.
 - `scripts/pypi-publish.py` — publish script (mirrors `scripts/npm-publish.mjs`). Downloads pre-built binaries from the GitHub release, assembles platform-tagged wheels using Python stdlib, and uploads via `twine`. No Docker or cross-compilation toolchain needed. Flags: `--version`, `--dry-run`, `--repository`, `--out-dir` (write the wheels to a directory and skip the upload).
 - `.github/workflows/pypi-publish.yml` — publishes the wheels to PyPI with trusted publishing (no stored token) after a successful tagged Release run, or on manual dispatch.

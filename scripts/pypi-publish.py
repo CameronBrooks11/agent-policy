@@ -44,8 +44,11 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 
 REPO        = "CameronBrooks11/agent-policy"
-PKG_NAME    = "agent-policy"   # PyPI package name (hyphen)
-DIST_NAME   = "agent_policy"   # normalized wheel name (underscore)
+# PyPI rejects `agent-policy` as too similar to the existing `agentpolicy`
+# project, so the distribution is `agent-policy-cli`; the command it installs
+# is still `agent-policy`.
+PKG_NAME    = "agent-policy-cli"   # PyPI package name (hyphen)
+DIST_NAME   = "agent_policy_cli"   # normalized wheel name (underscore)
 DESCRIPTION = "Schema-first generator for coding-agent repo policies and compatibility files."
 AUTHOR      = "Cameron Brooks"
 AUTHOR_EMAIL = "cambrooks3393@gmail.com"

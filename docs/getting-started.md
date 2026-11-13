@@ -19,12 +19,14 @@ Requires Node.js 18+. npm automatically installs only the pre-built binary for y
 ### From PyPI (no Rust toolchain required)
 
 ```bash
-pip install agent-policy
+pip install agent-policy-cli
 # or with pipx (recommended for CLI tools)
-pipx install agent-policy
+pipx install agent-policy-cli
 # or with uv
-uv tool install agent-policy
+uv tool install agent-policy-cli
 ```
+
+The PyPI package is named `agent-policy-cli` because PyPI treats `agent-policy` as a duplicate of an unrelated existing project; the command it installs is `agent-policy`.
 
 Requires Python 3.8+. pip automatically selects the correct pre-built binary wheel for your platform — no compilation needed.
 
@@ -196,7 +198,7 @@ Or with pip/pipx:
 
 ```yaml
 - name: Install agent-policy
-  run: pipx install agent-policy
+  run: pipx install agent-policy-cli
 
 - name: Check agent policy
   run: agent-policy check

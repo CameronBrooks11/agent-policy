@@ -6,7 +6,7 @@ Schema-first generator for coding-agent repo policies and compatibility files.
 
 [![crates.io](https://img.shields.io/crates/v/agent-policy)](https://crates.io/crates/agent-policy)
 [![npm](https://img.shields.io/npm/v/agent-policy)](https://www.npmjs.com/package/agent-policy)
-[![PyPI](https://img.shields.io/pypi/v/agent-policy)](https://pypi.org/project/agent-policy/)
+[![PyPI](https://img.shields.io/pypi/v/agent-policy-cli)](https://pypi.org/project/agent-policy-cli/)
 [![docs.rs](https://img.shields.io/docsrs/agent-policy)](https://docs.rs/agent-policy)
 [![Docs site](https://img.shields.io/badge/docs-site-blue)](https://cameronbrooks11.github.io/agent-policy/)
 [![CI](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml/badge.svg)](https://github.com/CameronBrooks11/agent-policy/actions/workflows/ci.yml)
@@ -31,12 +31,14 @@ npm install -g agent-policy
 ### From PyPI (no Rust toolchain required)
 
 ```bash
-pip install agent-policy
+pip install agent-policy-cli
 # or with pipx (recommended for CLI tools)
-pipx install agent-policy
+pipx install agent-policy-cli
 # or with uv
-uv tool install agent-policy
+uv tool install agent-policy-cli
 ```
+
+The PyPI package is `agent-policy-cli`; the command it installs is `agent-policy`.
 
 ### From crates.io
 
