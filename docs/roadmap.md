@@ -1,6 +1,6 @@
 # Roadmap: agent-policy
 
-> Last updated: 2026-03-07 — post v0.5.0 release.
+> Last updated: 2026-11-13 — post v0.7.0 release.
 > For architectural vision and design principles, see [vision.md](vision.md).
 
 ---
@@ -14,7 +14,7 @@ v0.5.0 ships a complete adoption-ready feature set:
 - Monorepo support via `--config` relative path resolution
 - Self-dogfooding, golden tests, CI drift detection, crates.io releases
 
-The install story still requires `cargo install agent-policy`, which is a blocker for the majority of potential users (JS/TS and Python shops). That is the next priority.
+Since v0.7.0 the CLI also installs without a Rust toolchain: `npx agent-policy` (npm, since v0.6.0, working on Linux since v0.7.0) and `pip install agent-policy-cli` (PyPI, since v0.7.0).
 
 ---
 
@@ -27,6 +27,8 @@ The install story still requires `cargo install agent-policy`, which is a blocke
 | v0.3      | Full target coverage  | Windsurf, Cline, Junie, `--targets` flag, stability tiers              | ✅ Done |
 | v0.4      | Migration + linting   | `lint` command — semantic path conflict and scope validation            | ✅ Done |
 | v0.5      | Migration (continued) | `import`, `install-hooks`, monorepo `--config` path resolution         | ✅ Done |
+| v0.6      | npm wrapper           | `npx agent-policy` via per-platform binary packages                    | ✅ Done |
+| v0.7      | pip wrapper           | `pip install agent-policy-cli`, npm execute-bit fix                    | ✅ Done |
 
 ---
 
@@ -42,9 +44,9 @@ Removes the Rust toolchain requirement for the largest segment of potential user
 
 #### Tasks
 
-- [ ] Publish `agent-policy` to npm as a thin JS wrapper that downloads and runs the correct prebuilt binary from GitHub releases
-- [ ] Platform packages (`agent-policy-linux-x64`, `agent-policy-darwin-arm64`, `agent-policy-win32-x64`) using `optionalDependencies`
-- [ ] `npx agent-policy` works zero-install
+- [x] Publish `agent-policy` to npm as a thin JS wrapper that runs the prebuilt binary from the matching platform package
+- [x] Platform packages (`agent-policy-linux-x64`, `agent-policy-darwin-arm64`, `agent-policy-win32-x64`) using `optionalDependencies`
+- [x] `npx agent-policy` works zero-install (verified on Linux for v0.7.0)
 - [ ] npm publish step added to release workflow
 
 #### Exit condition
@@ -60,9 +62,9 @@ Covers Python-first teams and CI environments where pip is the standard install 
 
 #### Tasks
 
-- [ ] Publish `agent-policy-cli` to PyPI as a package that downloads and runs the correct prebuilt binary
-- [ ] `pip install agent-policy-cli` + `agent-policy generate` works with no Rust toolchain
-- [ ] pip publish step added to release workflow
+- [x] Publish `agent-policy-cli` to PyPI as platform wheels that install the prebuilt binary
+- [x] `pip install agent-policy-cli` + `agent-policy generate` works with no Rust toolchain (verified on Linux for v0.7.0)
+- [x] pip publish step added to release workflow
 
 #### Exit condition
 
