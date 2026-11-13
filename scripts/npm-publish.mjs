@@ -14,7 +14,9 @@
  *   - Linux or macOS (Windows cannot set the Unix binaries' execute bit)
  *   - Node.js >= 18 (uses built-in fetch + ReadableStream)
  *   - `tar` and `unzip` in PATH
- *   - npm logged in, or NPM_TOKEN set in environment
+ *   - npm logged in, or NPM_TOKEN set in environment. In CI,
+ *     .github/workflows/npm-publish.yml runs this with npm trusted publishing
+ *     (OIDC) instead, which needs Node >= 22.14.0 and npm >= 11.5.1.
  */
 
 import { execFileSync, execSync } from "child_process";

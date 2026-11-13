@@ -4,7 +4,7 @@
   "description": "macOS x64 binary for agent-policy",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CameronBrooks11/agent-policy.git",
+    "url": "git+https://github.com/CameronBrooks11/agent-policy.git",
     "directory": "npm/platforms/darwin-x64"
   },
   "license": "Apache-2.0",
