@@ -1,6 +1,6 @@
 {
   "name": "agent-policy",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Schema-first generator for coding-agent repo policies and compatibility files.",
   "keywords": [
     "agent",
@@ -28,11 +28,11 @@
     "README.md"
   ],
   "optionalDependencies": {
-    "@cameronbrooks11/agent-policy-linux-x64": "0.6.0",
-    "@cameronbrooks11/agent-policy-linux-arm64": "0.6.0",
-    "@cameronbrooks11/agent-policy-darwin-x64": "0.6.0",
-    "@cameronbrooks11/agent-policy-darwin-arm64": "0.6.0",
-    "@cameronbrooks11/agent-policy-win32-x64": "0.6.0"
+    "@cameronbrooks11/agent-policy-linux-x64": "0.7.0",
+    "@cameronbrooks11/agent-policy-linux-arm64": "0.7.0",
+    "@cameronbrooks11/agent-policy-darwin-x64": "0.7.0",
+    "@cameronbrooks11/agent-policy-darwin-arm64": "0.7.0",
+    "@cameronbrooks11/agent-policy-win32-x64": "0.7.0"
   },
   "engines": {
     "node": ">=14"
