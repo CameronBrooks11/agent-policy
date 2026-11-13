@@ -1,0 +1,53 @@
+name: Publish to crates.io
+
+# Publishes the crate from the tagged source with crates.io trusted
+# publishing (OIDC), so no crates.io token is stored anywhere.
+#
+# Same trigger as pypi-publish.yml: after a successful Release run for a
+# pushed v* tag, or on manual dispatch. The tag's binaries building is the
+# gate, even though cargo publish builds from source.
+#
+# crates.io trusted publisher: repository CameronBrooks11/agent-policy,
+# workflow crates-publish.yml, environment crates-io.
+
+on:
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Tag to publish (e.g. v0.7.1)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       startsWith(github.event.workflow_run.head_branch, 'v'))
+    runs-on: ubuntu-latest
+    environment:
+      name: crates-io
+      url: https://crates.io/crates/agent-policy
+    permissions:
+      contents: read
+      id-token: write # trusted publishing
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || inputs.ref }}
+          persist-credentials: false
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: rust-lang/crates-io-auth-action@3268eb413133e2960fa4ae0e963ca76380c54cd9 # v1.0.6
+        id: auth
+
+      - run: cargo publish --locked
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}

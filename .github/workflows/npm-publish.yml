@@ -1,0 +1,69 @@
+name: Publish to npm
+
+# Publishes the npm wrapper and its five platform packages from the binaries
+# the Release workflow attached to the GitHub release, using npm trusted
+# publishing (OIDC), so no npm token is stored anywhere.
+#
+# Same trigger as pypi-publish.yml: after a successful Release run for a
+# pushed v* tag, or on manual dispatch.
+#
+# npm trusted publisher, configured on each of the six packages:
+# repository CameronBrooks11/agent-policy, workflow npm-publish.yml,
+# environment npm.
+
+on:
+  workflow_run:
+    workflows: [Release]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Released version to publish, without the leading v (e.g. 0.7.1)"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       startsWith(github.event.workflow_run.head_branch, 'v'))
+    runs-on: ubuntu-latest
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/agent-policy
+    permissions:
+      contents: read
+      id-token: write # trusted publishing
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+
+      # Trusted publishing needs Node >= 22.14.0 and npm >= 11.5.1.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: npm install -g npm@11.19.0
+
+      - name: Resolve version
+        id: version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          TAG: ${{ github.event.workflow_run.head_branch }}
+        run: |
+          v="${INPUT_VERSION:-${TAG#v}}"
+          if ! [[ "$v" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::not a release version: '$v'"
+            exit 1
+          fi
+          echo "version=$v" >> "$GITHUB_OUTPUT"
+
+      - name: Publish
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: node scripts/npm-publish.mjs --version "$VERSION"

@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `.github/workflows/npm-publish.yml` and `.github/workflows/crates-publish.yml` publish to npm and crates.io with trusted publishing (no stored token) after a successful tagged Release run, or on manual dispatch. Like the PyPI upload, each waits for approval in its own environment (`npm`, `crates-io`).
+
+### Changed
+
+- npm `package.json` files: `repository.url` is now `git+https://github.com/CameronBrooks11/agent-policy.git`, the form npm normalizes to and the one npm trusted publishing checks against.
+
 ### Fixed
 
 - `scripts/npm-publish.mjs`: on Linux the Windows binary failed to extract (`tar: This does not look like a tar archive`). GNU tar cannot read zip archives, so the script now uses `unzip`.
