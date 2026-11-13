@@ -71,6 +71,8 @@ Open `agent-policy.yaml` and fill in the sections relevant to your project. Only
 ### Minimal example
 
 ```yaml
+schema_version: "1"
+
 project:
   name: my-repo
 
@@ -81,6 +83,8 @@ outputs:
 ### Full example
 
 ```yaml
+schema_version: "1"
+
 project:
   name: my-repo
   summary: A web application backend and marketing site.
