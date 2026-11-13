@@ -9,8 +9,8 @@ build-backend = "maturin"
 # ---------------------------------------------------------------------------
 
 [project]
-name = "agent-policy"
-version = "0.6.0"
+name = "agent-policy-cli"
+version = "0.7.0"
 description = "Schema-first generator for coding-agent repo policies and compatibility files."
 readme = "../README.md"
 license = { text = "Apache-2.0" }

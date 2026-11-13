@@ -8,7 +8,7 @@ name: Publish to PyPI
 # created with the default GITHUB_TOKEN does not trigger other workflows.
 # Release also runs on pull requests, so only a successful tag push counts.
 #
-# PyPI trusted publisher: owner CameronBrooks11, repository agent-policy,
+# PyPI trusted publisher: project agent-policy-cli, owner CameronBrooks11, repository agent-policy,
 # workflow pypi-publish.yml, environment pypi.
 
 on:
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/agent-policy
+      url: https://pypi.org/p/agent-policy-cli
     permissions:
       contents: read
       id-token: write # trusted publishing

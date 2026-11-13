@@ -56,6 +56,16 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: cargo test --all-targets
 
+  npm-wrapper:
+    name: npm wrapper
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - run: node --test npm/test/wrapper.test.mjs
+
   doc:
     name: Docs
     runs-on: ubuntu-latest

@@ -1,6 +1,6 @@
 [package]
 name = "agent-policy"
-version = "0.6.0"
+version = "0.7.0"
 edition = "2021"
 rust-version = "1.88"  # globset 0.4.20 requires 1.88; verified by the msrv CI job
 authors = ["Cameron Brooks <cambrooks3393@gmail.com>"]

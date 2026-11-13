@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.7.0] — 2026-11-13
 
 ### Added
 
-- pip wrapper: `agent-policy` is now available on PyPI. `pip install agent-policy`, `pipx install agent-policy`, and `uv tool install agent-policy` all work with no Rust toolchain required.
+- pip wrapper: `agent-policy` is now available on PyPI as `agent-policy-cli` (PyPI treats `agent-policy` as a duplicate of the unrelated `agentpolicy` project). `pip install agent-policy-cli`, `pipx install agent-policy-cli`, and `uv tool install agent-policy-cli` all work with no Rust toolchain required, and install the `agent-policy` command.
 - `python/pyproject.toml` — maturin project configuration for source builds and canonical PyPI metadata.
 - `scripts/pypi-publish.py` — publish script (mirrors `scripts/npm-publish.mjs`). Downloads pre-built binaries from the GitHub release, assembles platform-tagged wheels using Python stdlib, and uploads via `twine`. No Docker or cross-compilation toolchain needed. Flags: `--version`, `--dry-run`, `--repository`, `--out-dir` (write the wheels to a directory and skip the upload).
 - `.github/workflows/pypi-publish.yml` — publishes the wheels to PyPI with trusted publishing (no stored token) after a successful tagged Release run, or on manual dispatch.
@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `scripts/pypi-publish.py`: the installed `agent-policy` binary was not executable. The wheel stored it with mode `0600`, so pip placed it on `PATH` without the execute bit.
 - `scripts/pypi-publish.py`: re-running for the version already in `python/pyproject.toml` failed with "version field not found".
+- npm: `npx agent-policy` exited 1 with no output on Linux, because the 0.6.0 platform packages shipped their binary as mode `0644` (#20). The wrapper now restores the execute bit and retries, and prints the error for any failure to start the binary instead of exiting silently.
+- `scripts/npm-publish.mjs`: a failed `chmod` was swallowed. The script now fails on it, checks that `npm pack` would ship each Unix binary executable before it publishes anything, and refuses to run on Windows.
 
 ## [0.6.0] — 2026-03-07
 
@@ -117,6 +119,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Self-dogfooding: `agent-policy` uses itself to manage its own `AGENTS.md` and `CLAUDE.md`
 - CI `policy-check` job enforcing that generated files stay in sync
 
+[0.7.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.7.0
 [0.6.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.6.0
 [0.5.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.5.0
 [0.4.0]: https://github.com/CameronBrooks11/agent-policy/releases/tag/v0.4.0

@@ -60,13 +60,13 @@ Covers Python-first teams and CI environments where pip is the standard install 
 
 #### Tasks
 
-- [ ] Publish `agent-policy` to PyPI as a package that downloads and runs the correct prebuilt binary
-- [ ] `pip install agent-policy` + `agent-policy generate` works with no Rust toolchain
+- [ ] Publish `agent-policy-cli` to PyPI as a package that downloads and runs the correct prebuilt binary
+- [ ] `pip install agent-policy-cli` + `agent-policy generate` works with no Rust toolchain
 - [ ] pip publish step added to release workflow
 
 #### Exit condition
 
-- `pip install agent-policy && agent-policy generate` works on macOS, Linux, and Windows
+- `pip install agent-policy-cli && agent-policy generate` works on macOS, Linux, and Windows
 - Works in a clean virtualenv with no Rust toolchain present
 
 ---

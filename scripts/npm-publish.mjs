@@ -11,6 +11,7 @@
  *   node scripts/npm-publish.mjs --version 0.6.0 --tag next
  *
  * Requirements:
+ *   - Linux or macOS (Windows cannot set the Unix binaries' execute bit)
  *   - Node.js >= 18 (uses built-in fetch + ReadableStream)
  *   - `tar` in PATH  (available on macOS, Linux, Windows 10+)
  *   - npm logged in, or NPM_TOKEN set in environment
@@ -88,6 +89,12 @@ const dryRun  = has("--dry-run");
 
 if (!version) {
   console.error("Usage: node scripts/npm-publish.mjs --version <version> [--tag <tag>] [--dry-run]");
+  process.exit(1);
+}
+
+if (process.platform === "win32") {
+  // Windows cannot set a Unix execute bit, so the Unix packages would ship broken.
+  console.error("npm-publish.mjs: run this from Linux or macOS, not Windows.");
   process.exit(1);
 }
 
@@ -170,12 +177,23 @@ for (const p of PLATFORMS) {
   const platformDir = join(ROOT, p.dir);
   extract(archiveDest, platformDir, p.triple, p.bin, p.archive);
 
-  // Ensure executable on Unix
   if (p.archive === "tar.xz") {
-    try { chmodSync(join(platformDir, p.bin), 0o755); } catch {}
+    chmodSync(join(platformDir, p.bin), 0o755);
   }
 
   ok(`${p.pkg} binary ready`);
+}
+
+// 0.6.0 published its Unix binaries as 0644 and nobody saw it (#20), so check
+// the mode npm will actually pack, not the chmod call.
+log("Step 2b — verify packed Unix binaries are executable");
+for (const p of PLATFORMS.filter((p) => p.archive === "tar.xz")) {
+  const out = execSync("npm pack --dry-run --json", { cwd: join(ROOT, p.dir), encoding: "utf8" });
+  const file = JSON.parse(out)[0].files.find((f) => f.path === p.bin);
+  if (!file || (file.mode & 0o111) === 0) {
+    throw new Error(`${p.pkg}: ${p.bin} would be packed ${file ? "with mode " + file.mode.toString(8) : "missing"}`);
+  }
+  ok(`${p.pkg}: ${p.bin} packs with mode ${file.mode.toString(8)}`);
 }
 
 log("Step 3 — publish platform packages to npm");
