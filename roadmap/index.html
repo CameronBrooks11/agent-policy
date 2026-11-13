@@ -1559,13 +1559,13 @@ For architectural vision and design principles, see <a href="../vision/">vision.
 <p>Covers Python-first teams and CI environments where pip is the standard install mechanism.</p>
 <h4 id="tasks_1">Tasks<a class="headerlink" href="#tasks_1" title="Permanent link">&para;</a></h4>
 <ul>
-<li>[ ] Publish <code>agent-policy</code> to PyPI as a package that downloads and runs the correct prebuilt binary</li>
-<li>[ ] <code>pip install agent-policy</code> + <code>agent-policy generate</code> works with no Rust toolchain</li>
+<li>[ ] Publish <code>agent-policy-cli</code> to PyPI as a package that downloads and runs the correct prebuilt binary</li>
+<li>[ ] <code>pip install agent-policy-cli</code> + <code>agent-policy generate</code> works with no Rust toolchain</li>
 <li>[ ] pip publish step added to release workflow</li>
 </ul>
 <h4 id="exit-condition_1">Exit condition<a class="headerlink" href="#exit-condition_1" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>pip install agent-policy &amp;&amp; agent-policy generate</code> works on macOS, Linux, and Windows</li>
+<li><code>pip install agent-policy-cli &amp;&amp; agent-policy generate</code> works on macOS, Linux, and Windows</li>
 <li>Works in a clean virtualenv with no Rust toolchain present</li>
 </ul>
 <hr />
