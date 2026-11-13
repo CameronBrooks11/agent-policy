@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `scripts/pypi-publish.py`: the installed `agent-policy` binary was not executable. The wheel stored it with mode `0600`, so pip placed it on `PATH` without the execute bit.
 - `scripts/pypi-publish.py`: re-running for the version already in `python/pyproject.toml` failed with "version field not found".
+- npm: `npx agent-policy` exited 1 with no output on Linux, because the 0.6.0 platform packages shipped their binary as mode `0644` (#20). The wrapper now restores the execute bit and retries, and prints the error for any failure to start the binary instead of exiting silently.
+- `scripts/npm-publish.mjs`: a failed `chmod` was swallowed. The script now fails on it, checks that `npm pack` would ship each Unix binary executable before it publishes anything, and refuses to run on Windows.
 
 ## [0.6.0] — 2026-03-07
 
