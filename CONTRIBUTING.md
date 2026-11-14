@@ -2,7 +2,7 @@
 
 ## Development Prerequisites
 
-- Rust stable toolchain (minimum supported Rust version: **1.75**)
+- Rust stable toolchain (minimum supported Rust version: **1.88**)
 - `cargo fmt`, `cargo clippy` components (included with `rustup toolchain install stable`)
 
 ## Building and Testing
@@ -62,7 +62,7 @@ Run `cargo fmt --all` before committing.
 
 ## MSRV Policy
 
-The minimum supported Rust version is **1.75**, pinned in `Cargo.toml` via `rust-version`. Do not use language features or standard library APIs added after 1.75 without bumping the MSRV and updating CI. The MSRV is pinned in `clippy.toml` as well.
+The minimum supported Rust version is set once, by `rust-version` in `Cargo.toml` (currently **1.88**). The `msrv` CI job reads it from there and tests on that toolchain, and clippy reads it from there too. Do not use language features or standard library APIs newer than that version without raising `rust-version`.
 
 ## Cargo.lock Policy
 
@@ -85,6 +85,19 @@ cargo build
 ```
 
 The CI `policy-check` job enforces this — it will fail if the committed files are stale.
+
+## Releasing
+
+A release publishes to GitHub Releases, PyPI (`agent-policy-cli`), npm and crates.io. Every registry uses trusted publishing (OIDC), so no registry token is stored.
+
+1. **Bump PR.** Set the new version in `Cargo.toml` (then `cargo build` to update `Cargo.lock`), `python/pyproject.toml`, and the six `npm/**/package.json` files (each `version`, and the `optionalDependencies` in `npm/agent-policy/package.json`). Rename `## [Unreleased]` in `CHANGELOG.md` to `## [X.Y.Z] — <date>` and add the tag link at the bottom.
+2. **Tag** the merge commit `vX.Y.Z` and push the tag.
+3. **Approve** the deployments. Each publish job waits in its own environment for a required reviewer:
+   - `crates-publish.yml` (environment `crates-io`) starts on the tag push. crates.io rejects tokens from `workflow_run`, so it can't wait for Release.
+   - `release.yml` builds the binaries and creates the GitHub release.
+   - `pypi-publish.yml` (environment `pypi`) and `npm-publish.yml` (environment `npm`) start after Release succeeds, and publish from its binaries.
+
+Each publish workflow can also be re-run by hand with `workflow_dispatch`. A version can be published to each registry only once.
 
 ## Protected Paths
 

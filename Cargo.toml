@@ -10,7 +10,6 @@ repository = "https://github.com/CameronBrooks11/agent-policy"
 homepage = "https://github.com/CameronBrooks11/agent-policy"
 documentation = "https://docs.rs/agent-policy"
 readme = "README.md"
-changelog = "CHANGELOG.md"
 keywords = ["agent", "policy", "codegen", "cli", "llm"]
 categories = ["command-line-utilities", "development-tools"]
 exclude = [

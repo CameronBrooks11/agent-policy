@@ -32,7 +32,7 @@ Requires Python 3.8+. pip automatically selects the correct pre-built binary whe
 
 ### From crates.io
 
-Requires [Rust](https://rustup.rs/) (stable, MSRV 1.75):
+Requires [Rust](https://rustup.rs/) (stable, MSRV 1.88):
 
 ```bash
 cargo install agent-policy

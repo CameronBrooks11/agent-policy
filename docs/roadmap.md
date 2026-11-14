@@ -47,7 +47,7 @@ Removes the Rust toolchain requirement for the largest segment of potential user
 - [x] Publish `agent-policy` to npm as a thin JS wrapper that runs the prebuilt binary from the matching platform package
 - [x] Platform packages (`agent-policy-linux-x64`, `agent-policy-darwin-arm64`, `agent-policy-win32-x64`) using `optionalDependencies`
 - [x] `npx agent-policy` works zero-install (verified on Linux for v0.7.0)
-- [ ] npm publish step added to release workflow
+- [x] npm publish step added to release workflow
 
 #### Exit condition
 
