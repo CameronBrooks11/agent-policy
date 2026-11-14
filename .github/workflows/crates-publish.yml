@@ -3,17 +3,21 @@ name: Publish to crates.io
 # Publishes the crate from the tagged source with crates.io trusted
 # publishing (OIDC), so no crates.io token is stored anywhere.
 #
-# Same trigger as pypi-publish.yml: after a successful Release run for a
-# pushed v* tag, or on manual dispatch. The tag's binaries building is the
-# gate, even though cargo publish builds from source.
+# Runs on the v* tag push itself, in parallel with Release, or on manual
+# dispatch. Unlike pypi-publish.yml and npm-publish.yml it cannot follow
+# Release with workflow_run: crates.io refuses OIDC tokens from that
+# trigger ("Trusted Publishing does not support the `workflow_run` event
+# trigger"). cargo publish builds from source, so it does not need
+# Release's binaries; the crates-io environment's required reviewer is
+# the gate.
 #
 # crates.io trusted publisher: repository CameronBrooks11/agent-policy,
 # workflow crates-publish.yml, environment crates-io.
 
 on:
-  workflow_run:
-    workflows: [Release]
-    types: [completed]
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
   workflow_dispatch:
     inputs:
       ref:
@@ -25,11 +29,6 @@ permissions:
 
 jobs:
   publish:
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      (github.event.workflow_run.conclusion == 'success' &&
-       github.event.workflow_run.event == 'push' &&
-       startsWith(github.event.workflow_run.head_branch, 'v'))
     runs-on: ubuntu-latest
     environment:
       name: crates-io
@@ -40,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.workflow_run.head_sha || inputs.ref }}
+          ref: ${{ inputs.ref || github.ref }}
           persist-credentials: false
 
       - uses: dtolnay/rust-toolchain@stable
