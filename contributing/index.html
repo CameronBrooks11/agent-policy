@@ -1009,6 +1009,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#releasing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Releasing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#protected-paths" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1153,6 +1164,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#releasing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Releasing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#protected-paths" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1186,7 +1208,7 @@
 <h1 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h1>
 <h2 id="development-prerequisites">Development prerequisites<a class="headerlink" href="#development-prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Rust stable toolchain — <a href="https://rustup.rs/">rustup.rs</a> (MSRV: <strong>1.75</strong>)</li>
+<li>Rust stable toolchain — <a href="https://rustup.rs/">rustup.rs</a> (MSRV: <strong>1.88</strong>)</li>
 <li><code>rustfmt</code> and <code>clippy</code> components (included by default with <code>rustup toolchain install stable</code>)</li>
 </ul>
 <h2 id="build-and-test">Build and test<a class="headerlink" href="#build-and-test" title="Permanent link">&para;</a></h2>
@@ -1248,7 +1270,7 @@
 </span></code></pre></div>
 <p><code>unwrap()</code> and <code>expect()</code> are banned in library code. Use proper error propagation with <code>?</code>. The only deliberate exception is <code>write!</code> to a <code>String</code> in <code>util/diff.rs</code>, which is provably infallible.</p>
 <h2 id="msrv-policy">MSRV policy<a class="headerlink" href="#msrv-policy" title="Permanent link">&para;</a></h2>
-<p>The minimum supported Rust version is <strong>1.75</strong>, pinned in <code>Cargo.toml</code> via <code>rust-version</code> and in <code>clippy.toml</code>. Do not use language features or standard library APIs added after 1.75 without bumping the MSRV and updating CI.</p>
+<p>The minimum supported Rust version is set once, by <code>rust-version</code> in <code>Cargo.toml</code> (currently <strong>1.88</strong>). The <code>msrv</code> CI job reads it from there and tests on that toolchain, and clippy reads it from there too. Do not use language features or standard library APIs newer than that version without raising <code>rust-version</code>.</p>
 <h2 id="cargolock">Cargo.lock<a class="headerlink" href="#cargolock" title="Permanent link">&para;</a></h2>
 <p><code>Cargo.lock</code> is committed. This is a binary crate — reproducible builds require a committed lockfile.</p>
 <h2 id="rules-for-all-changes">Rules for all changes<a class="headerlink" href="#rules-for-all-changes" title="Permanent link">&para;</a></h2>
@@ -1268,6 +1290,17 @@
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>./target/debug/agent-policy<span class="w"> </span>check<span class="w">    </span><span class="c1"># must exit 0</span>
 </span></code></pre></div>
 <p>The CI <code>policy-check</code> job enforces this — it will fail if the committed files are stale.</p>
+<h2 id="releasing">Releasing<a class="headerlink" href="#releasing" title="Permanent link">&para;</a></h2>
+<p>A release publishes to GitHub Releases, PyPI (<code>agent-policy-cli</code>), npm and crates.io. Every registry uses trusted publishing (OIDC), so no registry token is stored.</p>
+<ol>
+<li><strong>Bump PR.</strong> Set the new version in <code>Cargo.toml</code> (then <code>cargo build</code> to update <code>Cargo.lock</code>), <code>python/pyproject.toml</code>, and the six <code>npm/**/package.json</code> files (each <code>version</code>, and the <code>optionalDependencies</code> in <code>npm/agent-policy/package.json</code>). Rename <code>## [Unreleased]</code> in <code>CHANGELOG.md</code> to <code>## [X.Y.Z] — &lt;date&gt;</code> and add the tag link at the bottom.</li>
+<li><strong>Tag</strong> the merge commit <code>vX.Y.Z</code> and push the tag.</li>
+<li><strong>Approve</strong> the deployments. Each publish job waits in its own environment for a required reviewer:</li>
+<li><code>crates-publish.yml</code> (environment <code>crates-io</code>) starts on the tag push. crates.io rejects tokens from <code>workflow_run</code>, so it can't wait for Release.</li>
+<li><code>release.yml</code> builds the binaries and creates the GitHub release.</li>
+<li><code>pypi-publish.yml</code> (environment <code>pypi</code>) and <code>npm-publish.yml</code> (environment <code>npm</code>) start after Release succeeds, and publish from its binaries.</li>
+</ol>
+<p>Each publish workflow can also be re-run by hand with <code>workflow_dispatch</code>. A version can be published to each registry only once.</p>
 <h2 id="protected-paths">Protected paths<a class="headerlink" href="#protected-paths" title="Permanent link">&para;</a></h2>
 <p>The following paths require human review before changes are accepted. Do not modify them unilaterally:</p>
 <ul>
