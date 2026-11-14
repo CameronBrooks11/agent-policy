@@ -34,109 +34,15 @@ Since v0.7.0 the CLI also installs without a Rust toolchain: `npx agent-policy` 
 
 ## Path Forward
 
-The items below are listed roughly in priority order but are not version-locked. Ordering may shift based on demand, contributions, or ecosystem changes.
+Listed roughly in priority order, but not tied to versions. The order may shift with demand, contributions or changes in the ecosystem. Each milestone is an issue that holds its tasks and exit condition.
 
----
+| Milestone                   | Theme                                                         | Issue |
+| --------------------------- | ------------------------------------------------------------- | ----- |
+| Governance                  | `CODEOWNERS` and branch rulesets generated from policy        | [#40](https://github.com/CameronBrooks11/agent-policy/issues/40) |
+| Enforcement integration     | Claude Code hooks target, `audit` command, CI recipes         | [#41](https://github.com/CameronBrooks11/agent-policy/issues/41) |
+| Stability declaration (1.0) | Schema freeze, complete docs, upgrade guide, `cargo audit`    | [#42](https://github.com/CameronBrooks11/agent-policy/issues/42) |
 
-### npm wrapper
-
-Removes the Rust toolchain requirement for the largest segment of potential users. JS/TS monorepos are this tool's primary natural habitat.
-
-#### Tasks
-
-- [x] Publish `agent-policy` to npm as a thin JS wrapper that runs the prebuilt binary from the matching platform package
-- [x] Platform packages (`agent-policy-linux-x64`, `agent-policy-darwin-arm64`, `agent-policy-win32-x64`) using `optionalDependencies`
-- [x] `npx agent-policy` works zero-install (verified on Linux for v0.7.0)
-- [x] npm publish step added to release workflow
-
-#### Exit condition
-
-- `npx agent-policy generate` works on macOS, Linux, and Windows with no Rust toolchain installed
-- Binary resolution is deterministic and verified in CI
-
----
-
-### pip wrapper
-
-Covers Python-first teams and CI environments where pip is the standard install mechanism.
-
-#### Tasks
-
-- [x] Publish `agent-policy-cli` to PyPI as platform wheels that install the prebuilt binary
-- [x] `pip install agent-policy-cli` + `agent-policy generate` works with no Rust toolchain (verified on Linux for v0.7.0)
-- [x] pip publish step added to release workflow
-
-#### Exit condition
-
-- `pip install agent-policy-cli && agent-policy generate` works on macOS, Linux, and Windows
-- Works in a clean virtualenv with no Rust toolchain present
-
----
-
-### Governance
-
-Enterprise and team adoption driver. Teams using code review workflows need generated governance artifacts to trust the policy model.
-
-#### Tasks
-
-- [ ] Add `governance` section to schema (additive):
-  ```yaml
-  governance:
-    codeowners: true   # derive CODEOWNERS from roles + protected paths
-    branch_protection: false  # optional GitHub ruleset JSON export
-  ```
-- [ ] `CODEOWNERS` renderer — derive ownership from `roles` + `paths.protected`
-- [ ] Add `codeowners` target to valid `outputs` values
-- [ ] Optional GitHub branch ruleset JSON export
-- [ ] Governance golden tests
-- [ ] At least one real repo using the generated `CODEOWNERS`
-
-#### Exit condition
-
-- `agent-policy generate` can emit a `CODEOWNERS` consistent with declared role/path policy
-- `agent-policy check` detects drift in the generated `CODEOWNERS`
-
----
-
-### Enforcement integration
-
-Closes the "policy as code, not documentation" loop. Without enforcement hooks, the tool generates instructions but has no way to verify agent behavior aligns with policy at runtime.
-
-#### Tasks
-
-- [ ] Claude Code hook config template generation (`claude_hooks` target)
-- [ ] `agent-policy audit` command — reports which constraints have no downstream enforcement mechanism
-- [ ] `agent-policy lint` mature — semantic conflict detection, actionable error messages
-- [ ] CI recipe documentation: GitHub Actions and GitLab CI patterns for policy enforcement
-- [ ] Research current Claude Code hooks API surface before implementation
-
-#### Exit condition
-
-- `agent-policy generate` emits a Claude Code hook config template
-- `audit` command produces actionable output for at least the `forbid_secrets` and `require_tests_for_code_changes` constraints
-
----
-
-### Stability declaration (v1.0)
-
-Not a feature release — a commitment release. The goal is formal declaration that the schema is stable and the tool is safe to depend on without surprises.
-
-#### Tasks
-
-- [ ] Schema `v1` formally frozen: documented compatibility guarantee, deprecation policy
-- [ ] All targets designated `stable` or `experimental` with documented update criteria
-- [ ] `contributing.md`, code of conduct, issue and PR templates
-- [ ] User guide, schema reference, cookbook, CI integration guide (complete documentation)
-- [ ] CHANGELOG accurate from 0.1 forward
-- [ ] Upgrade guide: 0.x → 1.0 migration notes
-- [ ] `cargo audit` clean, MSRV pinned and tested in CI
-
-#### Exit condition (the real 1.0 test)
-
-1. A new user can install via `cargo install`, `npx`, or `pip install`, run `agent-policy import`, and have a working policy in under 5 minutes
-2. Their CI runs `agent-policy check` and catches real drift
-3. Upgrading from one minor version to the next never silently breaks their config
-4. Their preferred agent tool has a supported, tested output target
+The npm and pip wrappers that were listed here shipped in v0.6 and v0.7; see Completed.
 
 ---
 
