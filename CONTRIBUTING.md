@@ -2,7 +2,7 @@
 
 ## Development Prerequisites
 
-- Rust stable toolchain (minimum supported Rust version: **1.75**)
+- Rust stable toolchain (minimum supported Rust version: **1.88**)
 - `cargo fmt`, `cargo clippy` components (included with `rustup toolchain install stable`)
 
 ## Building and Testing
@@ -62,7 +62,7 @@ Run `cargo fmt --all` before committing.
 
 ## MSRV Policy
 
-The minimum supported Rust version is **1.75**, pinned in `Cargo.toml` via `rust-version`. Do not use language features or standard library APIs added after 1.75 without bumping the MSRV and updating CI. The MSRV is pinned in `clippy.toml` as well.
+The minimum supported Rust version is set once, by `rust-version` in `Cargo.toml` (currently **1.88**). The `msrv` CI job reads it from there and tests on that toolchain, and clippy reads it from there too. Do not use language features or standard library APIs newer than that version without raising `rust-version`.
 
 ## Cargo.lock Policy
 
